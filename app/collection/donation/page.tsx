@@ -238,6 +238,7 @@ export default function Home() {
           </Button>
         </form>
       </Form>
+      <a href='https://www.ucs.br/site/midia/arquivos/politica-de-doacoes_bit-bus.pdf'>Política de doação</a>
     </main>
   );
 }
