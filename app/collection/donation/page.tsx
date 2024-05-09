@@ -20,7 +20,7 @@ const formSchema = z.object({
   tipo: z.string().min(3),
   dimensoes: z.string().min(3),
   informacoes: z.string().min(3),
-  links: z.string().min(3),
+  link: z.string().min(3),
   foto: z.string().min(3),
   prateleira: z.string().min(3),
   classificacao: z.string().min(3),
@@ -36,7 +36,7 @@ export default function Home() {
       tipo: "",
       dimensoes: "",
       informacoes: "",
-      links: "",
+      link: "",
       foto: "",
       prateleira: "",
       classificacao: "",
@@ -44,9 +44,13 @@ export default function Home() {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
-  };
-
+    try {
+      fetch('/api/items', {method: 'POST', headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)})
+    } catch{}
+  }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Form {...form}>
@@ -166,7 +170,7 @@ export default function Home() {
           />
           <FormField
             control={form.control}
-            name="links"
+            name="link"
             render={({ field }) => {
               return (
                 <FormItem>

@@ -14,16 +14,18 @@ datasource db {
 }
 
 model ItemAcervo {
-  id          String  @id @default(uuid())
-  nome        String
-  tipo        String
-  ano         Int
-  quantidade  Int
-  dimensoes   String
-  informacoes String
-  link        String
-  prateleira  String
-  Doacao      Doacao?
+  id            String  @id @default(uuid())
+  nome          String
+  ano           Int
+  quantidade    Int
+  tipo          String
+  dimensoes     String
+  informacoes   String
+  link          String?
+  foto          String
+  prateleira    String
+  classificacao String
+  Doacao        Doacao?
 }
 
 model Doador {
