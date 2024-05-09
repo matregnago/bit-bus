@@ -54,3 +54,9 @@ npx prisma studio
 ```bash
 npx prisma migrate dev --name nome
 ```
+
+Tailwind CSS -> https://tailwindcss.com/
+ShadCn -> https://ui.shadcn.com/
+HeadlessUI -> https://headlessui.com/
+
+
