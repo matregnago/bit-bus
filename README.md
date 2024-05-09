@@ -37,6 +37,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Comandos prisma
 
+- Para adicionar o schema no banco pela 1ª vez
+
+```bash
+npx prisma migrate dev --schema ./prisma/schema.prisma
+```
+
 - Para iniciar o prisma studio
 
 ```bash
