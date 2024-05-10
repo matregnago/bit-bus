@@ -49,7 +49,9 @@ export default function Home() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(values)})
-    } catch{}
+    } catch(error){
+      console.error(error)
+    }
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
