@@ -49,8 +49,14 @@ npx prisma migrate dev --schema ./prisma/schema.prisma
 npx prisma studio
 ```
 
-- Para realizar uma nova migraçrão (novo prisma scheme)
+- Para realizar uma nova migraçrão (novo prisma schema)
 
 ```bash
 npx prisma migrate dev --name nome
 ```
+
+Tailwind CSS -> https://tailwindcss.com/
+ShadCn -> https://ui.shadcn.com/
+HeadlessUI -> https://headlessui.com/
+
+
