@@ -31,7 +31,7 @@ model ItemAcervo {
 model Doador {
   id      String   @id @default(uuid())
   nome    String
-  cpf     String
+  cpf     String   @unique
   email   String
   Doacoes Doacao[]
 }
