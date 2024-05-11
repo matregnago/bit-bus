@@ -53,3 +53,71 @@ model Doador {
   DoacoesDinheiro DoacaoDinheiro[]
   DoacoesItem     DoacaoItem[]
 }
+
+model Local {
+  id      String    @id @default(uuid())
+  rua     String
+  bairro  String
+  cidade  String
+  estado  String
+  cep     String
+  Visita  Visita[]
+  Oficina Oficina[]
+}
+
+model Visitante {
+  id       String     @id @default(uuid())
+  nome     String
+  cpf      String     @unique
+  email    String
+  visitas  Visita[]
+  Oficina  Oficina[]
+  Feedback Feedback[]
+}
+
+model Organizador {
+  id     String   @id @default(uuid())
+  nome   String
+  cpf    String   @unique
+  email  String
+  Visita Visita[]
+}
+
+model Visita {
+  id            String      @id @default(uuid())
+  dataHora      DateTime
+  local         Local       @relation(fields: [localId], references: [id])
+  visitantes    Visitante[]
+  organizador   Organizador @relation(fields: [organizadorId], references: [id])
+  organizadorId String
+  localId       String
+}
+
+model Palestrante {
+  id      String    @id @default(uuid())
+  nome    String
+  cpf     String    @unique
+  email   String
+  Oficina Oficina[]
+}
+
+model Oficina {
+  id            String      @id @default(uuid())
+  titulo        String
+  dataHora      DateTime
+  local         Local       @relation(fields: [localId], references: [id])
+  duracao       String
+  resumo        String
+  palestrante   Palestrante @relation(fields: [palestranteId], references: [id])
+  visitantes    Visitante[]
+  localId       String
+  palestranteId String
+}
+
+model Feedback {
+  id          String    @id @default(uuid())
+  conteudo    String
+  nota        Int
+  visitante   Visitante @relation(fields: [visitanteId], references: [id])
+  visitanteId String
+}
