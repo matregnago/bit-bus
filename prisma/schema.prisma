@@ -14,7 +14,7 @@ datasource db {
 }
 
 model ItemAcervo {
-  id            String  @id @default(uuid())
+  id            String       @id @default(uuid())
   nome          String
   ano           Int
   quantidade    Int
@@ -25,23 +25,31 @@ model ItemAcervo {
   foto          String
   prateleira    String
   classificacao String
-  Doacao        Doacao?
+  DoacaoItem    DoacaoItem[]
+}
+
+model DoacaoDinheiro {
+  id              String @id @default(uuid())
+  tipo            String @default("Dinheiro")
+  quantiaDinheiro Float
+  doador          Doador @relation(fields: [doadorId], references: [id])
+  doadorId        String
+}
+
+model DoacaoItem {
+  id           String     @id @default(uuid())
+  tipo         String     @default("Item")
+  item         ItemAcervo @relation(fields: [itemAcervoId], references: [id])
+  itemAcervoId String
+  doador       Doador     @relation(fields: [doadorId], references: [id])
+  doadorId     String
 }
 
 model Doador {
-  id      String   @id @default(uuid())
-  nome    String
-  cpf     String   @unique
-  email   String
-  Doacoes Doacao[]
-}
-
-model Doacao {
-  id              String     @id @default(uuid())
-  tipo            String
-  quantiaDinheiro Float
-  item            ItemAcervo @relation(fields: [itemAcervoId], references: [id])
-  doador          Doador     @relation(fields: [doadorId], references: [id])
-  itemAcervoId    String     @unique
-  doadorId        String
+  id              String           @id @default(uuid())
+  nome            String
+  cpf             String           @unique
+  email           String
+  DoacoesDinheiro DoacaoDinheiro[]
+  DoacoesItem     DoacaoItem[]
 }
