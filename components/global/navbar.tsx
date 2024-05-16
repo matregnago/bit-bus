@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from "react";
+import Link from "next/link";
+import Image from "next/image";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,7 +13,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 
 const acervoLinks: { title: string; href: string; description: string }[] = [
   {
@@ -32,8 +33,8 @@ const acervoLinks: { title: string; href: string; description: string }[] = [
     href: "/docs/primitives/progress",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  }
-]
+  },
+];
 
 const visitacaoLinks: { title: string; href: string; description: string }[] = [
   {
@@ -53,93 +54,102 @@ const visitacaoLinks: { title: string; href: string; description: string }[] = [
     href: "/docs/primitives/progress",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },  {
+  },
+  {
     title: "Deixe seu feedback",
     href: "/docs/primitives/progress",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  }
-]
-
+  },
+];
 
 export function NavBar() {
   return (
     <header className="p-4 border-b">
-    <NavigationMenu>
-    <Link className="flex items-center" href="#">
-      <img src="/logo-bitbus.png" alt="" className="h-8 w-8 mr-3 ml-3" />
-      <span className="font-bold text-lg">BitBus</span>
-      </Link>
-      <NavigationMenuList className="ml-5">
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Sobre</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+      <NavigationMenu>
+        <Link className="flex items-center" href="#">
+          <Image
+            src="/logo-bitbus.png"
+            width={32}
+            height={32}
+            alt="Picture of the author"
+            className="mr-3 ml-3"
+          />
+          <span className="font-bold text-lg">BitBus</span>
+        </Link>
+        <NavigationMenuList className="ml-5">
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Sobre</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <li className="row-span-3">
+                  <NavigationMenuLink asChild>
+                    <a
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      href="/"
+                    >
+                      <div className="mb-2 mt-4 text-lg font-medium">
+                        Bit Bus
+                      </div>
+                      <p className="text-sm leading-tight text-muted-foreground">
+                        Beautifully designed components that you can copy and
+                        paste into your apps. Accessible. Customizable. Open
+                        Source.
+                      </p>
+                    </a>
+                  </NavigationMenuLink>
+                </li>
+                <ListItem href="/docs" title="História">
+                  Re-usable components built using Radix UI and Tailwind CSS.
+                </ListItem>
+                <ListItem href="/docs/installation" title="Contato">
+                  How to install dependencies and structure your app.
+                </ListItem>
+                <ListItem
+                  href="/docs/primitives/typography"
+                  title="Contribua com o projeto"
+                >
+                  Styles for headings, paragraphs, lists...etc
+                </ListItem>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Acervo</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                {acervoLinks.map((link) => (
+                  <ListItem
+                    key={link.title}
+                    title={link.title}
+                    href={link.href}
                   >
-                    <div className="mb-2 mt-4 text-lg font-medium">
-                      Bit Bus
-                    </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                      Beautifully designed components that you can copy and
-                      paste into your apps. Accessible. Customizable. Open
-                      Source.
-                    </p>
-                  </a>
-                </NavigationMenuLink>
-              </li>
-              <ListItem href="/docs" title="História">
-                Re-usable components built using Radix UI and Tailwind CSS.
-              </ListItem>
-              <ListItem href="/docs/installation" title="Contato">
-                How to install dependencies and structure your app.
-              </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Contribua com o projeto">
-                Styles for headings, paragraphs, lists...etc
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Acervo</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {acervoLinks.map((link) => (
-                <ListItem
-                  key={link.title}
-                  title={link.title}
-                  href={link.href}
-                >
-                  {link.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Visitação</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {visitacaoLinks.map((link) => (
-                <ListItem
-                  key={link.title}
-                  title={link.title}
-                  href={link.href}
-                >
-                  {link.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+                    {link.description}
+                  </ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Visitação</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                {visitacaoLinks.map((link) => (
+                  <ListItem
+                    key={link.title}
+                    title={link.title}
+                    href={link.href}
+                  >
+                    {link.description}
+                  </ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
     </header>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
@@ -164,6 +174,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
