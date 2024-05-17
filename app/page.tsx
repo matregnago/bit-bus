@@ -2,7 +2,7 @@ import { NavBar } from "@/components/global/navbar";
 import Footer from "@/components/global/footer";
 
 export default function Home() {
-  return(
+  return (
     <div>
       <NavBar />
       <div>
