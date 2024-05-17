@@ -79,7 +79,9 @@ export function NavBar() {
         </Link>
         <NavigationMenuList className="ml-5">
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Sobre</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="text-md">
+              Sobre
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
@@ -115,7 +117,9 @@ export function NavBar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Acervo</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="text-md">
+              Acervo
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {acervoLinks.map((link) => (
@@ -131,7 +135,9 @@ export function NavBar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Visitação</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="text-md">
+              Visitação
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {visitacaoLinks.map((link) => (
