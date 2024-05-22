@@ -5,7 +5,9 @@ import FilteredItems from "./showItems";
 
 const getItems = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/items");
+    const res = await fetch("http://localhost:3000/api/items", {
+      cache: "no-cache",
+    });
     const items = await res.json();
     return items;
   } catch (error) {
@@ -20,7 +22,7 @@ export default async function ShowcaseItems() {
       <NavBar />
       <section className="bg-gray-50 py-20">
         <div className="text-center">
-          <h1 className="text-5xl font-bold text-[#333333]">
+          <h1 className=" mt-36 text-5xl font-bold text-[#333333]">
             Our Museum Collection
           </h1>
           <p className="text-[#666666] mt-4">

@@ -39,7 +39,6 @@ export default async function EventPage() {
     cache: "no-cache",
   });
   const feedbacks = await data.json();
-  console.log(feedbacks);
   return (
     <div>
       <FeddbackList feedbacks={feedbacks} />
