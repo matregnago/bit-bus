@@ -56,26 +56,26 @@ export default function Home() {
     defaultValues:
       formType === "Item"
         ? {
-            nomeDoador: "",
-            email: "",
-            cpf: "",
-            nome: "",
-            ano: "",
-            quantidade: "",
-            tipo: "",
-            dimensoes: "",
-            informacoes: "",
-            link: "",
-            foto: "",
-            prateleira: "",
-            classificacao: "",
-          }
+          nomeDoador: "",
+          email: "",
+          cpf: "",
+          nome: "",
+          ano: "",
+          quantidade: "",
+          tipo: "",
+          dimensoes: "",
+          informacoes: "",
+          link: "",
+          foto: "",
+          prateleira: "",
+          classificacao: "",
+        }
         : {
-            nomeDoador: "",
-            email: "",
-            cpf: "",
-            quantiaDinheiro: "",
-          },
+          nomeDoador: "",
+          email: "",
+          cpf: "",
+          quantiaDinheiro: "",
+        },
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -144,26 +144,26 @@ export default function Home() {
     form.reset(
       formType === "Dinheiro"
         ? {
-            nomeDoador,
-            email,
-            cpf,
-            nome: "",
-            ano: "",
-            quantidade: "",
-            tipo: "",
-            dimensoes: "",
-            informacoes: "",
-            link: "",
-            foto: "",
-            prateleira: "",
-            classificacao: "",
-          }
+          nomeDoador,
+          email,
+          cpf,
+          nome: "",
+          ano: "",
+          quantidade: "",
+          tipo: "",
+          dimensoes: "",
+          informacoes: "",
+          link: "",
+          foto: "",
+          prateleira: "",
+          classificacao: "",
+        }
         : {
-            nomeDoador,
-            email,
-            cpf,
-            quantiaDinheiro: "",
-          }
+          nomeDoador,
+          email,
+          cpf,
+          quantiaDinheiro: "",
+        }
     );
   };
   return (
