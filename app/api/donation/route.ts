@@ -18,7 +18,6 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const res = await request.json();
   const { item, doador } = res;
-  console.log(res);
   if (res.tipo === "Dinheiro") {
     res.quantiaDinheiro = Number(res.quantiaDinheiro);
     const novaDoacaoDinheiro = await prisma.doacaoDinheiro.create({

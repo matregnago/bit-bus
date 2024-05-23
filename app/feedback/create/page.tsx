@@ -34,16 +34,27 @@ export default function Home() {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
-//     try {
-//       fetch('/api/items', {method: 'POST', headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(values)})
-//     } catch(error){
-//       console.error(error)
-//     }
-  }
+    const request = {
+      conteudo: values.descricao,
+      nota: values.nota,
+      visitante: {
+        nome: values.nome,
+        cpf: values.cpf,
+        email: values.email,
+      },
+    };
+    try {
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Form {...form}>
@@ -59,11 +70,7 @@ export default function Home() {
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Nome do produto"
-                      type="text"
-                      {...field}
-                    />
+                    <Input placeholder="Seu nome" type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -78,11 +85,7 @@ export default function Home() {
                 <FormItem>
                   <FormLabel>Cpf</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="CPF"
-                      type="number"
-                      {...field}
-                    />
+                    <Input placeholder="CPF" type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -97,11 +100,7 @@ export default function Home() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Email"
-                      type="number"
-                      {...field}
-                    />
+                    <Input placeholder="Email" type="email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -131,11 +130,7 @@ export default function Home() {
                 <FormItem>
                   <FormLabel>Descricao</FormLabel>
                   <FormControl>
-                    <textarea
-                      placeholder="Dimensoes do item"
-                      {...field}
-                    />
-                    
+                    <textarea placeholder="Dimensoes do item" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -147,7 +142,9 @@ export default function Home() {
           </Button>
         </form>
       </Form>
-      <a href='https://www.ucs.br/site/midia/arquivos/politica-de-doacoes_bit-bus.pdf'>Política de doação</a>
+      <a href="https://www.ucs.br/site/midia/arquivos/politica-de-doacoes_bit-bus.pdf">
+        Política de doação
+      </a>
     </main>
   );
 }
