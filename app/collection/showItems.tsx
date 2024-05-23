@@ -106,14 +106,12 @@ export default function FilteredItems({ items }) {
                 <DialogTitle className="text-center">{item.nome}</DialogTitle>
                 <DialogDescription>
                   <img src={item.foto} />
-                  <ul>
-                    <li className="text-center">{item.informacoes}</li>
-                    <li>
-                      <span className="font-bold">ano</span>: {item.ano}
-                    </li>
-                    <li>tipo: {item.tipo}</li>
-                    <li>dim: {item.dimensoes}</li>
-                  </ul>
+                  info: {item.informacoes} <br />
+                  ano: {item.ano}
+                  <br />
+                  tipo: {item.tipo}
+                  <br />
+                  dim: {item.dimensoes}
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>

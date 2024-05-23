@@ -1,15 +1,15 @@
-'use client'
-import * as z from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+"use client";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
-} from '@/components/ui/form'
+  FormMessage,
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
@@ -17,24 +17,24 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
+  SelectValue,
+} from "@/components/ui/select";
 
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { useState } from 'react'
-
-const defaultSchema = z.object({
-  nomeDoador: z.string().min(3),
-  cpf: z.string().min(3),
-  email: z.string().min(3)
-})
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const moneyDonationSchema = z.object({
-  quantiaDinheiro: z.string().min(3)
-})
+  nomeDoador: z.string().min(3),
+  cpf: z.string().min(3),
+  email: z.string().min(3),
+  quantiaDinheiro: z.string().min(3),
+});
 
 const itemDonationSchema = z.object({
+  nomeDoador: z.string().min(3),
+  cpf: z.string().min(3),
+  email: z.string().min(3),
   nome: z.string().min(3),
   ano: z.string().min(4),
   quantidade: z.string().min(1),
@@ -44,109 +44,128 @@ const itemDonationSchema = z.object({
   link: z.string().min(3),
   foto: z.string().min(3),
   prateleira: z.string().min(3),
-  classificacao: z.string().min(3)
-})
+  classificacao: z.string().min(3),
+});
 
-const formSchema = z.union([
-  defaultSchema,
-  itemDonationSchema,
-  moneyDonationSchema
-])
+const formSchema = z.union([itemDonationSchema, moneyDonationSchema]);
 
 export default function Home() {
-  const [formType, setFormType] = useState('Dinheiro')
+  const [formType, setFormType] = useState("Dinheiro");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues:
-      formType === 'Item'
+      formType === "Item"
         ? {
-            nomeDoador: '',
-            email: '',
-            cpf: '',
-            nome: '',
-            ano: '',
-            quantidade: '',
-            tipo: '',
-            dimensoes: '',
-            informacoes: '',
-            link: '',
-            foto: '',
-            prateleira: '',
-            classificacao: ''
+            nomeDoador: "",
+            email: "",
+            cpf: "",
+            nome: "",
+            ano: "",
+            quantidade: "",
+            tipo: "",
+            dimensoes: "",
+            informacoes: "",
+            link: "",
+            foto: "",
+            prateleira: "",
+            classificacao: "",
           }
         : {
-            nomeDoador: '',
-            email: '',
-            cpf: '',
-            quantiaDinheiro: ''
-          }
-  })
+            nomeDoador: "",
+            email: "",
+            cpf: "",
+            quantiaDinheiro: "",
+          },
+  });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      console.log(values)
-      // fetch('/api/items', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({
-      //     tipo: 'Item',
-      //     item: {
-      //       nome: values.nome,
-      //       ano: values.ano,
-      //       quantidade: values.quantidade,
-      //       tipo: values.tipo,
-      //       dimensoes: values.dimensoes,
-      //       informacoes: values.informacoes,
-      //       link: values.link,
-      //       foto: values.foto,
-      //       prateleira: values.prateleira,
-      //       classificacao: values.classificacao
-      //     },
-      //     doador: {
-      //       nome: values.nomeDoador,
-      //       email: values.email,
-      //       cpf: values.cpf
-      //     }
-      //   })
-      // })
-    } catch (error) {
-      console.error(error)
+    if (formType === "Item") {
+      const request = {
+        tipo: "Item",
+        item: {
+          nome: values.nome,
+          ano: values.ano,
+          quantidade: values.quantidade,
+          tipo: values.tipo,
+          dimensoes: values.dimensoes,
+          informacoes: values.informacoes,
+          link: values.link,
+          foto: values.foto,
+          prateleira: values.prateleira,
+          classificacao: values.classificacao,
+        },
+        doador: {
+          nome: values.nomeDoador,
+          email: values.email,
+          cpf: values.cpf,
+        },
+      };
+      try {
+        fetch("/api/donation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(request),
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      const request = {
+        tipo: "Dinheiro",
+        quantiaDinheiro: values.quantiaDinheiro,
+        doador: {
+          nome: values.nomeDoador,
+          email: values.email,
+          cpf: values.cpf,
+        },
+      };
+      try {
+        fetch("/api/donation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(request),
+        });
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
-  const handleTipoChange = value => {
+  };
+  const handleTipoChange = (value) => {
     const [nomeDoador, email, cpf] = form.getValues([
-      'nomeDoador',
-      'email',
-      'cpf'
-    ])
-    setFormType(value)
+      "nomeDoador",
+      "email",
+      "cpf",
+    ]);
+    setFormType(value);
     form.reset(
-      formType === 'Dinheiro'
+      formType === "Dinheiro"
         ? {
             nomeDoador,
             email,
             cpf,
-            nome: '',
-            ano: '',
-            quantidade: '',
-            tipo: '',
-            dimensoes: '',
-            informacoes: '',
-            link: '',
-            foto: '',
-            prateleira: '',
-            classificacao: ''
+            nome: "",
+            ano: "",
+            quantidade: "",
+            tipo: "",
+            dimensoes: "",
+            informacoes: "",
+            link: "",
+            foto: "",
+            prateleira: "",
+            classificacao: "",
           }
         : {
             nomeDoador,
             email,
             cpf,
-            quantiaDinheiro: ''
+            quantiaDinheiro: "",
           }
-    )
-  }
+    );
+  };
   return (
     <div>
       <div className=" text-center mt-36 mb-5">
@@ -175,7 +194,7 @@ export default function Home() {
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )
+                );
               }}
             />
             <FormField
@@ -194,7 +213,7 @@ export default function Home() {
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )
+                );
               }}
             />
             <FormField
@@ -213,7 +232,7 @@ export default function Home() {
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )
+                );
               }}
             />
             <Select
@@ -232,7 +251,7 @@ export default function Home() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            {formType === 'Item' ? (
+            {formType === "Item" ? (
               <>
                 <FormField
                   control={form.control}
@@ -250,7 +269,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -269,7 +288,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -288,7 +307,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -307,7 +326,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -326,7 +345,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -345,7 +364,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -364,7 +383,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -383,7 +402,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -402,7 +421,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -421,7 +440,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
               </>
@@ -443,7 +462,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
               </>
@@ -460,5 +479,5 @@ export default function Home() {
         </a>
       </main>
     </div>
-  )
+  );
 }

@@ -20,6 +20,7 @@ export async function POST(request: Request) {
   const { item, doador } = res;
   console.log(res);
   if (res.tipo === "Dinheiro") {
+    res.quantiaDinheiro = Number(res.quantiaDinheiro);
     const novaDoacaoDinheiro = await prisma.doacaoDinheiro.create({
       data: {
         tipo: res.tipo,
@@ -42,6 +43,8 @@ export async function POST(request: Request) {
       novaDoacaoDinheiro,
     });
   } else {
+    item.ano = Number(item.ano);
+    item.quantidade = Number(item.quantidade);
     const novaDoacaoItem = await prisma.doacaoItem.create({
       data: {
         tipo: res.tipo,
