@@ -83,7 +83,7 @@ export default function FilteredItems({ items }) {
               >
                 <CardHeader>
                   <img
-                    className="mb-4 h-48 w-full rounded-lg object-cover"
+                    className="mb-4 h-48 w-full rounded-lg object-cover z-10"
                     height={300}
                     src={item.foto}
                     style={{
