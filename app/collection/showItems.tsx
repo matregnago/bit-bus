@@ -1,14 +1,14 @@
-"use client";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
+'use client'
+import { Input } from '@/components/ui/input'
+import { useState } from 'react'
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  CardTitle
+} from '@/components/ui/card'
 
 import {
   Dialog,
@@ -17,8 +17,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  DialogTrigger
+} from '@/components/ui/dialog'
 
 import {
   Select,
@@ -27,33 +27,33 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  SelectValue
+} from '@/components/ui/select'
 
 export default function FilteredItems({ items }) {
-  const [busca, setBusca] = useState("");
-  const [selectedTipo, setSelectedTipo] = useState("");
-  const handleTipoChange = (value) => {
-    setSelectedTipo(value);
-  };
-  const itensfiltrados = items.filter((item) => {
-    const matchesBusca = item.nome.toLowerCase().includes(busca.toLowerCase());
+  const [busca, setBusca] = useState('')
+  const [selectedTipo, setSelectedTipo] = useState('')
+  const handleTipoChange = value => {
+    setSelectedTipo(value)
+  }
+  const itensfiltrados = items.filter(item => {
+    const matchesBusca = item.nome.toLowerCase().includes(busca.toLowerCase())
     const matchesTipo = () => {
-      if (selectedTipo === "" || selectedTipo === "todos") {
-        return true;
+      if (selectedTipo === '' || selectedTipo === 'todos') {
+        return true
       } else {
-        return item.tipo === selectedTipo;
+        return item.tipo === selectedTipo
       }
-    };
-    return matchesBusca && matchesTipo();
-  });
-  console.log(selectedTipo);
+    }
+    return matchesBusca && matchesTipo()
+  })
+  console.log(selectedTipo)
   return (
     <div className=" mx-56 mt-10">
       <div className="flex gap-3 mb-4">
         <Input
           value={busca}
-          onChange={(e) => setBusca(e.target.value)}
+          onChange={e => setBusca(e.target.value)}
           placeholder="Pesquise aqui"
         />
         <Select value={selectedTipo} onValueChange={handleTipoChange}>
@@ -66,7 +66,7 @@ export default function FilteredItems({ items }) {
               <SelectItem value="todos">Todos</SelectItem>
               <SelectItem value="processador">Processador</SelectItem>
               <SelectItem value="memoria">Memória</SelectItem>
-              <SelectItem value="Placa de video">Placa de video</SelectItem>
+              <SelectItem value="placaDeVideo">Placa de video</SelectItem>
               <SelectItem value="servidor">Servidor</SelectItem>
               <SelectItem value="disco">Disco</SelectItem>
             </SelectGroup>
@@ -74,7 +74,7 @@ export default function FilteredItems({ items }) {
         </Select>
       </div>
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {itensfiltrados.map((item) => (
+        {itensfiltrados.map(item => (
           <Dialog key={item.id}>
             <DialogTrigger asChild className=" cursor-pointer">
               <Card
@@ -87,8 +87,8 @@ export default function FilteredItems({ items }) {
                     height={300}
                     src={item.foto}
                     style={{
-                      aspectRatio: "400/300",
-                      objectFit: "cover",
+                      aspectRatio: '400/300',
+                      objectFit: 'cover'
                     }}
                     width={400}
                   />
@@ -119,5 +119,5 @@ export default function FilteredItems({ items }) {
         ))}
       </div>
     </div>
-  );
+  )
 }
