@@ -12,8 +12,6 @@ export async function GET(){
 export async function POST(request: Request){
     const res = await request.json()
     const { local, visitantes, palestrante } = res
-    let dateConversor: Date = new Date(res.dataHora);
-    res.dataHora = dateConversor
     const createQuery = await prisma.oficina.create({
         data: {
             titulo: res.titulo,

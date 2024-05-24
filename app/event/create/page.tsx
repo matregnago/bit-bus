@@ -31,8 +31,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { copyFile } from "fs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const oficinaSchema = z.object({
   data: z.date(),
@@ -115,26 +114,67 @@ export default function Home() {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    // const request = {
-    //   conteudo: values.descricao,
-    //   nota: values.nota,
-    //   visitante: {
-    //     nome: values.nome,
-    //     cpf: values.cpf,
-    //     email: values.email,
-    //   },
-    // };
-    // try {
-    //   fetch("/api/feedback", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(request),
-    //   });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    if(formType === "Oficina"){
+      const request = {
+        dataHora: values.data,
+        titulo: values.titulo,
+        duracao: values.duracao,
+        resumo: values.resumo,
+        local: {
+          rua: values.rua,
+          bairro: values.bairro,
+          cidade: values.cidade,
+          estado: values.estado,
+          cep: values.cep
+      },
+      visitantes: values.visitantes,
+      palestrante: {
+        nome: values.nomePalestrante,
+        cpf: values.cpfPalestrante,
+        email: values.emailPalestrante,
+      }
+    }
+    try {
+      fetch("/api/workshop", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    }
+    else if(formType === "Visita"){
+      const request = {
+        dataHora: values.data,
+        local: {
+          rua: values.rua,
+          bairro: values.bairro,
+          cidade: values.cidade,
+          estado: values.estado,
+          cep: values.cep
+      },
+      visitantes: values.visitantes,
+      organizador: {
+        nome: values.nomeOrganizador,
+        cpf: values.cpfOrganizador,
+        email: values.emailOrganizador
+      }
+    }
+    try {
+      fetch("/api/visitation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(request),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    }
   };
   function addNovoVisitante() {
     append({
@@ -343,7 +383,6 @@ export default function Home() {
                   control={form.control}
                   name="nomePalestrante"
                   render={({ field }) => {
-                    console.log(field.value, field.name)
                     return (
                       <FormItem>
                         <FormLabel>Nome Palestrante</FormLabel>
