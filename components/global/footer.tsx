@@ -9,13 +9,10 @@ export default function FooterPrincipal() {
             <Link className="hover:text-green-300" href="about-us">
               Sobre nós
             </Link>
-            <Link className="hover:text-green-300" href="#">
+            <Link className="hover:text-green-300" href="visit">
               Visitações
             </Link>
-            <Link className="hover:text-green-300" href="#">
-              Eventos
-            </Link>
-            <Link className="hover:text-green-300" href="#">
+            <Link className="hover:text-green-300" href="event">
               Oficinas
             </Link>
           </div>
@@ -36,7 +33,7 @@ export default function FooterPrincipal() {
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold">Visita</h3>
-            <Link className="hover:text-green-300" href="event/create">
+            <Link className="hover:text-green-300" href="visit/create">
               Marque uma visita
             </Link>
             <Link className="hover:text-green-300" href="event">

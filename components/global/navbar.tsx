@@ -18,19 +18,19 @@ import {
 const acervoLinks: { title: string; href: string; description: string }[] = [
   {
     title: "Visualize nosso acervo",
-    href: "/docs/primitives/alert-dialog",
+    href: "/collection",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Dê uma olhada nos itens presentes em nosso acervo.",
   },
   {
-    title: "Doe artefatos",
-    href: "/docs/primitives/hover-card",
+    title: "Doe Itens para o acervo",
+    href: "/donation/create",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     title: "Política de doação",
-    href: "/docs/primitives/progress",
+    href: "https://www.ucs.br/site/midia/arquivos/politica-de-doacoes_bit-bus.pdf",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
@@ -39,25 +39,25 @@ const acervoLinks: { title: string; href: string; description: string }[] = [
 const visitacaoLinks: { title: string; href: string; description: string }[] = [
   {
     title: "Marque uma visita",
-    href: "/docs/primitives/alert-dialog",
+    href: "/visit/create",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
     title: "Organize uma oficina",
-    href: "/docs/primitives/hover-card",
+    href: "/event/create",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     title: "Cronograma de Eventos",
-    href: "/docs/primitives/progress",
+    href: "/event",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
     title: "Deixe seu feedback",
-    href: "/docs/primitives/progress",
+    href: "/feedback/create",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
@@ -102,17 +102,17 @@ export function NavBar() {
                     </a>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/docs" title="História">
-                  Re-usable components built using Radix UI and Tailwind CSS.
+                <ListItem href="/about-us" title="Sobre Nós">
+                  Descubra mais sobre o que se trata o projeto BitBus.
                 </ListItem>
                 <ListItem href="/docs/installation" title="Contato">
-                  How to install dependencies and structure your app.
+                  Entre em contato para maiores informações.
                 </ListItem>
                 <ListItem
-                  href="/docs/primitives/typography"
+                  href="/donation"
                   title="Contribua com o projeto"
                 >
-                  Styles for headings, paragraphs, lists...etc
+                  Faça uma doação de hardware ou financeira para o Bitbus :D
                 </ListItem>
               </ul>
             </NavigationMenuContent>
