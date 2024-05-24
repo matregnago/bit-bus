@@ -65,7 +65,8 @@ const visitacaoLinks: { title: string; href: string; description: string }[] = [
 
 export function NavBar() {
   return (
-    <header className="p-4 border-b bg-white w-full fixed z-20">
+    <header className="p-4 border-b bg-white w-full fixed top-0 z-20">
+      <link rel="shortcut icon" href="logo-bitbus.png" />
       <NavigationMenu>
         <Link className="flex items-center" href="/">
           <Image
