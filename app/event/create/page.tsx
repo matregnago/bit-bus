@@ -170,6 +170,9 @@ export default function Home() {
           cidade,
           estado,
           cep,
+          nomeOrganizador: "",
+          cpfOrganizador: "",
+          emailOrganizador: "",
           visitantes
         }
         : {
@@ -179,6 +182,12 @@ export default function Home() {
           cidade,
           estado,
           cep,
+          nomePalestrante: "",
+          cpfPalestrante: "",
+          emailPalestrante: "",
+          titulo: "",
+          resumo: "",
+          duracao: "",
           visitantes
         }
     );
