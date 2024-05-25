@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      <title>Home - BitBus</title>
+      <title>Home</title>
     <div>
       <section className="w-full">
         <div className="container px-4 md:px-6">

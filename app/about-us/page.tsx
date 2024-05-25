@@ -5,7 +5,7 @@ export default function AboutUs() {
     return (
         <div>
         <NavBar />
-        <title>Sobre Nós - BitBus</title>
+        <title>Sobre Nós</title>
             <div className="flex flex-col items-center py-24">
                 <p className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">Sobre Nós</p>
                 <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400 my-4">Conheça mais sobre a BitBus.</p>

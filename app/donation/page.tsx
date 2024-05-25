@@ -57,6 +57,7 @@ export default async function EventPage() {
   console.log(doacoes);
   return (
     <div>
+      <title>Doações</title>
       <DonationList donations={doacoes} />
     </div>
   );

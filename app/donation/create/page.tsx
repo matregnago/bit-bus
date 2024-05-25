@@ -168,7 +168,8 @@ export default function Home() {
   };
   return (
     <div>
-      <div className=" text-center mt-36 mb-5">
+      <title>Doação de Itens</title>
+      <div className=" t/ext-center mt-36 mb-5">
         <h1 className=" text-3xl">Formulário de Doações</h1>
         <p>Utilize esse formulário para cadastrar uma doação no bit-bus.</p>
       </div>

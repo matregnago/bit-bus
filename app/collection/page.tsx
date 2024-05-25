@@ -20,6 +20,7 @@ export default async function ShowcaseItems() {
   return (
     <div>
       <NavBar />
+      <title>Acervo</title>
       <section className="bg-gray-50 py-20">
         <div className="text-center">
           <h1 className=" mt-36 text-5xl font-bold text-[#333333]">

@@ -67,6 +67,7 @@ export default async function EventPage() {
   const [pastEvents, upcomingEvents] = events;
   return (
     <div>
+      <title>Eventos</title>      
       <Tabs defaultValue="agendados" className="w-[400px]">
         <TabsList>
           <TabsTrigger value="agendados">Agendados</TabsTrigger>
