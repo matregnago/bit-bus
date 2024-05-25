@@ -32,6 +32,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
+import CpfInput, { cpfMask } from "@/components/global/CpfInput";
 
 const oficinaSchema = z.object({
   data: z.date(),
@@ -75,7 +76,6 @@ const visitaSchema = z.object({
 });
 const formSchema = z.union([visitaSchema, oficinaSchema]);
 
-
 export default function Home() {
   const [formType, setFormType] = useState("Oficina");
   const form = useForm<z.infer<typeof formSchema>>({
@@ -83,30 +83,30 @@ export default function Home() {
     defaultValues:
       formType === "Visita"
         ? {
-          data: undefined,
-          rua: "",
-          bairro: "",
-          cidade: "",
-          estado: "",
-          cep: "",
-          cpfOrganizador: "",
-          nomeOrganizador: "",
-          emailOrganizador: "",
-        }
+            data: undefined,
+            rua: "",
+            bairro: "",
+            cidade: "",
+            estado: "",
+            cep: "",
+            cpfOrganizador: "",
+            nomeOrganizador: "",
+            emailOrganizador: "",
+          }
         : {
-          data: undefined,
-          rua: "",
-          bairro: "",
-          cidade: "",
-          estado: "",
-          cep: "",
-          nomePalestrante: "",
-          cpfPalestrante: "",
-          emailPalestrante: "",
-          titulo: "",
-          duracao: "",
-          resumo: ""
-        },
+            data: undefined,
+            rua: "",
+            bairro: "",
+            cidade: "",
+            estado: "",
+            cep: "",
+            nomePalestrante: "",
+            cpfPalestrante: "",
+            emailPalestrante: "",
+            titulo: "",
+            duracao: "",
+            resumo: "",
+          },
   });
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -114,7 +114,13 @@ export default function Home() {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    if(formType === "Oficina"){
+    const visitantes = values.visitantes.map((visitante) => {
+      return {
+        ...visitante,
+        cpf: cpfMask(visitante.cpf),
+      };
+    });
+    if (formType === "Oficina") {
       const request = {
         dataHora: values.data,
         titulo: values.titulo,
@@ -125,28 +131,27 @@ export default function Home() {
           bairro: values.bairro,
           cidade: values.cidade,
           estado: values.estado,
-          cep: values.cep
-      },
-      visitantes: values.visitantes,
-      palestrante: {
-        nome: values.nomePalestrante,
-        cpf: values.cpfPalestrante,
-        email: values.emailPalestrante,
-      }
-    }
-    try {
-      fetch("/api/workshop", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+          cep: values.cep,
         },
-        body: JSON.stringify(request),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-    }
-    else if(formType === "Visita"){
+        visitantes,
+        palestrante: {
+          nome: values.nomePalestrante,
+          cpf: cpfMask(values.cpfPalestrante),
+          email: values.emailPalestrante,
+        },
+      };
+      try {
+        fetch("/api/workshop", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(request),
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (formType === "Visita") {
       const request = {
         dataHora: values.data,
         local: {
@@ -154,26 +159,26 @@ export default function Home() {
           bairro: values.bairro,
           cidade: values.cidade,
           estado: values.estado,
-          cep: values.cep
-      },
-      visitantes: values.visitantes,
-      organizador: {
-        nome: values.nomeOrganizador,
-        cpf: values.cpfOrganizador,
-        email: values.emailOrganizador
-      }
-    }
-    try {
-      fetch("/api/visitation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+          cep: values.cep,
         },
-        body: JSON.stringify(request),
-      });
-    } catch (error) {
-      console.error(error);
-    }
+        visitantes,
+        organizador: {
+          nome: values.nomeOrganizador,
+          cpf: cpfMask(values.cpfOrganizador),
+          email: values.emailOrganizador,
+        },
+      };
+      try {
+        fetch("/api/visitation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(request),
+        });
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
   function addNovoVisitante() {
@@ -184,52 +189,39 @@ export default function Home() {
     });
   }
   const handleTipoChange = (value) => {
-    const [data,
-      rua,
-      bairro,
-      cidade,
-      estado,
-      cep,
-      visitantes
-    ] = form.getValues([
-      "data",
-      "rua",
-      "bairro",
-      "cidade",
-      "estado",
-      "cep",
-      "visitantes"
-    ]);
+    const [data, rua, bairro, cidade, estado, cep, visitantes] = form.getValues(
+      ["data", "rua", "bairro", "cidade", "estado", "cep", "visitantes"]
+    );
     setFormType(value);
     form.reset(
       formType === "Oficina"
         ? {
-          data,
-          rua,
-          bairro,
-          cidade,
-          estado,
-          cep,
-          nomeOrganizador: "",
-          cpfOrganizador: "",
-          emailOrganizador: "",
-          visitantes
-        }
+            data,
+            rua,
+            bairro,
+            cidade,
+            estado,
+            cep,
+            nomeOrganizador: "",
+            cpfOrganizador: "",
+            emailOrganizador: "",
+            visitantes,
+          }
         : {
-          data,
-          rua,
-          bairro,
-          cidade,
-          estado,
-          cep,
-          nomePalestrante: "",
-          cpfPalestrante: "",
-          emailPalestrante: "",
-          titulo: "",
-          resumo: "",
-          duracao: "",
-          visitantes
-        }
+            data,
+            rua,
+            bairro,
+            cidade,
+            estado,
+            cep,
+            nomePalestrante: "",
+            cpfPalestrante: "",
+            emailPalestrante: "",
+            titulo: "",
+            resumo: "",
+            duracao: "",
+            visitantes,
+          }
     );
   };
   return (
@@ -240,10 +232,7 @@ export default function Home() {
       </div>
       <main className="flex min-h-screen flex-col items-center justify-between ">
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className=""
-          >
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="">
             <FormField
               control={form.control}
               name="data"
@@ -406,10 +395,9 @@ export default function Home() {
                       <FormItem>
                         <FormLabel>Cpf Palestrante</FormLabel>
                         <FormControl>
-                          <Input
+                          <CpfInput
                             placeholder="Cpf do Palestrante"
-                            type="text"
-                            {...field}
+                            field={field}
                           />
                         </FormControl>
                         <FormMessage />
@@ -425,7 +413,11 @@ export default function Home() {
                       <FormItem>
                         <FormLabel>Email Palestrante</FormLabel>
                         <FormControl>
-                          <Input placeholder="Email do Palestrante" type="text" {...field} />
+                          <Input
+                            placeholder="Email do Palestrante"
+                            type="text"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -440,7 +432,11 @@ export default function Home() {
                       <FormItem>
                         <FormLabel>Titulo da oficina</FormLabel>
                         <FormControl>
-                          <Input placeholder="Titulo da oficina" type="text" {...field} />
+                          <Input
+                            placeholder="Titulo da oficina"
+                            type="text"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -455,7 +451,11 @@ export default function Home() {
                       <FormItem>
                         <FormLabel>Resumo</FormLabel>
                         <FormControl>
-                          <Input placeholder="Resumo da oficina" type="text" {...field} />
+                          <Input
+                            placeholder="Resumo da oficina"
+                            type="text"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -507,10 +507,9 @@ export default function Home() {
                       <FormItem>
                         <FormLabel>Cpf Organizador</FormLabel>
                         <FormControl>
-                          <Input
+                          <CpfInput
                             placeholder="Cpf do Organizador"
-                            type="text"
-                            {...field}
+                            field={field}
                           />
                         </FormControl>
                         <FormMessage />
@@ -526,7 +525,11 @@ export default function Home() {
                       <FormItem>
                         <FormLabel>Email Organizador</FormLabel>
                         <FormControl>
-                          <Input placeholder="Email do Organizador" type="text" {...field} />
+                          <Input
+                            placeholder="Email do Organizador"
+                            type="text"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -569,10 +572,9 @@ export default function Home() {
                           <FormItem>
                             <FormLabel>Cpf</FormLabel>
                             <FormControl>
-                              <Input
+                              <CpfInput
                                 placeholder="Cpf do visitante"
-                                type="text"
-                                {...field}
+                                field={field}
                               />
                             </FormControl>
                             <FormMessage />
@@ -588,7 +590,11 @@ export default function Home() {
                           <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                              <Input placeholder="Email" type="text" {...field} />
+                              <Input
+                                placeholder="Email"
+                                type="text"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -612,6 +618,6 @@ export default function Home() {
           Política de doação
         </a>
       </main>
-    </div >
+    </div>
   );
 }

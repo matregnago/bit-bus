@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import CpfInput, { cpfMask } from "@/components/global/CpfInput";
 
 const formSchema = z.object({
   nome: z.string().min(3),
@@ -39,7 +40,7 @@ export default function Home() {
       nota: values.nota,
       visitante: {
         nome: values.nome,
-        cpf: values.cpf,
+        cpf: cpfMask(values.cpf),
         email: values.email,
       },
     };
@@ -85,7 +86,7 @@ export default function Home() {
                 <FormItem>
                   <FormLabel>Cpf</FormLabel>
                   <FormControl>
-                    <Input placeholder="CPF" type="text" {...field} />
+                    <CpfInput placeholder="Cpf" field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

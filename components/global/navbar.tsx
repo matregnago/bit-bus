@@ -19,45 +19,17 @@ const acervoLinks: { title: string; href: string; description: string }[] = [
   {
     title: "Visualize nosso acervo",
     href: "/collection",
-    description:
-      "Dê uma olhada nos itens presentes em nosso acervo.",
+    description: "Dê uma olhada nos itens presentes em nosso acervo.",
   },
   {
     title: "Doe Itens para o acervo",
-    href: "/donation/create",
+    href: "/donation",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     title: "Política de doação",
     href: "https://www.ucs.br/site/midia/arquivos/politica-de-doacoes_bit-bus.pdf",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-];
-
-const visitacaoLinks: { title: string; href: string; description: string }[] = [
-  {
-    title: "Marque uma visita",
-    href: "/visit/create",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Organize uma oficina",
-    href: "/event/create",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Cronograma de Eventos",
-    href: "/event",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Deixe seu feedback",
-    href: "/feedback/create",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
@@ -80,7 +52,7 @@ export function NavBar() {
         </Link>
         <NavigationMenuList className="ml-5">
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-md">
+            <NavigationMenuTrigger className="text-base">
               Sobre
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -108,17 +80,14 @@ export function NavBar() {
                 <ListItem href="/docs/installation" title="Contato">
                   Entre em contato para maiores informações.
                 </ListItem>
-                <ListItem
-                  href="/donation"
-                  title="Contribua com o projeto"
-                >
+                <ListItem href="/donation" title="Contribua com o projeto">
                   Faça uma doação de hardware ou financeira para o Bitbus :D
                 </ListItem>
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-md">
+            <NavigationMenuTrigger className="text-base">
               Acervo
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -136,22 +105,18 @@ export function NavBar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-md">
-              Visitação
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {visitacaoLinks.map((link) => (
-                  <ListItem
-                    key={link.title}
-                    title={link.title}
-                    href={link.href}
-                  >
-                    {link.description}
-                  </ListItem>
-                ))}
-              </ul>
-            </NavigationMenuContent>
+            <Link href="/event" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <p className="text-base">Eventos</p>
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/feedback" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <p className="text-base">Feedbacks</p>
+              </NavigationMenuLink>
+            </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
