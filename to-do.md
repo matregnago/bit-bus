@@ -1,7 +1,7 @@
 ## Lista de tarefas:
 
 - [x] Fazer cadastro de eventos
-- [x] Fazer a pagina principal
+- [ ] Fazer a pagina principal
 - [x] Colocar select na doacao de itens
 - [ ] Adicionar formato CPF nos inputs
 - [x] Adicionar formato CEP nos inputs
