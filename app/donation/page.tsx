@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const DoacaoDinheiro = ({ doacao }) => (
   <Card className="min-w-80">
@@ -21,7 +22,7 @@ const DoacaoDinheiro = ({ doacao }) => (
 );
 
 const DoacaoItem = ({ doacao }) => (
-  <Card className="min-w-80">
+  <Card className="">
     <CardHeader>
       <CardTitle>Doacao Item</CardTitle>
       <CardDescription></CardDescription>
@@ -35,7 +36,7 @@ const DoacaoItem = ({ doacao }) => (
 
 const DonationList = ({ donations }) => {
   return (
-    <div className="flex flex-row gap-6">
+    <div className="">
       {donations.map((donation) => {
         if (donation.tipo === "Dinheiro") {
           return <DoacaoDinheiro key={donation.id} doacao={donation} />;
@@ -56,8 +57,8 @@ export default async function EventPage() {
   const { doacoes } = await data.json();
   console.log(doacoes);
   return (
-    <div>
+    <ScrollArea className="h-full">
       <DonationList donations={doacoes} />
-    </div>
+    </ScrollArea>
   );
 }

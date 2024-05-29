@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const FeedbackCard = ({ feedback }) => (
   <Card className="min-w-80">
@@ -15,10 +16,7 @@ const FeedbackCard = ({ feedback }) => (
       <CardDescription>{feedback.conteudo}</CardDescription>
     </CardHeader>
     <CardContent>
-      <Badge variant="outline">
-        Visitado em:{" "}
-        {new Date(feedback.visitante.visitas[0].dataHora).toLocaleString()}{" "}
-      </Badge>
+      <Badge variant="outline">Visitado em: </Badge>
       <p>Nota: {feedback.nota}</p>
     </CardContent>
   </Card>
@@ -40,8 +38,8 @@ export default async function EventPage() {
   });
   const feedbacks = await data.json();
   return (
-    <div>
+    <ScrollArea className="h-full">
       <FeddbackList feedbacks={feedbacks} />
-    </div>
+    </ScrollArea>
   );
 }

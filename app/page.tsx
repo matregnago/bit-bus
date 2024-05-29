@@ -1,14 +1,12 @@
 import InfoCards from "@/components/dashboard/generalInfoCards";
 import UpcomingEventsCard from "@/components/dashboard/upcomingEventsCard";
-import { NavBar } from "@/components/global/navbar";
-import Link from "next/link";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export default function Home() {
   return (
-    <div>
-      <NavBar />
-      <div className="mx-40">
-        <h1 className="text-black text-3xl font-bold mt-32 mb-6">Dashboard</h1>
+    <ScrollArea className="h-full">
+      <div className="mx-8">
+        <h1 className="text-black text-3xl font-bold mt-10 mb-6">Dashboard</h1>
         <InfoCards />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-6">
           <Card className="col-span-4">
@@ -24,6 +22,6 @@ export default function Home() {
           <UpcomingEventsCard />
         </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 }

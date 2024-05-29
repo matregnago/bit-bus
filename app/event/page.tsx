@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const VisitaItem = ({ visita }) => (
   <Card className="min-w-80">
@@ -45,7 +46,7 @@ const OficinaItem = ({ oficina }) => (
 
 const EventList = ({ events }) => {
   return (
-    <div className="flex flex-row gap-6">
+    <div className="flex flex-col gap-6">
       {events.map((event) => {
         if (event.tipo === "visita") {
           return <VisitaItem key={event.id} visita={event} />;
@@ -66,19 +67,21 @@ export default async function EventPage() {
   const events = await data.json();
   const [pastEvents, upcomingEvents] = events;
   return (
-    <div>
-      <Tabs defaultValue="agendados" className="w-[400px]">
-        <TabsList>
-          <TabsTrigger value="agendados">Agendados</TabsTrigger>
-          <TabsTrigger value="passados">Passados</TabsTrigger>
-        </TabsList>
-        <TabsContent value="agendados">
-          <EventList events={upcomingEvents} />
-        </TabsContent>
-        <TabsContent value="passados">
-          <EventList events={pastEvents} />
-        </TabsContent>
-      </Tabs>
-    </div>
+    <ScrollArea className="h-full">
+      <div>
+        <Tabs defaultValue="agendados" className="w-[400px]">
+          <TabsList>
+            <TabsTrigger value="agendados">Agendados</TabsTrigger>
+            <TabsTrigger value="passados">Passados</TabsTrigger>
+          </TabsList>
+          <TabsContent value="agendados">
+            <EventList events={upcomingEvents} />
+          </TabsContent>
+          <TabsContent value="passados">
+            <EventList events={pastEvents} />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </ScrollArea>
   );
 }
