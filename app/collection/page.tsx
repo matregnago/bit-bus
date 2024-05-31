@@ -1,36 +1,48 @@
 import * as React from "react";
-import FilteredItems from "./showItems";
+import FilteredItems from "./cards/itemsCards";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Item } from "@/types";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { columns } from "./datatable/columns";
+import { DataTable } from "./datatable/data-table";
 
-const getItems = async () => {
+const getItems = async (): Promise<Item[]> => {
   try {
     const res = await fetch("http://localhost:3000/api/items", {
       cache: "no-cache",
     });
-    const items = await res.json();
+    const items: Item[] = await res.json();
     return items;
   } catch (error) {
     console.error(error);
+    return [];
   }
 };
 
 export default async function ShowcaseItems() {
-  const items = await getItems();
+  const data: Item[] = await getItems();
   return (
     <ScrollArea className="h-full">
+      <h1 className="text-black text-3xl font-bold">Acervo</h1>
       <div>
-        <section className="bg-gray-50 py-10">
-          <div className="text-center">
-            <h1 className=" mt-8 text-5xl font-bold text-[#333333]">
-              Our Museum Collection
-            </h1>
-            <p className="text-[#666666] mt-4">
-              Discover our curated collection of rare and unique artifacts from
-              around the world..
-            </p>
-            <FilteredItems items={items} />
-          </div>
-        </section>
+        <Tabs defaultValue="tabela" className="">
+          <TabsList>
+            <TabsTrigger value="tabela">Tabela</TabsTrigger>
+            <TabsTrigger value="cards">Cards</TabsTrigger>
+          </TabsList>
+          <TabsContent value="tabela">
+            <div className="container mx-auto">
+              <DataTable columns={columns} data={data} />
+            </div>
+          </TabsContent>
+          <TabsContent value="cards">
+            <section className="py-10">
+              <div className="text-center">
+                <FilteredItems items={data} />
+              </div>
+            </section>
+          </TabsContent>
+        </Tabs>
       </div>
     </ScrollArea>
   );

@@ -1,50 +1,77 @@
 import { NextResponse } from "next/server";
-import { PrismaClient, Prisma } from "@prisma/client";
+import {
+  DoacaoDinheiro as PrismaDoacaoDinheiro,
+  DoacaoItem as PrismaDoacaoItem,
+  PrismaClient,
+} from "@prisma/client";
+import { DoacaoDinheiro, DoacaoItem } from "@/types";
 
 const prisma = new PrismaClient();
 export async function GET(request: Request) {
-  const doacaoDinheiro = await prisma.doacaoDinheiro.findMany();
-  const doacaoItem = await prisma.doacaoItem.findMany({
+  const doacaoDinheiro: PrismaDoacaoDinheiro[] =
+    await prisma.doacaoDinheiro.findMany({
+      include: {
+        doador: true,
+      },
+    });
+  const doacaoItem: PrismaDoacaoItem[] = await prisma.doacaoItem.findMany({
     include: {
+      doador: true,
       item: true,
     },
   });
-  const doacoes = doacaoDinheiro.concat(doacaoItem);
+  const doacoes: (PrismaDoacaoDinheiro | PrismaDoacaoItem)[] = [
+    ...doacaoDinheiro,
+    ...doacaoItem,
+  ];
   return NextResponse.json({
     doacoes,
   });
 }
 
 export async function POST(request: Request) {
-  const res = await request.json();
-  const { item, doador } = res;
-  if (res.tipo === "Dinheiro") {
+  const isDoacaoDinheiro = (
+    doacao: DoacaoDinheiro | DoacaoItem
+  ): doacao is DoacaoDinheiro => {
+    return doacao.tipo === "Dinheiro";
+  };
+
+  const isDoacaoItem = (
+    doacao: DoacaoDinheiro | DoacaoItem
+  ): doacao is DoacaoItem => {
+    return doacao.tipo === "Item";
+  };
+  const res: DoacaoDinheiro | DoacaoItem = await request.json();
+  const { doador } = res;
+  if (isDoacaoDinheiro(res)) {
     res.quantiaDinheiro = Number(res.quantiaDinheiro);
-    const novaDoacaoDinheiro = await prisma.doacaoDinheiro.create({
-      data: {
-        tipo: res.tipo,
-        quantiaDinheiro: res.quantiaDinheiro,
-        doador: {
-          connectOrCreate: {
-            where: {
-              cpf: doador.cpf, // CPF para tentar conectar a um doador existente
-            },
-            create: {
-              nome: doador.nome,
-              cpf: doador.cpf,
-              email: doador.email,
+    const novaDoacaoDinheiro: PrismaDoacaoDinheiro =
+      await prisma.doacaoDinheiro.create({
+        data: {
+          tipo: res.tipo,
+          quantiaDinheiro: res.quantiaDinheiro,
+          doador: {
+            connectOrCreate: {
+              where: {
+                cpf: doador.cpf, // CPF para tentar conectar a um doador existente
+              },
+              create: {
+                nome: doador.nome,
+                cpf: doador.cpf,
+                email: doador.email,
+              },
             },
           },
         },
-      },
-    });
+      });
     return NextResponse.json({
       novaDoacaoDinheiro,
     });
-  } else {
+  } else if (isDoacaoItem(res)) {
+    const { item } = res;
     item.ano = Number(item.ano);
     item.quantidade = Number(item.quantidade);
-    const novaDoacaoItem = await prisma.doacaoItem.create({
+    const novaDoacaoItem: PrismaDoacaoItem = await prisma.doacaoItem.create({
       data: {
         tipo: res.tipo,
         item: {
