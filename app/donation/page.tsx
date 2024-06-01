@@ -1,86 +1,54 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { DoacaoDinheiro, DoacaoItem } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { DoacaoDinheiroDataTable } from "./moneyDonationTable/data-table";
+import { columnsMoneyDonationTable } from "./moneyDonationTable/columns";
+import { columnsItemDonationTable } from "./itemDonationTable/columns";
 
-type DoacaoApiResponse = {
-  doacoes: (DoacaoDinheiro | DoacaoItem)[];
-};
+import { DoacaoItemDataTable } from "./itemDonationTable/data-table";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-type DoacaoDinheiroCardProps = {
-  doacao: DoacaoDinheiro;
-};
-type DoacaoItemCardProps = {
-  doacao: DoacaoItem;
-};
+interface DoacaoApiResponse {
+  doacaoDinheiro: DoacaoDinheiro[];
+  doacaoItem: DoacaoItem[];
+}
 
-const DoacaoDinheiroCard = ({ doacao }: DoacaoDinheiroCardProps) => (
-  <Card className="min-w-80">
-    <CardHeader>
-      <CardTitle>Doacao Dinheiro</CardTitle>
-      <CardDescription></CardDescription>
-    </CardHeader>
-    <CardContent>
-      <Badge variant="outline">Dinheiro</Badge>
-      <p>Dinheiro: {doacao.quantiaDinheiro}</p>
-    </CardContent>
-  </Card>
-);
-
-const DoacaoItemCard = ({ doacao }: DoacaoItemCardProps) => (
-  <Card className="min-w-80">
-    <CardHeader>
-      <CardTitle>Doacao Item</CardTitle>
-      <CardDescription></CardDescription>
-    </CardHeader>
-    <CardContent>
-      <Badge variant="outline">Item</Badge>
-      <p>{doacao.item.nome}</p>
-    </CardContent>
-  </Card>
-);
-
-const DonationList = ({ doacoes }: DoacaoApiResponse) => {
-  const isDoacaoDinheiro = (
-    doacao: DoacaoDinheiro | DoacaoItem
-  ): doacao is DoacaoDinheiro => {
-    return doacao.tipo === "Dinheiro";
+const getDonations = async (): Promise<DoacaoApiResponse> => {
+  const defaultResponse: DoacaoApiResponse = {
+    doacaoDinheiro: [],
+    doacaoItem: [],
   };
-  const isDoacaoItem = (
-    doacao: DoacaoDinheiro | DoacaoItem
-  ): doacao is DoacaoItem => {
-    return doacao.tipo === "Item";
-  };
-  return (
-    <div className="">
-      {doacoes.map((doacao) => {
-        if (isDoacaoDinheiro(doacao)) {
-          return <DoacaoDinheiroCard key={doacao.id} doacao={doacao} />;
-        } else if (isDoacaoItem(doacao)) {
-          return <DoacaoItemCard key={doacao.id} doacao={doacao} />;
-        } else {
-          return null;
-        }
-      })}
-    </div>
-  );
+  try {
+    const res = await fetch("http://localhost:3000/api/donation", {
+      cache: "no-cache",
+    });
+    const doacoes: DoacaoApiResponse = await res.json();
+    return doacoes;
+  } catch (error) {
+    console.error(error);
+    return defaultResponse;
+  }
 };
 
 export default async function EventPage() {
-  const data = await fetch("http://localhost:3000/api/donation", {
-    cache: "no-cache",
-  });
-  const { doacoes }: DoacaoApiResponse = await data.json();
-  console.log(doacoes);
+  const { doacaoDinheiro, doacaoItem } = await getDonations();
   return (
     <ScrollArea className="h-full">
-      <DonationList doacoes={doacoes} />
+      <div className="mx-7 flex items-start justify-between">
+        <h1 className="font-bold text-xl">Doacoes de dinheiro</h1>
+        <Link className="" href="/donation/create">
+          <Button>Criar doação</Button>
+        </Link>
+      </div>
+      <DoacaoDinheiroDataTable
+        columns={columnsMoneyDonationTable}
+        data={doacaoDinheiro}
+      />
+      <h1 className="font-bold text-xl">Doacoes de Itens</h1>
+      <DoacaoItemDataTable
+        columns={columnsItemDonationTable}
+        data={doacaoItem}
+      />
     </ScrollArea>
   );
 }

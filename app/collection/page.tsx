@@ -3,8 +3,8 @@ import FilteredItems from "./cards/itemsCards";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Item } from "@/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { columns } from "./datatable/columns";
-import { DataTable } from "./datatable/data-table";
+import { columns } from "./table/columns";
+import { DataTable } from "./table/data-table";
 
 const getItems = async (): Promise<Item[]> => {
   try {

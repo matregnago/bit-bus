@@ -25,14 +25,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DataTablePagination } from "@/components/table/table-pagination";
-import { DataTableToolbar } from "@/app/collection/datatable/filters";
+import { DataTableToolbar } from "@/app/donation/itemDonationTable/filters";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DoacaoItemDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {

@@ -20,12 +20,13 @@ export async function GET(request: Request) {
       item: true,
     },
   });
-  const doacoes: (PrismaDoacaoDinheiro | PrismaDoacaoItem)[] = [
-    ...doacaoDinheiro,
-    ...doacaoItem,
-  ];
+  // const doacoes: (PrismaDoacaoDinheiro | PrismaDoacaoItem)[] = [
+  //   ...doacaoDinheiro,
+  //   ...doacaoItem,
+  // ];
   return NextResponse.json({
-    doacoes,
+    doacaoDinheiro,
+    doacaoItem,
   });
 }
 
