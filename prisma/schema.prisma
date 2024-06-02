@@ -15,6 +15,7 @@ datasource db {
 
 model ItemAcervo {
   id            String       @id @default(uuid())
+  dataCriacao   DateTime @default(now())
   nome          String
   ano           Int
   quantidade    Int
@@ -29,15 +30,17 @@ model ItemAcervo {
 }
 
 model DoacaoDinheiro {
-  id              String @id @default(uuid())
-  tipo            String @default("Dinheiro")
+  id              String   @id @default(uuid())
+  dataCriacao     DateTime @default(now())
+  tipo            String   @default("Dinheiro")
   quantiaDinheiro Float
-  doador          Doador @relation(fields: [doadorId], references: [id])
+  doador          Doador   @relation(fields: [doadorId], references: [id])
   doadorId        String
 }
 
 model DoacaoItem {
   id           String     @id @default(uuid())
+  dataCriacao  DateTime @default(now())
   tipo         String     @default("Item")
   item         ItemAcervo @relation(fields: [itemAcervoId], references: [id])
   itemAcervoId String
@@ -85,7 +88,7 @@ model Organizador {
 
 model Visita {
   id            String      @id @default(uuid())
-  dataHora      DateTime
+  dataHora      DateTime 
   local         Local       @relation(fields: [localId], references: [id])
   visitantes    Visitante[]
   organizador   Organizador @relation(fields: [organizadorId], references: [id])
@@ -104,7 +107,7 @@ model Palestrante {
 model Oficina {
   id            String      @id @default(uuid())
   titulo        String
-  dataHora      DateTime
+  dataHora      DateTime 
   local         Local       @relation(fields: [localId], references: [id])
   duracao       String
   resumo        String
@@ -116,6 +119,7 @@ model Oficina {
 
 model Feedback {
   id          String    @id @default(uuid())
+  dataCriacao DateTime @default(now())
   conteudo    String
   nota        Int
   visitante   Visitante @relation(fields: [visitanteId], references: [id])

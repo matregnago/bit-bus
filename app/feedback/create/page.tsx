@@ -1,38 +1,38 @@
-'use client'
-import * as z from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+"use client";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import CpfInput, { cpfMask } from '@/components/form/CpfInput'
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import CpfInput, { cpfMask } from "@/components/form/CpfInput";
 
 const formSchema = z.object({
   nome: z.string().min(3),
   cpf: z.string().min(4),
   email: z.string().min(1),
   nota: z.string().min(3),
-  descricao: z.string().min(3)
-})
+  descricao: z.string().min(3),
+});
 
 export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nome: '',
-      cpf: '',
-      email: '',
-      nota: '',
-      descricao: ''
-    }
-  })
+      nome: "",
+      cpf: "",
+      email: "",
+      nota: "",
+      descricao: "",
+    },
+  });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     const request = {
@@ -41,21 +41,21 @@ export default function Home() {
       visitante: {
         nome: values.nome,
         cpf: cpfMask(values.cpf),
-        email: values.email
-      }
-    }
+        email: values.email,
+      },
+    };
     try {
-      fetch('/api/feedback', {
-        method: 'POST',
+      fetch("/api/feedback", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(request)
-      })
+        body: JSON.stringify(request),
+      });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Form {...form}>
@@ -75,7 +75,7 @@ export default function Home() {
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-              )
+              );
             }}
           />
           <FormField
@@ -90,7 +90,7 @@ export default function Home() {
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-              )
+              );
             }}
           />
           <FormField
@@ -105,7 +105,7 @@ export default function Home() {
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-              )
+              );
             }}
           />
           <FormField
@@ -120,7 +120,7 @@ export default function Home() {
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-              )
+              );
             }}
           />
           <FormField
@@ -135,7 +135,7 @@ export default function Home() {
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-              )
+              );
             }}
           />
           <Button type="submit" className="w-full">
@@ -147,5 +147,5 @@ export default function Home() {
         Política de doação
       </a>
     </main>
-  )
+  );
 }

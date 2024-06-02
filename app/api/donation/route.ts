@@ -13,11 +13,17 @@ export async function GET(request: Request) {
       include: {
         doador: true,
       },
+      orderBy: {
+        dataCriacao: "desc",
+      },
     });
   const doacaoItem: PrismaDoacaoItem[] = await prisma.doacaoItem.findMany({
     include: {
       doador: true,
       item: true,
+    },
+    orderBy: {
+      dataCriacao: "desc",
     },
   });
   // const doacoes: (PrismaDoacaoDinheiro | PrismaDoacaoItem)[] = [

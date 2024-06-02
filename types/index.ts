@@ -12,6 +12,7 @@ export type NavItem = {
 
 export type Item = {
   id: string;
+  dataCriacao: Date;
   nome: string;
   ano: number;
   quantidade: number;
@@ -39,6 +40,7 @@ export type Visitante = Pessoa;
 export type DoacaoDinheiro = {
   id: string;
   tipo: string;
+  dataCriacao: Date;
   quantiaDinheiro: number;
   doador: Doador;
 };
@@ -46,6 +48,7 @@ export type DoacaoDinheiro = {
 export type DoacaoItem = {
   id: string;
   tipo: string;
+  dataCriacao: Date;
   item: Item;
   doador: Doador;
 };
@@ -89,3 +92,12 @@ export type Visita = {
 };
 
 export type Event = Oficina | Visita;
+
+export type Feedback = {
+  id: string;
+  dataCriacao: Date;
+  conteudo: string;
+  nota: number;
+  visitante: Visitante;
+  visitanteId: string;
+};

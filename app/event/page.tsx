@@ -14,6 +14,7 @@ import { OficinasDataTable } from "./pastWorkshopsTable/data-table";
 import { columnsWorkshopTable } from "./pastWorkshopsTable/columns";
 import { VisitasDataTable } from "./pastVisitsTable/data-table";
 import { columnsVisitTable } from "./pastVisitsTable/columns";
+import Link from "next/link";
 
 interface EventListProps {
   events: Event[];
@@ -100,6 +101,9 @@ export default async function EventPage() {
             <TabsTrigger value="passados">Passados</TabsTrigger>
           </TabsList>
           <TabsContent value="agendados">
+            <Link className="" href="/event/create">
+              <Button>Criar Evento</Button>
+            </Link>
             <EventList events={upcomingEvents} />
           </TabsContent>
           <TabsContent value="passados">

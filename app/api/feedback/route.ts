@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { Feedback, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 export async function GET() {
-  const feedbacks = await prisma.feedback.findMany({
+  const feedbacks: Feedback[] = await prisma.feedback.findMany({
     include: {
       visitante: {
         include: {
@@ -13,8 +13,16 @@ export async function GET() {
               dataHora: "desc",
             },
           },
+          Oficina: {
+            orderBy: {
+              dataHora: "desc",
+            },
+          },
         },
       },
+    },
+    orderBy: {
+      dataCriacao: "desc",
     },
   });
 
@@ -25,7 +33,7 @@ export async function POST(request: Request) {
   const res = await request.json();
   const { visitante } = res;
   res.nota = Number(res.nota);
-  const novoFeedback = await prisma.feedback.create({
+  const novoFeedback: Feedback = await prisma.feedback.create({
     data: {
       conteudo: res.conteudo,
       nota: res.nota,
