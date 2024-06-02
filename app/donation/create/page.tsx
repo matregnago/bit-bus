@@ -26,6 +26,8 @@ import { useState } from "react";
 import CpfInput from "@/components/form/CpfInput";
 import { cpfMask } from "@/components/form/CpfInput";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const moneyDonationSchema = z.object({
   nomeDoador: z.string().min(3),
@@ -54,6 +56,8 @@ const formSchema = z.union([itemDonationSchema, moneyDonationSchema]);
 
 export default function Home() {
   const [formType, setFormType] = useState("Dinheiro");
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues:
@@ -126,6 +130,11 @@ export default function Home() {
           body: JSON.stringify(request),
         });
       } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Erro!",
+          description: "A doação não foi registrada",
+        });
         console.error(error);
       }
     } else if (isDoacaoDinheiro(values)) {
@@ -147,9 +156,22 @@ export default function Home() {
           body: JSON.stringify(request),
         });
       } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Erro!",
+          description: "A doação não foi registrada",
+        });
         console.error(error);
       }
     }
+    router.refresh();
+    router.push(`/donation`);
+    setTimeout(() => {
+      toast({
+        title: "Sucesso!",
+        description: "A doação foi registrada com sucesso!",
+      });
+    }, 1000);
   };
   const handleTipoChange = (value: string) => {
     const [nomeDoador, email, cpf] = form.getValues([

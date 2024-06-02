@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import { Event, Oficina, Visita } from "@/types";
 
 const prisma = new PrismaClient();
 
-const pastEventsSort = (eventA, eventB) => {
+const pastEventsSort = (eventA: Event, eventB: Event) => {
   if (eventA.dataHora > eventB.dataHora) {
     return -1;
   } else if (eventA.dataHora < eventB.dataHora) {
@@ -12,7 +13,8 @@ const pastEventsSort = (eventA, eventB) => {
     return 0;
   }
 };
-const upcomingEventsSort = (eventA, eventB) => {
+
+const upcomingEventsSort = (eventA: Event, eventB: Event) => {
   if (eventA.dataHora > eventB.dataHora) {
     return 1;
   } else if (eventA.dataHora < eventB.dataHora) {
@@ -24,27 +26,39 @@ const upcomingEventsSort = (eventA, eventB) => {
 const dateNow = new Date();
 
 export async function GET() {
-  const visitas = await prisma.visita.findMany();
-  const oficinas = await prisma.oficina.findMany();
-  const visitasAddType = visitas.map((visita) => {
-    return { ...visita, tipo: "visita" };
+  const visitas: Visita[] = await prisma.visita.findMany({
+    include: {
+      local: true,
+      visitantes: true,
+      organizador: true,
+    },
   });
-  const oficinasAddType = oficinas.map((oficina) => {
-    return { ...oficina, tipo: "oficina" };
+  const oficinas: Oficina[] = await prisma.oficina.findMany({
+    include: {
+      local: true,
+      visitantes: true,
+      palestrante: true,
+    },
   });
 
-  const events = visitasAddType.concat(oficinasAddType);
-
-  const pastEvents = events.filter((event) => {
-    return event.dataHora < dateNow;
-  });
+  const events: Event[] = [...visitas, ...oficinas];
   const upcomingEvents = events.filter((event) => {
     return event.dataHora >= dateNow;
   });
 
-  const returnArray = [
-    pastEvents.sort(pastEventsSort),
-    upcomingEvents.sort(upcomingEventsSort),
-  ];
-  return NextResponse.json(returnArray);
+  const pastWorkshops = oficinas.filter((oficina) => {
+    return oficina.dataHora < dateNow;
+  });
+  const pastVisits = visitas.filter((visita) => {
+    return visita.dataHora < dateNow;
+  });
+
+  const returnObject = {
+    upcomingEvents: upcomingEvents.sort(upcomingEventsSort),
+    pastEvents: {
+      pastWorkshops: pastWorkshops.sort(pastEventsSort),
+      pastVisits: pastVisits.sort(pastEventsSort),
+    },
+  };
+  return NextResponse.json(returnObject);
 }

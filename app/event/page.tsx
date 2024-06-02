@@ -8,8 +8,33 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Oficina, Visita, Event } from "@/types";
+import { Button } from "@/components/ui/button";
+import { OficinasDataTable } from "./pastWorkshopsTable/data-table";
+import { columnsWorkshopTable } from "./pastWorkshopsTable/columns";
+import { VisitasDataTable } from "./pastVisitsTable/data-table";
+import { columnsVisitTable } from "./pastVisitsTable/columns";
 
-const VisitaItem = ({ visita }) => (
+interface EventListProps {
+  events: Event[];
+}
+interface OficinaCardProps {
+  oficina: Oficina;
+}
+
+interface VisitaCardProps {
+  visita: Visita;
+}
+
+interface EventAPIResponse {
+  upcomingEvents: Event[];
+  pastEvents: {
+    pastWorkshops: Oficina[];
+    pastVisits: Visita[];
+  };
+}
+
+const VisitaItem = ({ visita }: VisitaCardProps) => (
   <Card className="min-w-80">
     <CardHeader>
       <CardTitle>Visita</CardTitle>
@@ -17,40 +42,40 @@ const VisitaItem = ({ visita }) => (
     </CardHeader>
     <CardContent>
       <Badge variant="outline">Visita</Badge>
-      <p>ID: {visita.id}</p>
       <p>Data e Hora: {new Date(visita.dataHora).toLocaleString()}</p>
-      <p>Organizador ID: {visita.organizadorId}</p>
-      <p>Local: {visita.locald}</p>
+      <Button variant="secondary">Ver detalhes</Button>
     </CardContent>
   </Card>
 );
 
-const OficinaItem = ({ oficina }) => (
+const OficinaItem = ({ oficina }: OficinaCardProps) => (
   <Card className="min-w-80">
     <CardHeader>
       <CardTitle>{oficina.titulo}</CardTitle>
-      <CardDescription></CardDescription>
+      <CardDescription>{oficina.resumo}</CardDescription>
     </CardHeader>
     <CardContent>
       <Badge variant="outline">Oficina</Badge>
-      <p>ID: {oficina.id}</p>
-      <p>Título: {oficina.titulo}</p>
       <p>Data e Hora: {new Date(oficina.dataHora).toLocaleString()}</p>
       <p>Duração: {oficina.duracao}</p>
-      <p>Resumo: {oficina.resumo}</p>
-      <p>Local ID: {oficina.localId}</p>
-      <p>Palestrante ID: {oficina.palestranteId}</p>
+      <Button variant="secondary">Ver detalhes</Button>
     </CardContent>
   </Card>
 );
 
-const EventList = ({ events }) => {
+const EventList = ({ events }: EventListProps) => {
+  const isOficina = (event: Event): event is Oficina => {
+    return "resumo" in event;
+  };
+  const isVisita = (event: Event): event is Visita => {
+    return "organizador" in event;
+  };
   return (
-    <div className="flex flex-col gap-6">
+    <div>
       {events.map((event) => {
-        if (event.tipo === "visita") {
+        if (isVisita(event)) {
           return <VisitaItem key={event.id} visita={event} />;
-        } else if (event.tipo === "oficina") {
+        } else if (isOficina(event)) {
           return <OficinaItem key={event.id} oficina={event} />;
         } else {
           return null;
@@ -64,12 +89,12 @@ export default async function EventPage() {
   const data = await fetch("http://localhost:3000/api/events", {
     cache: "no-cache",
   });
-  const events = await data.json();
-  const [pastEvents, upcomingEvents] = events;
+  const events: EventAPIResponse = await data.json();
+  const { pastEvents, upcomingEvents } = events;
   return (
     <ScrollArea className="h-full">
-      <div>
-        <Tabs defaultValue="agendados" className="w-[400px]">
+      <div className="">
+        <Tabs defaultValue="agendados" className="">
           <TabsList>
             <TabsTrigger value="agendados">Agendados</TabsTrigger>
             <TabsTrigger value="passados">Passados</TabsTrigger>
@@ -78,7 +103,17 @@ export default async function EventPage() {
             <EventList events={upcomingEvents} />
           </TabsContent>
           <TabsContent value="passados">
-            <EventList events={pastEvents} />
+            <h1>Oficinas passadas</h1>
+            <OficinasDataTable
+              columns={columnsWorkshopTable}
+              data={pastEvents.pastWorkshops}
+            />
+            <h1>Visitas passadas</h1>
+            <VisitasDataTable
+              data={pastEvents.pastVisits}
+              columns={columnsVisitTable}
+            />
+            <h1>Visitações passadas</h1>
           </TabsContent>
         </Tabs>
       </div>

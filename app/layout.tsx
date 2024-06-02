@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import { navItems } from "@/constants/data";
 import Sidebar from "@/components/layout/sidebar";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           <Sidebar />
           <main className="w-full pt-16">{children}</main>
         </div>
+        <Toaster />
       </body>
     </html>
   );
