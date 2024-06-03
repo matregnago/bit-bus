@@ -55,3 +55,13 @@ export async function POST(request: Request) {
   });
   return NextResponse.json({ createQuery });
 }
+
+export async function DELETE(request: Request) {
+  const id: string = await request.json()
+  const delWorkshop = prisma.oficina.delete({
+    where: {
+      id
+    }
+  })
+  return NextResponse.json(delWorkshop)
+}

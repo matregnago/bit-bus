@@ -34,7 +34,7 @@ model DoacaoDinheiro {
   dataCriacao     DateTime @default(now())
   tipo            String   @default("Dinheiro")
   quantiaDinheiro Float
-  doador          Doador   @relation(fields: [doadorId], references: [id])
+  doador          Doador   @relation(fields: [doadorId], references: [id], onDelete: Cascade)
   doadorId        String
 }
 
@@ -42,9 +42,9 @@ model DoacaoItem {
   id           String     @id @default(uuid())
   dataCriacao  DateTime @default(now())
   tipo         String     @default("Item")
-  item         ItemAcervo @relation(fields: [itemAcervoId], references: [id])
+  item         ItemAcervo @relation(fields: [itemAcervoId], references: [id], onDelete: Cascade)
   itemAcervoId String
-  doador       Doador     @relation(fields: [doadorId], references: [id])
+  doador       Doador     @relation(fields: [doadorId], references: [id], onDelete: Cascade)
   doadorId     String
 }
 
@@ -89,9 +89,9 @@ model Organizador {
 model Visita {
   id            String      @id @default(uuid())
   dataHora      DateTime 
-  local         Local       @relation(fields: [localId], references: [id])
+  local         Local       @relation(fields: [localId], references: [id], onDelete: Cascade)
   visitantes    Visitante[]
-  organizador   Organizador @relation(fields: [organizadorId], references: [id])
+  organizador   Organizador @relation(fields: [organizadorId], references: [id], onDelete: Cascade)
   organizadorId String
   localId       String
 }
@@ -108,10 +108,10 @@ model Oficina {
   id            String      @id @default(uuid())
   titulo        String
   dataHora      DateTime 
-  local         Local       @relation(fields: [localId], references: [id])
+  local         Local       @relation(fields: [localId], references: [id], onDelete: Cascade)
   duracao       String
   resumo        String
-  palestrante   Palestrante @relation(fields: [palestranteId], references: [id])
+  palestrante   Palestrante @relation(fields: [palestranteId], references: [id], onDelete: Cascade)
   visitantes    Visitante[]
   localId       String
   palestranteId String
@@ -122,6 +122,11 @@ model Feedback {
   dataCriacao DateTime @default(now())
   conteudo    String
   nota        Int
-  visitante   Visitante @relation(fields: [visitanteId], references: [id])
+  visitante   Visitante @relation(fields: [visitanteId], references: [id], onDelete: Cascade)
   visitanteId String
+}
+
+model Teste {
+  id          String    @id @default(uuid())
+  nome String
 }

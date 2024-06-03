@@ -141,7 +141,7 @@ export default function Home() {
         }
       }
       try {
-        fetch('/api/workshop', {
+        fetch('/api/events/workshop', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -169,7 +169,7 @@ export default function Home() {
         }
       }
       try {
-        fetch('/api/visitation', {
+        fetch('/api/events/visitation', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
