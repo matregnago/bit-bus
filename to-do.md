@@ -12,7 +12,7 @@
 - [ ] Ajustar tipo dos inputs nos forms (wip)
 - [ ] Ajustar validação dos formulários no zod schema (wip)
 - [ ] ScrollArea nos forms
-- [ ] Página de Eventos agendados
-- [ ] Páginas de Eventos passados (tabela)
-- [ ] Página de feedbacks
-- [ ] Adicionar data de criação nas tabelas do prisma
+- [x] Página de Eventos agendados
+- [x] Páginas de Eventos passados (tabela)
+- [x] Página de feedbacks
+- [x] Adicionar data de criação nas tabelas do prisma
