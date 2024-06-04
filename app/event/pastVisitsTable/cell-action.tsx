@@ -24,18 +24,21 @@ import { Visita } from "@/types/index";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import deleteVisitAction from "../actions/deleteVisit";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface CellActionProps {
   data: Visita;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+  const router = useRouter();
   const visita = data;
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
   const onConfirm = async () => {
     deleteVisitAction(visita.id);
+    router.refresh();
   };
 
   return (

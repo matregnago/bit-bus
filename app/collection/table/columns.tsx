@@ -1,6 +1,6 @@
 "use client";
 
-import { Item } from "@/types";
+import { DoacaoItem } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
@@ -15,30 +15,35 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Icons } from "@/components/icons";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
+import Link from "next/link";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export const columns: ColumnDef<Item>[] = [
+export const columns: ColumnDef<DoacaoItem>[] = [
   {
-    accessorKey: "nome",
+    accessorKey: "item.nome",
+    id: "nome",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Nome" />
     ),
   },
   {
-    accessorKey: "ano",
+    accessorKey: "item.ano",
+    id: "ano",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Ano" />
     ),
   },
   {
-    accessorKey: "quantidade",
+    accessorKey: "item.quantidade",
+    id: "quantidade",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantidade" />
     ),
   },
   {
-    accessorKey: "tipo",
+    accessorKey: "item.tipo",
+    id: "tipo",
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
@@ -49,7 +54,7 @@ export const columns: ColumnDef<Item>[] = [
   {
     id: "acoes",
     cell: ({ row }) => {
-      const item = row.original;
+      const doacao = row.original;
       const IconEdit = Icons["edit"];
       const IconDelete = Icons["delete"];
       const IconDetails = Icons["details"];
@@ -69,17 +74,19 @@ export const columns: ColumnDef<Item>[] = [
               Copiar id do item
             </DropdownMenuItem> */}
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <IconDetails className="mr-2 h-4 w-4" /> Detalhes
-            </DropdownMenuItem>
-            <DropdownMenuItem>
+            <Link href={`/donation/${doacao.id}`}>
+              <DropdownMenuItem>
+                <IconDetails className="mr-2 h-4 w-4" /> Detalhes
+              </DropdownMenuItem>
+            </Link>
+            {/* <DropdownMenuItem>
               <IconEdit className="mr-2 h-4 w-4" />
               Editar
             </DropdownMenuItem>
             <DropdownMenuItem>
               <IconDelete className="mr-2 h-4 w-4" />
               Excluir
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );

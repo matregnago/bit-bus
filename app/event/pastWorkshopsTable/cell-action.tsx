@@ -24,18 +24,21 @@ import { Oficina } from "@/types/index";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import deleteWorkshopAction from "../actions/deleteWorkshop";
+import { useRouter } from "next/navigation";
 
 interface CellActionProps {
   data: Oficina;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+  const router = useRouter();
   const oficina = data;
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
   const onConfirm = async () => {
     deleteWorkshopAction(oficina.id);
+    router.refresh();
   };
 
   return (

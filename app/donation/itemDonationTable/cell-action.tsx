@@ -24,18 +24,21 @@ import { DoacaoItem } from "@/types/index";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import deleteItemDonation from "../actions/deleteItemDonation";
+import { useRouter } from "next/navigation";
 
 interface CellActionProps {
   data: DoacaoItem;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+  const router = useRouter();
   const doacaoItem = data;
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
   const onConfirm = async () => {
     deleteItemDonation(doacaoItem.id);
+    router.refresh();
   };
 
   return (

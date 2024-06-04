@@ -3,6 +3,17 @@ import { PrismaClient, DoacaoItem as PrismaDoacaoItem } from "@prisma/client";
 import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
+export async function GET() {
+  const doacoesItem: PrismaDoacaoItem[] = await prisma.doacaoItem.findMany({
+    include: {
+      item: true,
+    },
+  });
+  return NextResponse.json({
+    doacoesItem,
+  });
+}
+
 export async function POST(request: Request) {
   const res: DoacaoItem = await request.json();
   const { item, doador } = res;

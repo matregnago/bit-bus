@@ -24,18 +24,21 @@ import { DoacaoDinheiro } from "@/types/index";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import deleteMoneyDonation from "../actions/deleteMoneyDonation";
+import { useRouter } from "next/navigation";
 
 interface CellActionProps {
   data: DoacaoDinheiro;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+  const router = useRouter();
   const doacaoDinheiro = data;
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
   const onConfirm = async () => {
     deleteMoneyDonation(doacaoDinheiro.id);
+    router.refresh();
   };
 
   return (
