@@ -57,11 +57,13 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const id: string = await request.json()
-  const delWorkshop = prisma.oficina.delete({
+  const { id } = await request.json();
+  console.log(id);
+  const delWorkshop = await prisma.oficina.delete({
     where: {
-      id
-    }
-  })
-  return NextResponse.json(delWorkshop)
+      id,
+    },
+  });
+  console.log(delWorkshop);
+  return NextResponse.json({ delWorkshop });
 }

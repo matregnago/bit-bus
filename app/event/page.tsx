@@ -44,7 +44,9 @@ const VisitaItem = ({ visita }: VisitaCardProps) => (
     <CardContent>
       <Badge variant="outline">Visita</Badge>
       <p>Data e Hora: {new Date(visita.dataHora).toLocaleString()}</p>
-      <Button variant="secondary">Ver detalhes</Button>
+      <Link href={`/event/${visita.id}`}>
+        <Button variant="secondary">Ver detalhes</Button>
+      </Link>
     </CardContent>
   </Card>
 );
@@ -59,7 +61,9 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => (
       <Badge variant="outline">Oficina</Badge>
       <p>Data e Hora: {new Date(oficina.dataHora).toLocaleString()}</p>
       <p>Duração: {oficina.duracao}</p>
-      <Button variant="secondary">Ver detalhes</Button>
+      <Link href={`/event/${oficina.id}`}>
+        <Button variant="secondary">Ver detalhes</Button>
+      </Link>
     </CardContent>
   </Card>
 );
@@ -117,7 +121,6 @@ export default async function EventPage() {
               data={pastEvents.pastVisits}
               columns={columnsVisitTable}
             />
-            <h1>Visitações passadas</h1>
           </TabsContent>
         </Tabs>
       </div>

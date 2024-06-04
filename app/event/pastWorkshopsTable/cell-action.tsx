@@ -20,22 +20,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Icons } from "@/components/icons";
-import { Visita } from "@/types/index";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import deleteVisitAction from "../actions/deleteVisit";
+import { Oficina } from "@/types/index";
+import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+import deleteWorkshopAction from "../actions/deleteWorkshop";
 
 interface CellActionProps {
-  data: Visita;
+  data: Oficina;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  const visita = data;
+  const oficina = data;
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
   const onConfirm = async () => {
-    deleteVisitAction(visita.id);
+    deleteWorkshopAction(oficina.id);
   };
 
   return (
@@ -51,7 +51,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link href={`/event/${visita.id}`}>
+            <Link href={`/event/${oficina.id}`}>
               <DropdownMenuItem>
                 <IconDetails className="mr-2 h-4 w-4" /> Detalhes
               </DropdownMenuItem>

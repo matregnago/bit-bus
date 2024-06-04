@@ -1,16 +1,16 @@
-'use client'
-import * as z from 'zod'
-import { useForm, useFieldArray } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as React from 'react'
+"use client";
+import * as z from "zod";
+import { useForm, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as React from "react";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
-} from '@/components/ui/form'
+  FormMessage,
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
@@ -18,21 +18,21 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { format } from 'date-fns'
-import { Calendar as CalendarIcon } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Calendar } from '@/components/ui/calendar'
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
-import { useState } from 'react'
-import CpfInput, { cpfMask } from '@/components/form/CpfInput'
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useState } from "react";
+import CpfInput, { cpfMask } from "@/components/form/CpfInput";
 
 const oficinaSchema = z.object({
   data: z.date(),
@@ -51,10 +51,10 @@ const oficinaSchema = z.object({
     z.object({
       nome: z.string().min(3),
       email: z.string().min(3),
-      cpf: z.string().min(3)
+      cpf: z.string().min(3),
     })
-  )
-})
+  ),
+});
 
 const visitaSchema = z.object({
   data: z.date(),
@@ -70,57 +70,57 @@ const visitaSchema = z.object({
     z.object({
       nome: z.string().min(3),
       email: z.string().min(3),
-      cpf: z.string().min(3)
+      cpf: z.string().min(3),
     })
-  )
-})
-const formSchema = z.union([visitaSchema, oficinaSchema])
+  ),
+});
+const formSchema = z.union([visitaSchema, oficinaSchema]);
 
 export default function Home() {
-  const [formType, setFormType] = useState('Oficina')
+  const [formType, setFormType] = useState("Oficina");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues:
-      formType === 'Visita'
+      formType === "Visita"
         ? {
             data: undefined,
-            rua: '',
-            bairro: '',
-            cidade: '',
-            estado: '',
-            cep: '',
-            cpfOrganizador: '',
-            nomeOrganizador: '',
-            emailOrganizador: ''
+            rua: "",
+            bairro: "",
+            cidade: "",
+            estado: "",
+            cep: "",
+            cpfOrganizador: "",
+            nomeOrganizador: "",
+            emailOrganizador: "",
           }
         : {
             data: undefined,
-            rua: '',
-            bairro: '',
-            cidade: '',
-            estado: '',
-            cep: '',
-            nomePalestrante: '',
-            cpfPalestrante: '',
-            emailPalestrante: '',
-            titulo: '',
-            duracao: '',
-            resumo: ''
-          }
-  })
+            rua: "",
+            bairro: "",
+            cidade: "",
+            estado: "",
+            cep: "",
+            nomePalestrante: "",
+            cpfPalestrante: "",
+            emailPalestrante: "",
+            titulo: "",
+            duracao: "",
+            resumo: "",
+          },
+  });
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: 'visitantes'
-  })
+    name: "visitantes",
+  });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    const visitantes = values.visitantes.map(visitante => {
+    const visitantes = values.visitantes.map((visitante) => {
       return {
         ...visitante,
-        cpf: cpfMask(visitante.cpf)
-      }
-    })
-    if (formType === 'Oficina') {
+        cpf: cpfMask(visitante.cpf),
+      };
+    });
+    if (formType === "Oficina") {
       const request = {
         dataHora: values.data,
         titulo: values.titulo,
@@ -131,27 +131,27 @@ export default function Home() {
           bairro: values.bairro,
           cidade: values.cidade,
           estado: values.estado,
-          cep: values.cep
+          cep: values.cep,
         },
         visitantes,
         palestrante: {
           nome: values.nomePalestrante,
           cpf: cpfMask(values.cpfPalestrante),
-          email: values.emailPalestrante
-        }
-      }
+          email: values.emailPalestrante,
+        },
+      };
       try {
-        fetch('/api/events/workshop', {
-          method: 'POST',
+        fetch("/api/events/workshop", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(request)
-        })
+          body: JSON.stringify(request),
+        });
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
-    } else if (formType === 'Visita') {
+    } else if (formType === "Visita") {
       const request = {
         dataHora: values.data,
         local: {
@@ -159,42 +159,42 @@ export default function Home() {
           bairro: values.bairro,
           cidade: values.cidade,
           estado: values.estado,
-          cep: values.cep
+          cep: values.cep,
         },
         visitantes,
         organizador: {
           nome: values.nomeOrganizador,
           cpf: cpfMask(values.cpfOrganizador),
-          email: values.emailOrganizador
-        }
-      }
+          email: values.emailOrganizador,
+        },
+      };
       try {
-        fetch('/api/events/visitation', {
-          method: 'POST',
+        fetch("/api/events/visitation", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(request)
-        })
+          body: JSON.stringify(request),
+        });
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
-  }
+  };
   function addNovoVisitante() {
     append({
-      nome: '',
-      cpf: '',
-      email: ''
-    })
+      nome: "",
+      cpf: "",
+      email: "",
+    });
   }
-  const handleTipoChange = value => {
+  const handleTipoChange = (value) => {
     const [data, rua, bairro, cidade, estado, cep, visitantes] = form.getValues(
-      ['data', 'rua', 'bairro', 'cidade', 'estado', 'cep', 'visitantes']
-    )
-    setFormType(value)
+      ["data", "rua", "bairro", "cidade", "estado", "cep", "visitantes"]
+    );
+    setFormType(value);
     form.reset(
-      formType === 'Oficina'
+      formType === "Oficina"
         ? {
             data,
             rua,
@@ -202,10 +202,10 @@ export default function Home() {
             cidade,
             estado,
             cep,
-            nomeOrganizador: '',
-            cpfOrganizador: '',
-            emailOrganizador: '',
-            visitantes
+            nomeOrganizador: "",
+            cpfOrganizador: "",
+            emailOrganizador: "",
+            visitantes,
           }
         : {
             data,
@@ -214,16 +214,16 @@ export default function Home() {
             cidade,
             estado,
             cep,
-            nomePalestrante: '',
-            cpfPalestrante: '',
-            emailPalestrante: '',
-            titulo: '',
-            resumo: '',
-            duracao: '',
-            visitantes
+            nomePalestrante: "",
+            cpfPalestrante: "",
+            emailPalestrante: "",
+            titulo: "",
+            resumo: "",
+            duracao: "",
+            visitantes,
           }
-    )
-  }
+    );
+  };
   return (
     <div>
       <div className="text-center mt-48 mb-10">
@@ -243,14 +243,14 @@ export default function Home() {
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
-                          variant={'outline'}
+                          variant={"outline"}
                           className={cn(
-                            'w-[240px] pl-3 text-left font-normal',
-                            !field.value && 'text-muted-foreground'
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, "PPP")
                           ) : (
                             <span>Escolha uma data</span>
                           )}
@@ -263,8 +263,8 @@ export default function Home() {
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
-                        disabled={date =>
-                          date > new Date() || date < new Date('1900-01-01')
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
                         }
                         initialFocus
                       />
@@ -286,7 +286,7 @@ export default function Home() {
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )
+                );
               }}
             />
             <FormField
@@ -301,7 +301,7 @@ export default function Home() {
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )
+                );
               }}
             />
             <FormField
@@ -316,7 +316,7 @@ export default function Home() {
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )
+                );
               }}
             />
             <FormField
@@ -331,7 +331,7 @@ export default function Home() {
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )
+                );
               }}
             />
             <FormField
@@ -346,7 +346,7 @@ export default function Home() {
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )
+                );
               }}
             />
             <Select
@@ -366,7 +366,7 @@ export default function Home() {
               </SelectContent>
             </Select>
 
-            {formType === 'Oficina' ? (
+            {formType === "Oficina" ? (
               <>
                 <FormField
                   control={form.control}
@@ -384,7 +384,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -402,7 +402,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -421,7 +421,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -440,7 +440,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -459,7 +459,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -474,7 +474,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
               </>
@@ -496,7 +496,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -514,7 +514,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
                 <FormField
@@ -533,7 +533,7 @@ export default function Home() {
                         </FormControl>
                         <FormMessage />
                       </FormItem>
-                    )
+                    );
                   }}
                 />
               </>
@@ -561,7 +561,7 @@ export default function Home() {
                             </FormControl>
                             <FormMessage />
                           </FormItem>
-                        )
+                        );
                       }}
                     />
                     <FormField
@@ -579,7 +579,7 @@ export default function Home() {
                             </FormControl>
                             <FormMessage />
                           </FormItem>
-                        )
+                        );
                       }}
                     />
                     <FormField
@@ -598,14 +598,14 @@ export default function Home() {
                             </FormControl>
                             <FormMessage />
                           </FormItem>
-                        )
+                        );
                       }}
                     />
                     <button type="button" onClick={() => remove(index)}>
                       X
                     </button>
                   </div>
-                )
+                );
               })}
             </div>
             <pre>{JSON.stringify(form.watch(), null, 2)}</pre>
@@ -619,5 +619,5 @@ export default function Home() {
         </a>
       </main>
     </div>
-  )
+  );
 }

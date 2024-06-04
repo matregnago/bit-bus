@@ -48,3 +48,14 @@ export async function POST(request: Request) {
     novoFeedback,
   });
 }
+export async function DELETE(request: Request) {
+  const { id } = await request.json();
+  console.log(id);
+  const delFeedback = await prisma.feedback.delete({
+    where: {
+      id,
+    },
+  });
+  console.log(delFeedback);
+  return NextResponse.json({ delFeedback });
+}
