@@ -11,8 +11,8 @@ export type NavItem = {
 };
 
 export type Item = {
-  id: string;
-  dataCriacao: Date;
+  id?: string;
+  dataCriacao?: Date;
   nome: string;
   ano: number;
   quantidade: number;
@@ -26,7 +26,7 @@ export type Item = {
 };
 
 type Pessoa = {
-  id: string;
+  id?: string;
   nome: string;
   cpf: string;
   email: string;
@@ -38,17 +38,17 @@ export type Palestrante = Pessoa;
 export type Visitante = Pessoa;
 
 export type DoacaoDinheiro = {
-  id: string;
+  id?: string;
   tipo: string;
-  dataCriacao: Date;
+  dataCriacao?: Date;
   quantiaDinheiro: number;
   doador: Doador;
 };
 
 export type DoacaoItem = {
-  id: string;
+  id?: string;
   tipo: string;
-  dataCriacao: Date;
+  dataCriacao?: Date;
   item: Item;
   doador: Doador;
 };
@@ -60,7 +60,7 @@ export type optionsSelectTableFilter = {
 };
 
 export type Local = {
-  id: string;
+  id?: string;
   rua: string;
   bairro: string;
   cidade: string;
@@ -69,7 +69,7 @@ export type Local = {
 };
 
 export type Oficina = {
-  id: string;
+  id?: string;
   titulo: string;
   dataHora: Date;
   local: Local;
@@ -77,27 +77,27 @@ export type Oficina = {
   resumo: string;
   palestrante: Palestrante;
   visitantes: Visitante[];
-  localId: string;
-  palestranteId: string;
+  localId?: string;
+  palestranteId?: string;
 };
 
 export type Visita = {
-  id: string;
+  id?: string;
   dataHora: Date;
   local: Local;
   visitantes: Visitante[];
   organizador: Organizador;
-  organizadorId: String;
-  localId: String;
+  organizadorId?: String;
+  localId?: String;
 };
 
 export type Event = Oficina | Visita;
 
 export type Feedback = {
-  id: string;
-  dataCriacao: Date;
+  id?: string;
+  dataCriacao?: Date;
   conteudo: string;
   nota: number;
   visitante: Visitante;
-  visitanteId: string;
+  visitanteId?: string;
 };

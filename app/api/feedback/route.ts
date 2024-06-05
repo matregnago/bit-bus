@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { Feedback, PrismaClient } from "@prisma/client";
-
+import { PrismaClient, Visitante } from "@prisma/client";
+import { Feedback } from "@/types";
+import { Feedback as PrismaFeedback } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function GET() {
@@ -30,10 +31,24 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const res = await request.json();
+  const res: Feedback = await request.json();
   const { visitante } = res;
-  res.nota = Number(res.nota);
-  const novoFeedback: Feedback = await prisma.feedback.create({
+  const findVisitante: Visitante | null = await prisma.visitante.findUnique({
+    where: {
+      cpf: visitante.cpf,
+    },
+  });
+  if (findVisitante === null) {
+    return NextResponse.json(
+      {
+        message: "Visitante não encontrado",
+      },
+      {
+        status: 401,
+      }
+    );
+  }
+  const novoFeedback: PrismaFeedback = await prisma.feedback.create({
     data: {
       conteudo: res.conteudo,
       nota: res.nota,

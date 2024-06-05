@@ -17,8 +17,6 @@ export async function GET() {
 export async function POST(request: Request) {
   const res: DoacaoItem = await request.json();
   const { item, doador } = res;
-  item.ano = Number(item.ano);
-  item.quantidade = Number(item.quantidade);
   const novaDoacaoItem: PrismaDoacaoItem = await prisma.doacaoItem.create({
     data: {
       tipo: res.tipo,
