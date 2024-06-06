@@ -1,16 +1,16 @@
-"use client";
-import * as z from "zod";
-import { useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as React from "react";
+'use client'
+import * as z from 'zod'
+import { useForm, useFieldArray } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as React from 'react'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+  FormMessage
+} from '@/components/ui/form'
 import {
   Select,
   SelectContent,
@@ -18,25 +18,82 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
+  SelectValue
+} from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { format } from 'date-fns'
+import { Calendar as CalendarIcon } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Calendar } from '@/components/ui/calendar'
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
-import CpfInput, { cpfMask } from "@/components/form/CpfInput";
-import createWorkshop from "../actions/createWorkshop";
-import redirectDonationPage from "../actions/redirectEventPage";
-import createVisit from "../actions/createVisit";
+  PopoverTrigger
+} from '@/components/ui/popover'
+import { useState } from 'react'
+import { useToast } from '@/components/ui/use-toast'
+import CpfInput, { cpfMask } from '@/components/form/CpfInput'
+import createWorkshop from '../actions/createWorkshop'
+import redirectDonationPage from '../actions/redirectEventPage'
+import createVisit from '../actions/createVisit'
+import MultipleSelector, { Option } from '@/components/ui/multiple-selector'
+
+const mockSearch = async (value: string) => {
+  try {
+    const req = await fetch('http://localhost:3000/api/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        searchTerm: value
+      })
+    })
+    const data = await req.json()
+    const { opcoes } = data
+    console.log(opcoes)
+    return opcoes
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
+}
+
+const MultipleSelectorWithAsyncSearch = ({ field }) => {
+  const [isTriggered, setIsTriggered] = React.useState(false)
+
+  return (
+    <div className="">
+      <MultipleSelector
+        {...field}
+        hidePlaceholderWhenSelected
+        onSearch={async value => {
+          setIsTriggered(true)
+          const res = await mockSearch(value)
+          setIsTriggered(false)
+          return res
+        }}
+        placeholder="Digite o nome do item"
+        loadingIndicator={
+          <p className="py-2 text-center text-lg leading-10 text-muted-foreground">
+            loading...
+          </p>
+        }
+        emptyIndicator={
+          <p className="w-full text-center text-lg leading-10 text-muted-foreground">
+            no results found.
+          </p>
+        }
+      />
+    </div>
+  )
+}
+
+const optionSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+  disable: z.boolean().optional()
+})
 
 const oficinaSchema = z.object({
   data: z.date(),
@@ -51,14 +108,15 @@ const oficinaSchema = z.object({
   titulo: z.string().min(3),
   resumo: z.string().min(3),
   duracao: z.string().min(3),
+  itensacervo: z.array(optionSchema).min(1),
   visitantes: z.array(
     z.object({
       nome: z.string().min(3),
       email: z.string().min(3),
-      cpf: z.string().min(3),
+      cpf: z.string().min(3)
     })
-  ),
-});
+  )
+})
 
 const visitaSchema = z.object({
   data: z.date(),
@@ -70,71 +128,72 @@ const visitaSchema = z.object({
   nomeOrganizador: z.string().min(3),
   cpfOrganizador: z.string().min(3),
   emailOrganizador: z.string().min(3),
+  itensacervo: z.array(optionSchema).min(1),
   visitantes: z.array(
     z.object({
       nome: z.string().min(3),
       email: z.string().min(3),
-      cpf: z.string().min(3),
+      cpf: z.string().min(3)
     })
-  ),
-});
-const formSchema = z.union([visitaSchema, oficinaSchema]);
+  )
+})
+const formSchema = z.union([visitaSchema, oficinaSchema])
 
 export default function EventForm() {
-  const [formType, setFormType] = useState("Oficina");
-  const { toast } = useToast();
+  const [formType, setFormType] = useState('Oficina')
+  const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues:
-      formType === "Visita"
+      formType === 'Visita'
         ? {
             data: undefined,
-            rua: "",
-            bairro: "",
-            cidade: "",
-            estado: "",
-            cep: "",
-            cpfOrganizador: "",
-            nomeOrganizador: "",
-            emailOrganizador: "",
+            rua: '',
+            bairro: '',
+            cidade: '',
+            estado: '',
+            cep: '',
+            cpfOrganizador: '',
+            nomeOrganizador: '',
+            emailOrganizador: ''
           }
         : {
             data: undefined,
-            rua: "",
-            bairro: "",
-            cidade: "",
-            estado: "",
-            cep: "",
-            nomePalestrante: "",
-            cpfPalestrante: "",
-            emailPalestrante: "",
-            titulo: "",
-            duracao: "",
-            resumo: "",
-          },
-  });
+            rua: '',
+            bairro: '',
+            cidade: '',
+            estado: '',
+            cep: '',
+            nomePalestrante: '',
+            cpfPalestrante: '',
+            emailPalestrante: '',
+            titulo: '',
+            duracao: '',
+            resumo: ''
+          }
+  })
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "visitantes",
-  });
+    name: 'visitantes'
+  })
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     const isVisita = (
       values: z.infer<typeof visitaSchema> | z.infer<typeof oficinaSchema>
     ): values is z.infer<typeof visitaSchema> => {
-      return "nomeOrganizador" in values;
-    };
+      return 'nomeOrganizador' in values
+    }
     const isOficina = (
       values: z.infer<typeof visitaSchema> | z.infer<typeof oficinaSchema>
     ): values is z.infer<typeof oficinaSchema> => {
-      return "nomePalestrante" in values;
-    };
-    const visitantes = values.visitantes.map((visitante) => {
+      return 'nomePalestrante' in values
+    }
+    const visitantes = values.visitantes.map(visitante => {
       return {
         ...visitante,
-        cpf: cpfMask(visitante.cpf),
-      };
-    });
+        cpf: cpfMask(visitante.cpf)
+      }
+    })
     if (isOficina(values)) {
       const request = {
         dataHora: values.data,
@@ -146,28 +205,28 @@ export default function EventForm() {
           bairro: values.bairro,
           cidade: values.cidade,
           estado: values.estado,
-          cep: values.cep,
+          cep: values.cep
         },
         visitantes,
         palestrante: {
           nome: values.nomePalestrante,
           cpf: cpfMask(values.cpfPalestrante),
-          email: values.emailPalestrante,
-        },
-      };
+          email: values.emailPalestrante
+        }
+      }
       try {
-        await createWorkshop(request);
+        await createWorkshop(request)
         toast({
-          title: "Sucesso!",
-          description: "A oficina foi registrada com sucesso!",
-        });
-        redirectDonationPage();
+          title: 'Sucesso!',
+          description: 'A oficina foi registrada com sucesso!'
+        })
+        redirectDonationPage()
       } catch (error) {
         toast({
-          variant: "destructive",
-          title: "Erro!",
-          description: `A oficina não foi registrada Erro: ${error}`,
-        });
+          variant: 'destructive',
+          title: 'Erro!',
+          description: `A oficina não foi registrada Erro: ${error}`
+        })
       }
     } else if (isVisita(values)) {
       const request = {
@@ -177,45 +236,45 @@ export default function EventForm() {
           bairro: values.bairro,
           cidade: values.cidade,
           estado: values.estado,
-          cep: values.cep,
+          cep: values.cep
         },
         visitantes,
         organizador: {
           nome: values.nomeOrganizador,
           cpf: cpfMask(values.cpfOrganizador),
-          email: values.emailOrganizador,
-        },
-      };
+          email: values.emailOrganizador
+        }
+      }
       try {
-        await createVisit(request);
+        await createVisit(request)
         toast({
-          title: "Sucesso!",
-          description: "A visitação foi registrada com sucesso!",
-        });
-        redirectDonationPage();
+          title: 'Sucesso!',
+          description: 'A visitação foi registrada com sucesso!'
+        })
+        redirectDonationPage()
       } catch (error) {
         toast({
-          variant: "destructive",
-          title: "Erro!",
-          description: `A oficina não foi registrada Erro: ${error}`,
-        });
+          variant: 'destructive',
+          title: 'Erro!',
+          description: `A oficina não foi registrada Erro: ${error}`
+        })
       }
     }
-  };
+  }
   function addNovoVisitante() {
     append({
-      nome: "",
-      cpf: "",
-      email: "",
-    });
+      nome: '',
+      cpf: '',
+      email: ''
+    })
   }
   const handleTipoChange = (value: string) => {
     const [data, rua, bairro, cidade, estado, cep, visitantes] = form.getValues(
-      ["data", "rua", "bairro", "cidade", "estado", "cep", "visitantes"]
-    );
-    setFormType(value);
+      ['data', 'rua', 'bairro', 'cidade', 'estado', 'cep', 'visitantes']
+    )
+    setFormType(value)
     form.reset(
-      formType === "Oficina"
+      formType === 'Oficina'
         ? {
             data,
             rua,
@@ -223,10 +282,10 @@ export default function EventForm() {
             cidade,
             estado,
             cep,
-            nomeOrganizador: "",
-            cpfOrganizador: "",
-            emailOrganizador: "",
-            visitantes,
+            nomeOrganizador: '',
+            cpfOrganizador: '',
+            emailOrganizador: '',
+            visitantes
           }
         : {
             data,
@@ -235,16 +294,16 @@ export default function EventForm() {
             cidade,
             estado,
             cep,
-            nomePalestrante: "",
-            cpfPalestrante: "",
-            emailPalestrante: "",
-            titulo: "",
-            resumo: "",
-            duracao: "",
-            visitantes,
+            nomePalestrante: '',
+            cpfPalestrante: '',
+            emailPalestrante: '',
+            titulo: '',
+            resumo: '',
+            duracao: '',
+            visitantes
           }
-    );
-  };
+    )
+  }
   return (
     <div>
       <main className="mx-96  ">
@@ -265,14 +324,14 @@ export default function EventForm() {
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
-                            variant={"outline"}
+                            variant={'outline'}
                             className={cn(
-                              "w-full pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
+                              'w-full pl-3 text-left font-normal',
+                              !field.value && 'text-muted-foreground'
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "PPP")
+                              format(field.value, 'PPP')
                             ) : (
                               <span>Escolha uma data</span>
                             )}
@@ -285,8 +344,8 @@ export default function EventForm() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
+                          disabled={date =>
+                            date > new Date() || date < new Date('1900-01-01')
                           }
                           initialFocus
                         />
@@ -383,10 +442,23 @@ export default function EventForm() {
                   </SelectGroup>
                 </SelectContent>
               </Select>
+              <FormField
+                control={form.control}
+                name="itensacervo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Itens do Acervo</FormLabel>
+                    <FormControl>
+                      <MultipleSelectorWithAsyncSearch field={field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {formType === "Oficina" ? (
+              {formType === 'Oficina' ? (
                 <>
                   <FormField
                     control={form.control}
@@ -622,5 +694,5 @@ export default function EventForm() {
         </Form>
       </main>
     </div>
-  );
+  )
 }
