@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <ScrollArea className="h-full">
       <div className="mx-8">
-        <h1 className="text-black text-3xl font-bold mt-10 mb-6">Dashboard</h1>
+        <h1 className="text-3xl font-bold mt-10 mb-6">Dashboard</h1>
         <InfoCards />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-6">
           <Card className="col-span-4">

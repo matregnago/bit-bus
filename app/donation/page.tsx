@@ -34,6 +34,7 @@ export default async function EventPage() {
   const { doacaoDinheiro, doacaoItem } = await getDonations();
   return (
     <ScrollArea className="h-full">
+      <h1 className="text-3xl font-bold mb-5">Doações</h1>
       <div className="mx-7 flex items-start justify-between">
         <h1 className="font-bold text-xl">Doacoes de dinheiro</h1>
         <Link className="" href="/donation/create">

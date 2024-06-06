@@ -99,6 +99,7 @@ export default async function EventPage() {
   return (
     <ScrollArea className="h-full">
       <div className="">
+        <h1 className="text-3xl font-bold mb-5">Eventos</h1>
         <Tabs defaultValue="agendados" className="">
           <TabsList>
             <TabsTrigger value="agendados">Agendados</TabsTrigger>

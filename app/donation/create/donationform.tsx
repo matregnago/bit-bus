@@ -343,15 +343,15 @@ export default function DonationForm() {
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Tipo de Artefato</SelectLabel>
-                            <SelectItem value="processador">
+                            <SelectItem value="Processador">
                               Processador
                             </SelectItem>
-                            <SelectItem value="memoria">Memória</SelectItem>
-                            <SelectItem value="placaDeVideo">
+                            <SelectItem value="Memoria">Memória</SelectItem>
+                            <SelectItem value="Placa De Video">
                               Placa de video
                             </SelectItem>
-                            <SelectItem value="servidor">Servidor</SelectItem>
-                            <SelectItem value="disco">Disco</SelectItem>
+                            <SelectItem value="Servidor">Servidor</SelectItem>
+                            <SelectItem value="Disco">Disco</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>

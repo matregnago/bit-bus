@@ -34,27 +34,27 @@ export const navItems: NavItem[] = [
 
 export const tiposItem: optionsSelectTableFilter[] = [
   {
-    value: "processador",
+    value: "Processador",
     label: "Processador",
     icon: "processador",
   },
   {
-    value: "memoria",
+    value: "Memoria",
     label: "Memória",
     icon: "memoria",
   },
   {
-    value: "placaDeVideo",
+    value: "Placa de Video",
     label: "Placa de Vídeo",
     icon: "placaDeVideo",
   },
   {
-    value: "servidor",
+    value: "Servidor",
     label: "Servidor",
     icon: "servidor",
   },
   {
-    value: "disco",
+    value: "Disco",
     label: "Disco",
     icon: "disco",
   },

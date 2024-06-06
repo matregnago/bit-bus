@@ -14,6 +14,7 @@ export default async function EventPage() {
   const feedbacks: Feedback[] = await data.json();
   return (
     <ScrollArea className="h-full">
+      <h1 className="text-3xl font-bold mb-5">Feedbacks</h1>
       <Link className="" href="/feedback/create">
         <Button>Criar Feedback</Button>
       </Link>

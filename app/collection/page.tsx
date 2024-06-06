@@ -28,18 +28,18 @@ export default async function ShowcaseItems() {
   });
   return (
     <ScrollArea className="h-full">
-      <h1 className="text-black text-3xl font-bold">Acervo</h1>
       <div>
-        <Tabs defaultValue="tabela" className="">
+        {/* <Tabs defaultValue="tabela" className="">
           <TabsList>
-            <TabsTrigger value="tabela">Tabela</TabsTrigger>
-            <TabsTrigger value="cards">Cards</TabsTrigger>
+          <TabsTrigger value="tabela">Tabela</TabsTrigger>
+          <TabsTrigger value="cards">Cards</TabsTrigger>
           </TabsList>
-          <TabsContent value="tabela">
+          <TabsContent value="tabela"> */}
             <div className="container mx-auto">
+              <h1 className="text-3xl font-bold">Acervo</h1>
               <DataTable columns={columns} data={data} />
             </div>
-          </TabsContent>
+          {/* </TabsContent>
           <TabsContent value="cards">
             <section className="py-10">
               <div className="text-center">
@@ -47,7 +47,7 @@ export default async function ShowcaseItems() {
               </div>
             </section>
           </TabsContent>
-        </Tabs>
+        </Tabs> */}
       </div>
     </ScrollArea>
   );
