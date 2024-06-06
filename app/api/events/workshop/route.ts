@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 export async function POST(request: Request) {
   const res = await request.json();
-  const { local, visitantes, palestrante } = res;
+  const { local, visitantes, palestrante, itensAcervo } = res;
   const createQuery = await prisma.oficina.create({
     data: {
       titulo: res.titulo,
@@ -24,6 +24,9 @@ export async function POST(request: Request) {
             cep: local.cep,
           },
         },
+      },
+      itensAcervo:{
+        connect: itensAcervo
       },
       visitantes: {
         connectOrCreate: visitantes.map(

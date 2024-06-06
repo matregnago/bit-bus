@@ -1,26 +1,25 @@
-import { NextResponse } from 'next/server'
-import { PrismaClient, Prisma } from '@prisma/client'
-import { Item } from '@/types'
+import { NextResponse } from "next/server";
+import { PrismaClient, Prisma } from "@prisma/client";
+import { Item } from "@/types";
 
 interface APIRequestProps {
-  searchTerm: string
+  searchTerm: string;
 }
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-  console.log(request)
-  const { searchTerm }: APIRequestProps = await request.json()
-  const users = await prisma.itemAcervo.findMany({
+  const { searchTerm }: APIRequestProps = await request.json();
+  const items = await prisma.itemAcervo.findMany({
     where: {
       nome: {
         contains: searchTerm,
-        mode: 'insensitive'
-      }
-    }
-  })
-  const retorno = users.map(user => {
-    return { label: user.nome, value: user.nome }
-  })
-  return NextResponse.json({ opcoes: retorno })
+        mode: "insensitive",
+      },
+    },
+  });
+  const retorno = items.map((item) => {
+    return { label: item.nome, value: item.id };
+  });
+  return NextResponse.json({ opcoes: retorno });
 }
