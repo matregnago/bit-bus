@@ -97,21 +97,25 @@ export default async function EventPage() {
   const events: EventAPIResponse = await data.json();
   const { pastEvents, upcomingEvents } = events;
   return (
-    <ScrollArea className="h-full">
+    <ScrollArea className="h-full container mx-auto">
+      <title key="title">Eventos</title>
       <div className="">
-        <h1 className="text-3xl font-bold mb-5">Eventos</h1>
+        <h1 className="text-3xl font-bold my-4">Eventos</h1>
         <Tabs defaultValue="agendados" className="">
-          <TabsList>
-            <TabsTrigger value="agendados">Agendados</TabsTrigger>
-            <TabsTrigger value="passados">Passados</TabsTrigger>
-          </TabsList>
-          <TabsContent value="agendados">
-            <Link className="" href="/event/create">
-              <Button>Criar Evento</Button>
-            </Link>
-            <EventList events={upcomingEvents} />
-          </TabsContent>
-          <TabsContent value="passados">
+          <div className="flex items-start justify-between">
+            <TabsList>
+              <TabsTrigger value="agendados">Agendados</TabsTrigger>
+              <TabsTrigger value="passados">Passados</TabsTrigger>
+            </TabsList>
+            <TabsContent value="agendados" className="mb-8">
+              <Link className="" href="/event/create">
+                <Button>Criar Evento</Button>
+              </Link>
+            </TabsContent>
+          </div>
+          <EventList events={upcomingEvents} />
+          
+          <TabsContent value="passados" className="font-bold text-xl my-3">
             <h1>Oficinas passadas</h1>
             <OficinasDataTable
               columns={columnsWorkshopTable}

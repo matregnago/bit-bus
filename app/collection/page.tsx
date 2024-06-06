@@ -28,6 +28,7 @@ export default async function ShowcaseItems() {
   });
   return (
     <ScrollArea className="h-full">
+      <title key="title">Acervo</title>
       <div>
         {/* <Tabs defaultValue="tabela" className="">
           <TabsList>
@@ -36,7 +37,7 @@ export default async function ShowcaseItems() {
           </TabsList>
           <TabsContent value="tabela"> */}
             <div className="container mx-auto">
-              <h1 className="text-3xl font-bold">Acervo</h1>
+              <h1 className="text-3xl font-bold my-4">Acervo</h1>
               <DataTable columns={columns} data={data} />
             </div>
           {/* </TabsContent>
