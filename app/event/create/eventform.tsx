@@ -153,30 +153,30 @@ export default function EventForm() {
     defaultValues:
       formType === "Visita"
         ? {
-            data: undefined,
-            rua: "",
-            bairro: "",
-            cidade: "",
-            estado: "",
-            cep: "",
-            cpfOrganizador: "",
-            nomeOrganizador: "",
-            emailOrganizador: "",
-          }
+          data: undefined,
+          rua: "",
+          bairro: "",
+          cidade: "",
+          estado: "",
+          cep: "",
+          cpfOrganizador: "",
+          nomeOrganizador: "",
+          emailOrganizador: "",
+        }
         : {
-            data: undefined,
-            rua: "",
-            bairro: "",
-            cidade: "",
-            estado: "",
-            cep: "",
-            nomePalestrante: "",
-            cpfPalestrante: "",
-            emailPalestrante: "",
-            titulo: "",
-            duracao: "",
-            resumo: "",
-          },
+          data: undefined,
+          rua: "",
+          bairro: "",
+          cidade: "",
+          estado: "",
+          cep: "",
+          nomePalestrante: "",
+          cpfPalestrante: "",
+          emailPalestrante: "",
+          titulo: "",
+          duracao: "",
+          resumo: "",
+        },
   });
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -289,40 +289,40 @@ export default function EventForm() {
     form.reset(
       formType === "Oficina"
         ? {
-            data,
-            rua,
-            bairro,
-            cidade,
-            estado,
-            cep,
-            itensacervo,
-            nomeOrganizador: "",
-            cpfOrganizador: "",
-            emailOrganizador: "",
-            visitantes,
-          }
+          data,
+          rua,
+          bairro,
+          cidade,
+          estado,
+          cep,
+          itensacervo,
+          nomeOrganizador: "",
+          cpfOrganizador: "",
+          emailOrganizador: "",
+          visitantes,
+        }
         : {
-            data,
-            rua,
-            bairro,
-            cidade,
-            estado,
-            cep,
-            itensacervo,
-            nomePalestrante: "",
-            cpfPalestrante: "",
-            emailPalestrante: "",
-            titulo: "",
-            resumo: "",
-            duracao: "",
-            visitantes,
-          }
+          data,
+          rua,
+          bairro,
+          cidade,
+          estado,
+          cep,
+          itensacervo,
+          nomePalestrante: "",
+          cpfPalestrante: "",
+          emailPalestrante: "",
+          titulo: "",
+          resumo: "",
+          duracao: "",
+          visitantes,
+        }
     );
   };
   return (
     <div>
       <main className="mx-96  ">
-        <h1 className="text-3xl text-black">Cadastro de eventos</h1>
+        <h1 className="text-3xl">Cadastro de eventos</h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -359,9 +359,6 @@ export default function EventForm() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
                           initialFocus
                         />
                       </PopoverContent>
@@ -446,6 +443,19 @@ export default function EventForm() {
                 onValueChange={handleTipoChange}
                 defaultValue="Oficina"
               >
+                <FormField
+                  control={form.control}
+                  name="itensacervo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Itens do Acervo</FormLabel>
+                      <FormControl>
+                        <MultipleSelectorWithAsyncSearch field={field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <SelectTrigger>
                   <SelectValue placeholder="Tipo do evento" />
                 </SelectTrigger>
@@ -457,19 +467,6 @@ export default function EventForm() {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              <FormField
-                control={form.control}
-                name="itensacervo"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Itens do Acervo</FormLabel>
-                    <FormControl>
-                      <MultipleSelectorWithAsyncSearch field={field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

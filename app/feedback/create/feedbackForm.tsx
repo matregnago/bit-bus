@@ -75,6 +75,7 @@ export default function FeedackForm() {
   };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1 className="text-3xl">Deixe seu Feedback</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}

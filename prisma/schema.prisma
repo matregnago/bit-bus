@@ -129,8 +129,3 @@ model Feedback {
   visitante   Visitante @relation(fields: [visitanteId], references: [id], onDelete: Cascade)
   visitanteId String
 }
-
-model Teste {
-  id   String @id @default(uuid())
-  nome String
-}
