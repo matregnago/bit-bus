@@ -33,10 +33,11 @@ const getDonations = async (): Promise<DoacaoApiResponse> => {
 export default async function EventPage() {
   const { doacaoDinheiro, doacaoItem } = await getDonations();
   return (
-    <ScrollArea className="h-full">
-      <h1 className="text-3xl font-bold mb-5">Doações</h1>
-      <div className="mx-7 flex items-start justify-between">
-        <h1 className="font-bold text-xl">Doacoes de dinheiro</h1>
+    <ScrollArea className="h-full container mx-auto">
+      <title key="title">Doações</title>
+      <h1 className="text-3xl font-bold my-4">Doações</h1>
+      <div className="flex items-start justify-between">
+        <h1 className="font-bold text-xl">Doações de Dinheiro</h1>
         <Link className="" href="/donation/create">
           <Button>Criar doação</Button>
         </Link>
@@ -45,7 +46,7 @@ export default async function EventPage() {
         columns={columnsMoneyDonationTable}
         data={doacaoDinheiro}
       />
-      <h1 className="font-bold text-xl">Doacoes de Itens</h1>
+      <h1 className="font-bold text-xl my-3">Doações de Itens</h1>
       <DoacaoItemDataTable
         columns={columnsItemDonationTable}
         data={doacaoItem}

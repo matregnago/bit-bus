@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export default function Home() {
   return (
     <ScrollArea className="h-full">
+      <title key="title">Dashboard</title>
       <div className="mx-8">
         <h1 className="text-3xl font-bold mt-10 mb-6">Dashboard</h1>
         <InfoCards />
