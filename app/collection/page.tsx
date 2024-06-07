@@ -1,10 +1,9 @@
 import * as React from "react";
-import FilteredItems from "./cards/itemsCards";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DoacaoItem, Item } from "@/types";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { columns } from "./table/columns";
 import { DataTable } from "./table/data-table";
+import { Button } from "@/components/ui/button";
 
 const getItems = async (): Promise<DoacaoItem[]> => {
   try {
@@ -27,29 +26,14 @@ export default async function ShowcaseItems() {
     items.push(doacaoItem.item);
   });
   return (
-    <ScrollArea className="h-full">
-      <title key="title">Acervo</title>
-      <div>
-        {/* <Tabs defaultValue="tabela" className="">
-          <TabsList>
-          <TabsTrigger value="tabela">Tabela</TabsTrigger>
-          <TabsTrigger value="cards">Cards</TabsTrigger>
-          </TabsList>
-          <TabsContent value="tabela"> */}
-            <div className="container mx-auto">
-              <h1 className="text-3xl font-bold my-4">Acervo</h1>
-              <DataTable columns={columns} data={data} />
-            </div>
-          {/* </TabsContent>
-          <TabsContent value="cards">
-            <section className="py-10">
-              <div className="text-center">
-                <FilteredItems items={items} />
-              </div>
-            </section>
-          </TabsContent>
-        </Tabs> */}
-      </div>
-    </ScrollArea>
+    <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+      <ScrollArea className="h-full">
+        <div className="flex items-start justify-between mb-4">
+          <h1 className="text-3xl font-bold tracking-tight">Acervo</h1>
+          <Button className="text-xs md:text-sm">Add New</Button>
+        </div>
+        <DataTable columns={columns} data={data} />
+      </ScrollArea>
+    </div>
   );
 }

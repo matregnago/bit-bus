@@ -33,24 +33,23 @@ const getDonations = async (): Promise<DoacaoApiResponse> => {
 export default async function EventPage() {
   const { doacaoDinheiro, doacaoItem } = await getDonations();
   return (
-    <ScrollArea className="h-full container mx-auto">
-      <title key="title">Doações</title>
-      <h1 className="text-3xl font-bold my-4">Doações</h1>
-      <div className="flex items-start justify-between">
-        <h1 className="font-bold text-xl">Doações de Dinheiro</h1>
-        <Link className="" href="/donation/create">
-          <Button>Criar doação</Button>
-        </Link>
+    <ScrollArea className="h-full">
+      <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+        <title key="title">Doações</title>
+        <div className="flex items-start justify-between mb-4">
+          <h1 className="text-3xl font-bold tracking-tight">Doações</h1>
+          <Button className="text-xs md:text-sm">Add New</Button>
+        </div>
+        <DoacaoDinheiroDataTable
+          columns={columnsMoneyDonationTable}
+          data={doacaoDinheiro}
+        />
+        <h1 className="font-bold text-xl my-3">Doações de Itens</h1>
+        <DoacaoItemDataTable
+          columns={columnsItemDonationTable}
+          data={doacaoItem}
+        />
       </div>
-      <DoacaoDinheiroDataTable
-        columns={columnsMoneyDonationTable}
-        data={doacaoDinheiro}
-      />
-      <h1 className="font-bold text-xl my-3">Doações de Itens</h1>
-      <DoacaoItemDataTable
-        columns={columnsItemDonationTable}
-        data={doacaoItem}
-      />
     </ScrollArea>
   );
 }

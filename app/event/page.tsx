@@ -14,6 +14,8 @@ import { OficinasDataTable } from "./pastWorkshopsTable/data-table";
 import { columnsWorkshopTable } from "./pastWorkshopsTable/columns";
 import { VisitasDataTable } from "./pastVisitsTable/data-table";
 import { columnsVisitTable } from "./pastVisitsTable/columns";
+import { Separator } from "@/components/ui/separator";
+
 import Link from "next/link";
 
 interface EventListProps {
@@ -76,7 +78,7 @@ const EventList = ({ events }: EventListProps) => {
     return "organizador" in event;
   };
   return (
-    <div>
+    <div className="grid grid-cols-3 gap-6">
       {events.map((event) => {
         if (isVisita(event)) {
           return <VisitaItem key={event.id} visita={event} />;
@@ -97,31 +99,33 @@ export default async function EventPage() {
   const events: EventAPIResponse = await data.json();
   const { pastEvents, upcomingEvents } = events;
   return (
-    <ScrollArea className="h-full container mx-auto">
+    <ScrollArea className="h-full">
       <title key="title">Eventos</title>
-      <div className="">
-        <h1 className="text-3xl font-bold my-4">Eventos</h1>
+      <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+        <div className="flex items-start justify-between">
+          <h1 className="text-3xl font-bold tracking-tight">Eventos</h1>
+          <Button className="text-xs md:text-sm">Add New</Button>
+        </div>
         <Tabs defaultValue="agendados" className="">
-          <div className="flex items-start justify-between">
-            <TabsList>
-              <TabsTrigger value="agendados">Agendados</TabsTrigger>
-              <TabsTrigger value="passados">Passados</TabsTrigger>
-            </TabsList>
+          <div className="">
+            <div className="flex items-start justify-between">
+              <TabsList>
+                <TabsTrigger value="agendados">Agendados</TabsTrigger>
+                <TabsTrigger value="passados">Passados</TabsTrigger>
+              </TabsList>
+            </div>
             <TabsContent value="agendados" className="mb-8">
-              <Link className="" href="/event/create">
-                <Button>Criar Evento</Button>
-              </Link>
+              <EventList events={upcomingEvents} />
             </TabsContent>
           </div>
-          <EventList events={upcomingEvents} />
-          
-          <TabsContent value="passados" className="font-bold text-xl my-3">
-            <h1>Oficinas passadas</h1>
+
+          <TabsContent value="passados" className="text-xl my-3">
+            <h1 className="font-bold">Oficinas passadas</h1>
             <OficinasDataTable
               columns={columnsWorkshopTable}
               data={pastEvents.pastWorkshops}
             />
-            <h1>Visitas passadas</h1>
+            <h1 className="font-bold">Visitas passadas</h1>
             <VisitasDataTable
               data={pastEvents.pastVisits}
               columns={columnsVisitTable}

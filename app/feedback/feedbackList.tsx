@@ -11,7 +11,7 @@ interface FeedbackListProps {
 const FeedbackList = ({ feedbacks }: FeedbackListProps) => {
   const router = useRouter();
   return (
-    <div className="flex flex-row gap-6">
+    <div className="grid grid-cols-3 gap-6">
       {feedbacks.map((feedback) => {
         const deleteAction = () => {
           deleteFeedbackAction(feedback.id);
