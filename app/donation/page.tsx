@@ -38,8 +38,11 @@ export default async function EventPage() {
         <title key="title">Doações</title>
         <div className="flex items-start justify-between mb-4">
           <h1 className="text-3xl font-bold tracking-tight">Doações</h1>
-          <Button className="text-xs md:text-sm">Add New</Button>
+          <Link href="/donation/create">
+            <Button className="text-xs md:text-sm">Adicionar Doação</Button>
+          </Link>
         </div>
+        <h1 className="font-bold text-xl my-3">Doações Monetárias</h1>
         <DoacaoDinheiroDataTable
           columns={columnsMoneyDonationTable}
           data={doacaoDinheiro}

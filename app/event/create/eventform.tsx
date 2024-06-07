@@ -38,12 +38,11 @@ import createWorkshop from "../actions/createWorkshop";
 import redirectDonationPage from "../actions/redirectEventPage";
 import createVisit from "../actions/createVisit";
 import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
+import searchItems from "../actions/searchItensAcervo";
 
 interface FieldProps {
-  field: any
+  field: any;
 }
-
-
 
 const mockSearch = async (value: string) => {
   try {
@@ -153,30 +152,30 @@ export default function EventForm() {
     defaultValues:
       formType === "Visita"
         ? {
-          data: undefined,
-          rua: "",
-          bairro: "",
-          cidade: "",
-          estado: "",
-          cep: "",
-          cpfOrganizador: "",
-          nomeOrganizador: "",
-          emailOrganizador: "",
-        }
+            data: undefined,
+            rua: "",
+            bairro: "",
+            cidade: "",
+            estado: "",
+            cep: "",
+            cpfOrganizador: "",
+            nomeOrganizador: "",
+            emailOrganizador: "",
+          }
         : {
-          data: undefined,
-          rua: "",
-          bairro: "",
-          cidade: "",
-          estado: "",
-          cep: "",
-          nomePalestrante: "",
-          cpfPalestrante: "",
-          emailPalestrante: "",
-          titulo: "",
-          duracao: "",
-          resumo: "",
-        },
+            data: undefined,
+            rua: "",
+            bairro: "",
+            cidade: "",
+            estado: "",
+            cep: "",
+            nomePalestrante: "",
+            cpfPalestrante: "",
+            emailPalestrante: "",
+            titulo: "",
+            duracao: "",
+            resumo: "",
+          },
   });
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -184,6 +183,7 @@ export default function EventForm() {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    const items = await searchItems(values.itensacervo);
     const isVisita = (
       values: z.infer<typeof visitaSchema> | z.infer<typeof oficinaSchema>
     ): values is z.infer<typeof visitaSchema> => {
@@ -200,11 +200,6 @@ export default function EventForm() {
         cpf: cpfMask(visitante.cpf),
       };
     });
-    const itensAcervo = values.itensacervo.map((item) => {
-      return {
-        id: item.value
-      }
-    })
     if (isOficina(values)) {
       const request = {
         dataHora: values.data,
@@ -219,7 +214,7 @@ export default function EventForm() {
           cep: values.cep,
         },
         visitantes,
-        itensAcervo,
+        itensAcervo: items,
         palestrante: {
           nome: values.nomePalestrante,
           cpf: cpfMask(values.cpfPalestrante),
@@ -230,7 +225,7 @@ export default function EventForm() {
         await createWorkshop(request);
         toast({
           title: "Sucesso!",
-          description: "A oficina foi registrada com sucesso!",
+          description: "A oficina foi registra da com sucesso!",
         });
         redirectDonationPage();
       } catch (error) {
@@ -251,7 +246,7 @@ export default function EventForm() {
           cep: values.cep,
         },
         visitantes,
-        itensAcervo,
+        itensAcervo: items,
         organizador: {
           nome: values.nomeOrganizador,
           cpf: cpfMask(values.cpfOrganizador),
@@ -282,41 +277,49 @@ export default function EventForm() {
     });
   }
   const handleTipoChange = (value: string) => {
-    const [data, rua, bairro, cidade, estado, cep, visitantes, itensacervo] = form.getValues(
-      ["data", "rua", "bairro", "cidade", "estado", "cep", "visitantes", "itensacervo"]
-    );
+    const [data, rua, bairro, cidade, estado, cep, visitantes, itensacervo] =
+      form.getValues([
+        "data",
+        "rua",
+        "bairro",
+        "cidade",
+        "estado",
+        "cep",
+        "visitantes",
+        "itensacervo",
+      ]);
     setFormType(value);
     form.reset(
       formType === "Oficina"
         ? {
-          data,
-          rua,
-          bairro,
-          cidade,
-          estado,
-          cep,
-          itensacervo,
-          nomeOrganizador: "",
-          cpfOrganizador: "",
-          emailOrganizador: "",
-          visitantes,
-        }
+            data,
+            rua,
+            bairro,
+            cidade,
+            estado,
+            cep,
+            itensacervo,
+            nomeOrganizador: "",
+            cpfOrganizador: "",
+            emailOrganizador: "",
+            visitantes,
+          }
         : {
-          data,
-          rua,
-          bairro,
-          cidade,
-          estado,
-          cep,
-          itensacervo,
-          nomePalestrante: "",
-          cpfPalestrante: "",
-          emailPalestrante: "",
-          titulo: "",
-          resumo: "",
-          duracao: "",
-          visitantes,
-        }
+            data,
+            rua,
+            bairro,
+            cidade,
+            estado,
+            cep,
+            itensacervo,
+            nomePalestrante: "",
+            cpfPalestrante: "",
+            emailPalestrante: "",
+            titulo: "",
+            resumo: "",
+            duracao: "",
+            visitantes,
+          }
     );
   };
   return (

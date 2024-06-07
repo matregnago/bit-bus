@@ -30,7 +30,7 @@ export default async function ShowcaseItems() {
       <ScrollArea className="h-full">
         <div className="flex items-start justify-between mb-4">
           <h1 className="text-3xl font-bold tracking-tight">Acervo</h1>
-          <Button className="text-xs md:text-sm">Add New</Button>
+          <Button className="text-xs md:text-sm">Adicionar Item</Button>
         </div>
         <DataTable columns={columns} data={data} />
       </ScrollArea>

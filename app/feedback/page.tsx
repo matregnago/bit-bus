@@ -18,7 +18,9 @@ export default async function EventPage() {
       <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
         <div className="flex items-start justify-between mb-4">
           <h1 className="text-3xl font-bold tracking-tight">Feedbacks</h1>
-          <Button className="text-xs md:text-sm">Add New</Button>
+          <Link href="/feedback/create">
+            <Button className="text-xs md:text-sm">Criar Feedback</Button>
+          </Link>
         </div>
         <FeedbackList feedbacks={feedbacks} />
       </div>

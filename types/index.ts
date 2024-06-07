@@ -77,7 +77,7 @@ export type Oficina = {
   resumo: string;
   palestrante: Palestrante;
   visitantes: Visitante[];
-  itensAcervo: Item[] | {id:string}[]
+  itensAcervo: Item[];
   localId?: string;
   palestranteId?: string;
 };
@@ -88,7 +88,7 @@ export type Visita = {
   local: Local;
   visitantes: Visitante[];
   organizador: Organizador;
-  itensAcervo: Item[] | {id:string}[]
+  itensAcervo: Item[];
   organizadorId?: String;
   localId?: String;
 };

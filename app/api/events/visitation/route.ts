@@ -22,8 +22,8 @@ export async function POST(request: Request) {
           },
         },
       },
-      itensAcervo:{
-        connect: itensAcervo
+      itensAcervo: {
+        connect: itensAcervo,
       },
       visitantes: {
         connectOrCreate: visitantes.map(

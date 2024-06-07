@@ -104,7 +104,9 @@ export default async function EventPage() {
       <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
         <div className="flex items-start justify-between">
           <h1 className="text-3xl font-bold tracking-tight">Eventos</h1>
-          <Button className="text-xs md:text-sm">Add New</Button>
+          <Link href="/event/create">
+            <Button className="text-xs md:text-sm">Adicionar Evento</Button>
+          </Link>
         </div>
         <Tabs defaultValue="agendados" className="">
           <div className="">

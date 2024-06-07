@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { PrismaClient, Prisma } from "@prisma/client";
-import { Item } from "@/types";
+import { PrismaClient } from "@prisma/client";
 
 interface APIRequestProps {
   searchTerm: string;

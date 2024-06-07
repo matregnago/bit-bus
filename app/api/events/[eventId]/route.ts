@@ -1,35 +1,37 @@
-import { NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export async function GET(request: Request, context: any) {
   // const eventId = req
-  const { params } = context
-  const id = params.eventId
+  const { params } = context;
+  const id = params.eventId;
   const returnVisita = await prisma.visita.findUnique({
     where: {
-      id
+      id,
     },
     include: {
       local: true,
       organizador: true,
-      visitantes: true
-    }
-  })
+      visitantes: true,
+      itensAcervo: true,
+    },
+  });
   if (returnVisita != null) {
-    return NextResponse.json(returnVisita)
+    return NextResponse.json(returnVisita);
   } else {
     const returnOficina = await prisma.oficina.findUnique({
       where: {
-        id
+        id,
       },
       include: {
         local: true,
         palestrante: true,
-        visitantes: true
-      }
-    })
-    return NextResponse.json(returnOficina)
+        visitantes: true,
+        itensAcervo: true,
+      },
+    });
+    return NextResponse.json(returnOficina);
   }
 }
