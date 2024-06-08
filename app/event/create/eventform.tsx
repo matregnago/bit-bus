@@ -39,6 +39,8 @@ import redirectDonationPage from "../actions/redirectEventPage";
 import createVisit from "../actions/createVisit";
 import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
 import searchItems from "../actions/searchItensAcervo";
+import CepInput from "@/components/form/CepInput";
+import { Textarea } from "@/components/ui/textarea";
 
 interface FieldProps {
   field: any;
@@ -102,43 +104,59 @@ const optionSchema = z.object({
 
 const oficinaSchema = z.object({
   data: z.date(),
-  rua: z.string().min(3),
-  bairro: z.string().min(4),
-  cidade: z.string().min(1),
-  estado: z.string().min(3),
-  cep: z.string().min(3),
-  nomePalestrante: z.string().min(3),
-  cpfPalestrante: z.string().min(3),
-  emailPalestrante: z.string().min(3),
-  titulo: z.string().min(3),
-  resumo: z.string().min(3),
-  duracao: z.string().min(3),
-  itensacervo: z.array(optionSchema).min(1),
+  rua: z.string().min(3, { message: "Rua inválida." }),
+  bairro: z.string().min(3, { message: "Bairro inválido" }),
+  cidade: z.string().min(3, { message: "Cidade inválido" }),
+  estado: z.string().min(2, { message: "Estado inválido" }),
+  cep: z.string().min(9, { message: "Formato de CEP inválido." }),
+  nomePalestrante: z
+    .string()
+    .min(3, { message: "O nome deve conter pelo menos 3 letras." }),
+  cpfPalestrante: z.string().min(14, { message: "Formato de CPF inválido." }),
+  emailPalestrante: z.string().min(3, { message: "Email inválido." }),
+  titulo: z
+    .string()
+    .min(3, { message: "O titulo deve conter pelo menos 3 letras." }),
+  resumo: z
+    .string()
+    .min(3, { message: "O resumo deve conter pelo menos 3 letras." }),
+  duracao: z.string().min(3, { message: "Duração inválida" }),
+  itensacervo: z
+    .array(optionSchema)
+    .min(1, { message: "Selecione pelo menos um item." }),
   visitantes: z.array(
     z.object({
-      nome: z.string().min(3),
-      email: z.string().min(3),
-      cpf: z.string().min(3),
+      nome: z
+        .string()
+        .min(3, { message: "O nome deve conter pelo menos 3 letras." }),
+      email: z.string().min(3, { message: "Email inválido." }),
+      cpf: z.string().min(14, { message: "Formato de CPF inválido." }),
     })
   ),
 });
 
 const visitaSchema = z.object({
   data: z.date(),
-  rua: z.string().min(3),
-  bairro: z.string().min(4),
-  cidade: z.string().min(1),
-  estado: z.string().min(3),
-  cep: z.string().min(3),
-  nomeOrganizador: z.string().min(3),
-  cpfOrganizador: z.string().min(3),
-  emailOrganizador: z.string().min(3),
-  itensacervo: z.array(optionSchema).min(1),
+  rua: z.string().min(3, { message: "Rua inválida." }),
+  bairro: z.string().min(3, { message: "Bairro inválido" }),
+  cidade: z.string().min(3, { message: "Cidade inválido" }),
+  estado: z.string().min(2, { message: "Estado inválido" }),
+  cep: z.string().min(9, { message: "Formato de CEP inválido." }),
+  nomeOrganizador: z
+    .string()
+    .min(3, { message: "O nome deve conter pelo menos 3 letras." }),
+  cpfOrganizador: z.string().min(14, { message: "Formato de CPF inválido." }),
+  emailOrganizador: z.string().min(3, { message: "Email inválido." }),
+  itensacervo: z
+    .array(optionSchema)
+    .min(1, { message: "Selecione pelo menos um item." }),
   visitantes: z.array(
     z.object({
-      nome: z.string().min(3),
-      email: z.string().min(3),
-      cpf: z.string().min(3),
+      nome: z
+        .string()
+        .min(3, { message: "O nome deve conter pelo menos 3 letras." }),
+      email: z.string().min(3, { message: "Email inválido." }),
+      cpf: z.string().min(14, { message: "Formato de CPF inválido." }),
     })
   ),
 });
@@ -324,8 +342,10 @@ export default function EventForm() {
   };
   return (
     <div>
-      <main className="mx-96  ">
-        <h1 className="text-3xl">Cadastro de eventos</h1>
+      <main className="mx-96 mb-40">
+        <h1 className="text-3xl font-bold text-center">
+          Formulário de Eventos
+        </h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -432,7 +452,7 @@ export default function EventForm() {
                   <FormItem>
                     <FormLabel>Cep</FormLabel>
                     <FormControl>
-                      <Input placeholder="Cep" type="text" {...field} />
+                      <CepInput placeholder="CEP do local" field={field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -441,35 +461,38 @@ export default function EventForm() {
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-              <Select
-                value={formType}
-                onValueChange={handleTipoChange}
-                defaultValue="Oficina"
-              >
-                <FormField
-                  control={form.control}
-                  name="itensacervo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Itens do Acervo</FormLabel>
-                      <FormControl>
-                        <MultipleSelectorWithAsyncSearch field={field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <SelectTrigger>
-                  <SelectValue placeholder="Tipo do evento" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Tipo do evento</SelectLabel>
-                    <SelectItem value="Oficina">Oficina</SelectItem>
-                    <SelectItem value="Visita">Visita</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <FormField
+                control={form.control}
+                name="itensacervo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Itens do Acervo</FormLabel>
+                    <FormControl>
+                      <MultipleSelectorWithAsyncSearch field={field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormItem>
+                <FormLabel>Tipo do evento</FormLabel>
+                <Select
+                  value={formType}
+                  onValueChange={handleTipoChange}
+                  defaultValue="Oficina"
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Tipo do evento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Tipo do evento</SelectLabel>
+                      <SelectItem value="Oficina">Oficina</SelectItem>
+                      <SelectItem value="Visita">Visita</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </FormItem>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -517,7 +540,7 @@ export default function EventForm() {
                         <FormControl>
                           <Input
                             placeholder="Email do Palestrante"
-                            type="text"
+                            type="email"
                             {...field}
                           />
                         </FormControl>
@@ -549,9 +572,8 @@ export default function EventForm() {
                       <FormItem>
                         <FormLabel>Resumo</FormLabel>
                         <FormControl>
-                          <Input
+                          <Textarea
                             placeholder="Resumo da oficina"
-                            type="text"
                             {...field}
                           />
                         </FormControl>
@@ -617,7 +639,7 @@ export default function EventForm() {
                         <FormControl>
                           <Input
                             placeholder="Email do Organizador"
-                            type="text"
+                            type="email"
                             {...field}
                           />
                         </FormControl>
@@ -683,7 +705,11 @@ export default function EventForm() {
                         <FormItem className="w-full">
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input placeholder="Email" type="text" {...field} />
+                            <Input
+                              placeholder="Email"
+                              type="email"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -701,7 +727,7 @@ export default function EventForm() {
               </div>
             </div>
 
-            <pre>{JSON.stringify(form.watch(), null, 2)}</pre>
+            {/* <pre>{JSON.stringify(form.watch(), null, 2)}</pre> */}
             <Button type="submit" className="w-full">
               Submit
             </Button>

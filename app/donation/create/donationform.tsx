@@ -31,26 +31,36 @@ import createMoneyDonation from "../actions/createMoneyDonation";
 import redirectDonationPage from "../actions/redirectDonationPage";
 
 const moneyDonationSchema = z.object({
-  nomeDoador: z.string().min(3),
-  cpf: z.string().min(3),
-  email: z.string().min(3),
-  quantiaDinheiro: z.string().min(3),
+  nomeDoador: z
+    .string()
+    .min(3, { message: "O nome deve conter pelo menos 3 letras." }),
+  cpf: z.string().min(14, { message: "Formato de CPF inválido." }),
+  email: z.string().min(3, { message: "Email inválido." }),
+  quantiaDinheiro: z
+    .string()
+    .min(1, { message: "Quantia de dinheiro inválida." }),
 });
 
 const itemDonationSchema = z.object({
-  nomeDoador: z.string().min(3),
-  cpf: z.string().min(3),
-  email: z.string().min(3),
-  nome: z.string().min(3),
-  ano: z.string().min(4),
-  quantidade: z.string().min(1),
-  tipo: z.string().min(3),
-  dimensoes: z.string().min(3),
-  informacoes: z.string().min(3),
-  link: z.string().min(3),
-  foto: z.string().min(3),
-  prateleira: z.string().min(3),
-  classificacao: z.string().min(3),
+  nomeDoador: z
+    .string()
+    .min(3, { message: "O nome deve conter pelo menos 3 letras." }),
+  cpf: z.string().min(14, { message: "Formato de CPF inválido." }),
+  email: z.string().min(3, { message: "Email inválido." }),
+  nome: z
+    .string()
+    .min(3, { message: "O nome deve conter pelo menos 3 letras." }),
+  ano: z.string().min(4, { message: "O ano deve possuir 4 números." }),
+  quantidade: z.string().min(1, { message: "Quantidade inválida." }),
+  tipo: z.string().min(1, { message: "Selecione ao menos um tipo" }),
+  dimensoes: z.string().min(3, { message: "Dimensões inválidas." }),
+  informacoes: z
+    .string()
+    .min(3, { message: "As informações devem ser maiores que 3 caracteres." }),
+  link: z.string().min(3, { message: "Link inválido." }),
+  foto: z.string().min(3, { message: "Foto inválida." }),
+  prateleira: z.string().min(1, { message: "Prateleira inválida." }),
+  classificacao: z.string().min(1, { message: "Classificação inválida." }),
 });
 
 const formSchema = z.union([itemDonationSchema, moneyDonationSchema]);
@@ -197,9 +207,9 @@ export default function DonationForm() {
   return (
     <div>
       <div className="text-center mt-5 mb-5">
-        <h1 className="text-3xl">Formulário de Doações</h1>
+        <h1 className="text-3xl font-bold">Formulário de Doações</h1>
       </div>
-      <main className="flex flex-col items-center justify-between">
+      <main className="flex flex-col items-center justify-between mb-40">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -232,7 +242,7 @@ export default function DonationForm() {
                     <FormControl>
                       <Input
                         placeholder="Email do doador"
-                        type="text"
+                        type="email"
                         {...field}
                       />
                     </FormControl>
@@ -255,22 +265,28 @@ export default function DonationForm() {
               />
             </div>
             <div className="w-full">
-              <Select
-                value={formType}
-                onValueChange={handleTipoChange}
-                defaultValue="Dinheiro"
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Tipo de Doação" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Tipo de Doação</SelectLabel>
-                    <SelectItem value="Item">Item</SelectItem>
-                    <SelectItem value="Dinheiro">Dinheiro</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <FormItem>
+                <FormLabel>Tipo de Doação</FormLabel>
+                <FormControl>
+                  <Select
+                    value={formType}
+                    onValueChange={handleTipoChange}
+                    defaultValue="Dinheiro"
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Tipo de Doação" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Tipo de Doação</SelectLabel>
+                        <SelectItem value="Dinheiro">Dinheiro</SelectItem>
+                        <SelectItem value="Item">Item</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             </div>
             {formType === "Item" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -355,6 +371,7 @@ export default function DonationForm() {
                           </SelectGroup>
                         </SelectContent>
                       </Select>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -472,7 +489,7 @@ export default function DonationForm() {
                       <FormControl>
                         <Input
                           placeholder="Quantia de dinheiro"
-                          type="text"
+                          type="number"
                           {...field}
                         />
                       </FormControl>
@@ -482,9 +499,9 @@ export default function DonationForm() {
                 />
               </div>
             )}
-            <pre className="col-span-full">
+            {/* <pre className="col-span-full">
               {JSON.stringify(form.watch(), null, 2)}
-            </pre>
+            </pre> */}
             <Button type="submit" className="col-span-full w-full">
               Submit
             </Button>

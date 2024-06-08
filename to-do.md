@@ -1,18 +1,18 @@
 ## Lista de tarefas:
 
-- [x] Fazer cadastro de eventos
 - [ ] Fazer a dashboard (lógica para cards, lista de eventos e gráfico)
-- [x] Colocar select na doacao de itens
-- [x] Adicionar formato CPF nos inputs
-- [ ] Adicionar formato CEP nos inputs
+- [x] Adicionar formato CEP nos inputs
 - [ ] Adicionar botao de notas por estrelas
-- [ ] Arrumar css das paginas (Guilherme)
-- [ ] Adicionar input imagens no feedback e cadstro de itens
-- [ ] Adicionar Toast após envio dos formulários (wip)
+- [ ] Arrumar css dos cards de eventos e feedbacks
+- [ ] Ajustar data e hora nas páginas
+- [ ] Adicionar input imagens no feedback e cadstro de itens (?)
+- [ ] Adicionar Toast na remoção dos elementos
+- [ ] Ajustar o Alert Dialog dos elementos
 - [ ] Ajustar tipo dos inputs nos forms (wip)
 - [ ] Ajustar validação dos formulários no zod schema (wip)
-- [ ] ScrollArea nos forms
-- [x] Página de Eventos agendados
-- [x] Páginas de Eventos passados (tabela)
-- [x] Página de feedbacks
-- [x] Adicionar data de criação nas tabelas do prisma
+- [ ] Finalizar detalhes de doações e eventos
+- [ ] Fazer detalhes e exclusão de itens
+- [ ] Otimizar renderização e cache
+- [ ] Mudar rota dos feedbacks (deixar para o público)
+- [ ] Readme
+- [ ] Documento de entrega

@@ -122,12 +122,12 @@ export default async function EventPage() {
           </div>
 
           <TabsContent value="passados" className="text-xl my-3">
-            <h1 className="font-bold">Oficinas passadas</h1>
+            <h1 className="font-bold text-xl my-3">Oficinas passadas</h1>
             <OficinasDataTable
               columns={columnsWorkshopTable}
               data={pastEvents.pastWorkshops}
             />
-            <h1 className="font-bold">Visitas passadas</h1>
+            <h1 className="font-bold text-xl my-5">Visitas passadas</h1>
             <VisitasDataTable
               data={pastEvents.pastVisits}
               columns={columnsVisitTable}

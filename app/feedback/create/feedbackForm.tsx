@@ -20,11 +20,13 @@ import redirectFeedbackPage from "../actions/redirectFeedbackPage";
 import { Feedback } from "@/types";
 
 const formSchema = z.object({
-  nome: z.string().min(3),
-  cpf: z.string().min(4),
-  email: z.string().min(1),
-  nota: z.string().min(3),
-  descricao: z.string().min(3),
+  nome: z
+    .string()
+    .min(3, { message: "O nome deve conter pelo menos 3 letras." }),
+  cpf: z.string().min(14, { message: "Formato de CPF inválido." }),
+  email: z.string().min(3, { message: "Email inválido." }),
+  nota: z.string().min(1, { message: "Nota inválida." }),
+  descricao: z.string().min(3, { message: "Descrição inválido." }),
 });
 
 export default function FeedackForm() {
@@ -74,8 +76,8 @@ export default function FeedackForm() {
     }
   };
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-3xl">Deixe seu Feedback</h1>
+    <main className="flex min-h-screen flex-col items-center p-24">
+      <h1 className="text-3xl font-bold">Formulário de Feedback</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
@@ -134,7 +136,7 @@ export default function FeedackForm() {
                 <FormItem>
                   <FormLabel>Nota</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nota" type="text" {...field} />
+                    <Input placeholder="Nota" type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
