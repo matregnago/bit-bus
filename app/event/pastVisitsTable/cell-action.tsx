@@ -25,20 +25,35 @@ import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import deleteVisitAction from "../actions/deleteVisit";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface CellActionProps {
   data: Visita;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+  const { toast } = useToast();
   const router = useRouter();
   const visita = data;
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
   const onConfirm = async () => {
-    deleteVisitAction(visita.id);
-    router.refresh();
+    if (visita.id !== undefined) {
+      try {
+        await deleteVisitAction(visita.id);
+        router.refresh();
+        toast({
+          title: "Sucesso!",
+          description: "A visitação foi removida sucesso!",
+        });
+      } catch (error) {
+        toast({
+          title: "Erro!",
+          description: `Erro ao excluir visita: ${error}!`,
+        });
+      }
+    }
   };
 
   return (
@@ -73,15 +88,15 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenu>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Você quer excluir essa visita?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              Essa ação não pode ser desfeita. A visita será excluida do banco
+              de dados.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={onConfirm}>Continue</AlertDialogAction>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={onConfirm}>Continuar</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

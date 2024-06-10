@@ -25,6 +25,7 @@ import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import deleteMoneyDonation from "../actions/deleteMoneyDonation";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 interface CellActionProps {
   data: DoacaoDinheiro;
@@ -32,13 +33,27 @@ interface CellActionProps {
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
+  const { toast } = useToast();
   const doacaoDinheiro = data;
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
   const onConfirm = async () => {
-    deleteMoneyDonation(doacaoDinheiro.id);
-    router.refresh();
+    if (doacaoDinheiro.id !== undefined) {
+      try {
+        await deleteMoneyDonation(doacaoDinheiro.id);
+        router.refresh();
+        toast({
+          title: "Sucesso!",
+          description: "A doação foi removida sucesso!",
+        });
+      } catch (error) {
+        toast({
+          title: "Erro!",
+          description: `Erro ao excluir doação: ${error}!`,
+        });
+      }
+    }
   };
 
   return (
@@ -73,15 +88,15 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenu>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Você quer excluir essa doação?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              Essa ação não pode ser desfeita. A doação será excluida do banco
+              de dados.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={onConfirm}>Continue</AlertDialogAction>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={onConfirm}>Continuar</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
