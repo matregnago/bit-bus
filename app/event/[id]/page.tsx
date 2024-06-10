@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { dateFormatter } from "@/lib/dateformatter";
 interface OficinaCardProps {
   evento: Oficina;
 }
@@ -27,6 +28,7 @@ export async function generateStaticParams() {
 }
 
 const OficinaCard = ({ evento }: OficinaCardProps) => {
+  const { dia, hora } = dateFormatter(evento.dataHora);
   return (
     <div className="">
       <h1 className="text-3xl font-bold tracking-tight text-center">
@@ -38,7 +40,7 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
             <CardTitle>Data</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{evento.dataHora.toString()}</p>
+            <p>{dia}</p>
           </CardContent>
         </Card>
         <Card>
@@ -46,7 +48,7 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
             <CardTitle>Horario</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{evento.dataHora.toString()}</p>
+            <p>{hora}</p>
           </CardContent>
         </Card>
         <Card>
@@ -73,6 +75,7 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
 };
 
 const VisitaCard = ({ evento }: VisitaCardProps) => {
+  const { dia, hora } = dateFormatter(evento.dataHora);
   return (
     <div className="">
       <h1 className="text-3xl font-bold tracking-tight text-center">
@@ -84,7 +87,7 @@ const VisitaCard = ({ evento }: VisitaCardProps) => {
             <CardTitle>Data</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{evento.dataHora.toString()}</p>
+            <p>{dia}</p>
           </CardContent>
         </Card>
         <Card>
@@ -92,7 +95,7 @@ const VisitaCard = ({ evento }: VisitaCardProps) => {
             <CardTitle>Horario</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{evento.dataHora.toString()}</p>
+            <p>{hora}</p>
           </CardContent>
         </Card>
         <Card>
