@@ -17,6 +17,7 @@ import { columnsVisitTable } from "./pastVisitsTable/columns";
 import { Separator } from "@/components/ui/separator";
 
 import Link from "next/link";
+import { dateFormatter } from "@/lib/dateformatter";
 
 interface EventListProps {
   events: Event[];
@@ -37,38 +38,46 @@ interface EventAPIResponse {
   };
 }
 
-const VisitaItem = ({ visita }: VisitaCardProps) => (
-  <Card className="min-w-80">
-    <CardHeader>
-      <CardTitle>Visita</CardTitle>
-      <CardDescription></CardDescription>
-    </CardHeader>
-    <CardContent>
-      <Badge variant="outline">Visita</Badge>
-      <p>Data e Hora: {new Date(visita.dataHora).toLocaleString()}</p>
-      <Link href={`/event/${visita.id}`}>
-        <Button variant="secondary">Ver detalhes</Button>
-      </Link>
-    </CardContent>
-  </Card>
-);
+const VisitaItem = ({ visita }: VisitaCardProps) => {
+  const { dia, hora } = dateFormatter(visita.dataHora);
+  return (
+    <Card className="min-w-80">
+      <CardHeader>
+        <CardTitle>Visita</CardTitle>
+        <CardDescription></CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Badge variant="outline">Visita</Badge>
+        <p>Data: {dia}</p>
+        <p>Horario: {hora}</p>
+        <Link href={`/event/${visita.id}`}>
+          <Button variant="secondary">Ver detalhes</Button>
+        </Link>
+      </CardContent>
+    </Card>
+  );
+};
 
-const OficinaItem = ({ oficina }: OficinaCardProps) => (
-  <Card className="min-w-80">
-    <CardHeader>
-      <CardTitle>{oficina.titulo}</CardTitle>
-      <CardDescription>{oficina.resumo}</CardDescription>
-    </CardHeader>
-    <CardContent>
-      <Badge variant="outline">Oficina</Badge>
-      <p>Data e Hora: {new Date(oficina.dataHora).toLocaleString()}</p>
-      <p>Duração: {oficina.duracao}</p>
-      <Link href={`/event/${oficina.id}`}>
-        <Button variant="secondary">Ver detalhes</Button>
-      </Link>
-    </CardContent>
-  </Card>
-);
+const OficinaItem = ({ oficina }: OficinaCardProps) => {
+  const { dia, hora } = dateFormatter(oficina.dataHora);
+  return (
+    <Card className="min-w-80">
+      <CardHeader>
+        <CardTitle>{oficina.titulo}</CardTitle>
+        <CardDescription>{oficina.resumo}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Badge variant="outline">Oficina</Badge>
+        <p>Data: {dia}</p>
+        <p>Horario: {hora}</p>
+        <p>Duração: {oficina.duracao}</p>
+        <Link href={`/event/${oficina.id}`}>
+          <Button variant="secondary">Ver detalhes</Button>
+        </Link>
+      </CardContent>
+    </Card>
+  );
+};
 
 const EventList = ({ events }: EventListProps) => {
   const isOficina = (event: Event): event is Oficina => {

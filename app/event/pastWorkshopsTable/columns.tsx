@@ -17,6 +17,7 @@ import { Icons } from "@/components/icons";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import Link from "next/link";
 import { CellAction } from "./cell-action";
+import { dateFormatter } from "@/lib/dateformatter";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -33,6 +34,15 @@ export const columnsWorkshopTable: ColumnDef<Oficina>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Data e hora" />
     ),
+    cell: ({ row }) => {
+      const { dia, hora } = dateFormatter(row.getValue("dataHora"));
+
+      return (
+        <div className="flex w-[100px] items-center">
+          <span>{`${dia} ${hora}`}</span>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "duracao",
