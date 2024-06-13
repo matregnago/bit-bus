@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { Event, Oficina, Visita } from "@/types";
 
@@ -25,7 +25,10 @@ const upcomingEventsSort = (eventA: Event, eventB: Event) => {
 };
 const dateNow = new Date();
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const limit = Number(searchParams.get("limit"));
+
   const visitas: Visita[] = await prisma.visita.findMany({
     include: {
       local: true,
@@ -55,12 +58,15 @@ export async function GET() {
     return visita.dataHora < dateNow;
   });
 
-  const returnObject = {
+  let returnObject = {
     upcomingEvents: upcomingEvents.sort(upcomingEventsSort),
     pastEvents: {
       pastWorkshops: pastWorkshops.sort(pastEventsSort),
       pastVisits: pastVisits.sort(pastEventsSort),
     },
   };
+  if (limit) {
+    returnObject.upcomingEvents = returnObject.upcomingEvents.slice(0, limit);
+  }
   return NextResponse.json(returnObject);
 }

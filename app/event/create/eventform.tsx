@@ -48,15 +48,7 @@ interface FieldProps {
 
 const mockSearch = async (value: string) => {
   try {
-    const req = await fetch("http://localhost:3000/api/items", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        searchTerm: value,
-      }),
-    });
+    const req = await fetch(`http://localhost:3000/api/items?search=${value}`);
     const data = await req.json();
     const { opcoes } = data;
     console.log(opcoes);

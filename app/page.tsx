@@ -2,7 +2,25 @@ import InfoCards from "@/components/dashboard/generalInfoCards";
 import UpcomingEventsCard from "@/components/dashboard/upcomingEventsCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-export default function Home() {
+import { Overview } from "@/components/dashboard/overviewChart";
+
+type ChartData = {
+  name: string;
+  total: number;
+};
+
+const getChartData = async (): Promise<ChartData[]> => {
+  const requestChartData = await fetch(
+    "http://localhost:3000/api/dashboard/graphic",
+    {
+      cache: "no-cache",
+    }
+  );
+  return requestChartData.json();
+};
+
+export default async function Home() {
+  const chartData = await getChartData();
   return (
     <ScrollArea className="h-full">
       <title key="title">Dashboard</title>
@@ -13,11 +31,11 @@ export default function Home() {
           <Card className="col-span-4">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-lg">
-                Gráfico futuramente
+                Doações recebidas por mês
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p>Conteudo do gráfico</p>
+              <Overview data={chartData} />
             </CardContent>
           </Card>
           <UpcomingEventsCard />

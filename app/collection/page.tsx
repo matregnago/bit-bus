@@ -4,6 +4,7 @@ import { DoacaoItem, Item } from "@/types";
 import { columns } from "./table/columns";
 import { DataTable } from "./table/data-table";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const getItems = async (): Promise<DoacaoItem[]> => {
   try {
@@ -30,7 +31,9 @@ export default async function ShowcaseItems() {
       <ScrollArea className="h-full">
         <div className="flex items-start justify-between mb-4">
           <h1 className="text-3xl font-bold tracking-tight">Acervo</h1>
-          <Button className="text-xs md:text-sm">Adicionar Item</Button>
+          <Link href="/collection/create">
+            <Button className="text-xs md:text-sm">Adicionar Item</Button>
+          </Link>
         </div>
         <DataTable columns={columns} data={data} />
       </ScrollArea>

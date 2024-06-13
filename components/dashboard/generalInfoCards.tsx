@@ -1,6 +1,38 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Oficina, Visita } from "@/types";
 
-export default function InfoCards() {
+type DashboardData = {
+  artefatos: number;
+  eventos: number;
+  visitantes: number;
+  doacoes: number;
+};
+
+interface DashboardProps {
+  data: DashboardData;
+}
+
+const getData = async (): Promise<DashboardData> => {
+  try {
+    const res = await fetch("http://localhost:3000/api/dashboard/cards", {
+      cache: "no-cache",
+    });
+    const { data }: DashboardProps = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    const defaultResponse = {
+      artefatos: 0,
+      eventos: 0,
+      visitantes: 0,
+      doacoes: 0,
+    };
+    return defaultResponse;
+  }
+};
+
+export default async function InfoCards() {
+  const data = await getData();
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>
@@ -10,10 +42,7 @@ export default function InfoCards() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">124,567</div>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            +8.2% from last month
-          </p>
+          <div className="text-2xl font-bold">{data.artefatos}</div>
         </CardContent>
       </Card>
       <Card>
@@ -23,23 +52,17 @@ export default function InfoCards() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">124,567</div>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            +8.2% from last month
-          </p>
+          <div className="text-2xl font-bold">{data.eventos}</div>
         </CardContent>
       </Card>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-base font-medium">
-            Visitantes Mensais
+            Visitantes Totais
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">124,567</div>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            +8.2% from last month
-          </p>
+          <div className="text-2xl font-bold">{data.visitantes}</div>
         </CardContent>
       </Card>
       <Card>
@@ -49,10 +72,7 @@ export default function InfoCards() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">124,567</div>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            +8.2% from last month
-          </p>
+          <div className="text-2xl font-bold">{data.doacoes}</div>
         </CardContent>
       </Card>
     </div>
