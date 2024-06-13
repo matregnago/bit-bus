@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const searchTerm = searchParams.get("search");
-  if (searchTerm) {
+  if (searchTerm && searchTerm !== "") {
     const items = await prisma.itemAcervo.findMany({
       where: {
         nome: {
@@ -41,6 +41,11 @@ export async function GET(request: NextRequest) {
     });
     return NextResponse.json({ opcoes: retorno });
   } else {
-    return NextResponse.json({});
+    const items = await prisma.itemAcervo.findMany({
+      orderBy: {
+        dataCriacao: "desc",
+      },
+    });
+    return NextResponse.json(items);
   }
 }

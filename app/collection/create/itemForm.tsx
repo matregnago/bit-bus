@@ -176,7 +176,7 @@ export default function ItemForm() {
                             Processador
                           </SelectItem>
                           <SelectItem value="Memoria">Memória</SelectItem>
-                          <SelectItem value="Placa De Video">
+                          <SelectItem value="Placa de Video">
                             Placa de video
                           </SelectItem>
                           <SelectItem value="Servidor">Servidor</SelectItem>

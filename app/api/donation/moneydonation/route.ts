@@ -3,8 +3,34 @@ import {
   PrismaClient,
   DoacaoDinheiro as PrismaDoacaoDinheiro,
 } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 const prisma = new PrismaClient();
+
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const searchTerm = searchParams.get("id");
+  if (searchTerm && searchTerm !== "") {
+    const doacoesDinheiro = await prisma.doacaoDinheiro.findUnique({
+      where: {
+        id: searchTerm,
+      },
+      include: {
+        doador: true,
+      },
+    });
+    return NextResponse.json(doacoesDinheiro);
+  } else {
+    const doacoesDinheiro = await prisma.doacaoDinheiro.findMany({
+      include: {
+        doador: true,
+      },
+      orderBy: {
+        dataCriacao: "desc",
+      },
+    });
+    return NextResponse.json(doacoesDinheiro);
+  }
+}
 
 export async function POST(request: Request) {
   const res: DoacaoDinheiro = await request.json();

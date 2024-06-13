@@ -6,14 +6,13 @@ import { DataTable } from "./table/data-table";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-const getItems = async (): Promise<DoacaoItem[]> => {
+const getItems = async (): Promise<Item[]> => {
   try {
-    const res = await fetch("http://localhost:3000/api/donation/itemdonation", {
+    const res = await fetch("http://localhost:3000/api/items", {
       cache: "no-cache",
     });
-    const { doacoesItem }: { doacoesItem: DoacaoItem[] } = await res.json();
-    console.log(doacoesItem);
-    return doacoesItem;
+    const itens: Item[] = await res.json();
+    return itens;
   } catch (error) {
     console.error(error);
     return [];
@@ -21,11 +20,7 @@ const getItems = async (): Promise<DoacaoItem[]> => {
 };
 
 export default async function ShowcaseItems() {
-  const data: DoacaoItem[] = await getItems();
-  const items: Item[] = [];
-  data.map((doacaoItem) => {
-    items.push(doacaoItem.item);
-  });
+  const data: Item[] = await getItems();
   return (
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
       <ScrollArea className="h-full">

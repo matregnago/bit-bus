@@ -1,6 +1,6 @@
 "use client";
 
-import { DoacaoItem } from "@/types";
+import { Item } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
@@ -19,30 +19,30 @@ import Link from "next/link";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export const columns: ColumnDef<DoacaoItem>[] = [
+export const columns: ColumnDef<Item>[] = [
   {
-    accessorKey: "item.nome",
+    accessorKey: "nome",
     id: "nome",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Nome" />
     ),
   },
   {
-    accessorKey: "item.ano",
+    accessorKey: "ano",
     id: "ano",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Ano" />
     ),
   },
   {
-    accessorKey: "item.quantidade",
+    accessorKey: "quantidade",
     id: "quantidade",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantidade" />
     ),
   },
   {
-    accessorKey: "item.tipo",
+    accessorKey: "tipo",
     id: "tipo",
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));

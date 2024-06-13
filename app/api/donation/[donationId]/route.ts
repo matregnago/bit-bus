@@ -17,16 +17,6 @@ export async function GET(request: Request, context: any) {
   });
   if (returnMoneyDonation != null) {
     return NextResponse.json(returnMoneyDonation);
-  } else {
-    const returnItemDonation = await prisma.doacaoItem.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        item: true,
-        doador: true,
-      },
-    });
-    return NextResponse.json(returnItemDonation);
   }
+  return NextResponse.json({});
 }
