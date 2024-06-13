@@ -49,3 +49,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(items);
   }
 }
+
+export async function DELETE(request: Request) {
+  const { id } = await request.json();
+  console.log(id);
+  const delItem = await prisma.itemAcervo.delete({
+    where: {
+      id,
+    },
+  });
+  console.log(delItem);
+  return NextResponse.json({ delItem });
+}

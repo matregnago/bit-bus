@@ -16,6 +16,7 @@ import {
 import { Icons } from "@/components/icons";
 import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
 import Link from "next/link";
+import { CellAction } from "./cell-action";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -53,43 +54,6 @@ export const columns: ColumnDef<Item>[] = [
   },
   {
     id: "acoes",
-    cell: ({ row }) => {
-      const doacao = row.original;
-      const IconEdit = Icons["edit"];
-      const IconDelete = Icons["delete"];
-      const IconDetails = Icons["details"];
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            {/* <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(item.id)}
-            >
-              Copiar id do item
-            </DropdownMenuItem> */}
-            <DropdownMenuSeparator />
-            <Link href={`/donation/${doacao.id}`}>
-              <DropdownMenuItem>
-                <IconDetails className="mr-2 h-4 w-4" /> Detalhes
-              </DropdownMenuItem>
-            </Link>
-            {/* <DropdownMenuItem>
-              <IconEdit className="mr-2 h-4 w-4" />
-              Editar
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <IconDelete className="mr-2 h-4 w-4" />
-              Excluir
-            </DropdownMenuItem> */}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];

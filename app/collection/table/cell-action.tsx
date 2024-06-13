@@ -20,37 +20,37 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Icons } from "@/components/icons";
-import { DoacaoItem } from "@/types/index";
+import { Item } from "@/types/index";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import deleteItemDonation from "../actions/deleteItemDonation";
+import deleteItem from "../actions/deleteItem";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 interface CellActionProps {
-  data: DoacaoItem;
+  data: Item;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
   const { toast } = useToast();
-  const doacaoItem = data;
+  const item = data;
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
   const onConfirm = async () => {
-    if (doacaoItem.id !== undefined) {
+    if (item.id !== undefined) {
       try {
-        await deleteItemDonation(doacaoItem.id);
+        await deleteItem(item.id);
         router.refresh();
         toast({
           title: "Sucesso!",
-          description: "A doação foi removida sucesso!",
+          description: "O item foi removido sucesso!",
         });
       } catch (error) {
         toast({
           title: "Erro!",
-          description: `Erro ao excluir doação: ${error}!`,
+          description: `Erro ao excluir item: ${error}!`,
         });
       }
     }
@@ -69,7 +69,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link href={`/collection/${doacaoItem.item.id}`}>
+            <Link href={`/collection/${item.id}`}>
               <DropdownMenuItem>
                 <IconDetails className="mr-2 h-4 w-4" /> Detalhes
               </DropdownMenuItem>
