@@ -18,6 +18,7 @@ import { useToast } from "@/components/ui/use-toast";
 import createFeedback from "../actions/createFeedback";
 import redirectFeedbackPage from "../actions/redirectFeedbackPage";
 import { Feedback } from "@/types";
+import StarRating from "@/components/form/StarRating";
 
 const formSchema = z.object({
   nome: z
@@ -25,7 +26,7 @@ const formSchema = z.object({
     .min(3, { message: "O nome deve conter pelo menos 3 letras." }),
   cpf: z.string().min(14, { message: "Formato de CPF inválido." }),
   email: z.string().min(3, { message: "Email inválido." }),
-  nota: z.string().min(1, { message: "Nota inválida." }),
+  nota: z.number().min(1, { message: "Nota precisa ser de 1 a 5." }),
   descricao: z.string().min(3, { message: "Descrição inválido." }),
 });
 
@@ -37,7 +38,7 @@ export default function FeedackForm() {
       nome: "",
       cpf: "",
       email: "",
-      nota: "",
+      nota: 1,
       descricao: "",
     },
   });
@@ -136,7 +137,10 @@ export default function FeedackForm() {
                 <FormItem>
                   <FormLabel>Nota</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nota" type="number" {...field} />
+                    <StarRating
+                      value={Number(field.value)} // Convert the value to a number
+                      onChange={field.onChange as (value: number) => void}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -149,9 +153,9 @@ export default function FeedackForm() {
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>Descricao</FormLabel>
+                  <FormLabel>Descrição</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Dimensoes do item" {...field} />
+                    <Textarea placeholder="Descreva a sua opinião" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -161,6 +165,9 @@ export default function FeedackForm() {
           <Button type="submit" className="w-full">
             Submit
           </Button>
+          {/* <pre className="col-span-full">
+            {JSON.stringify(form.watch(), null, 2)}
+          </pre> */}
         </form>
       </Form>
     </main>

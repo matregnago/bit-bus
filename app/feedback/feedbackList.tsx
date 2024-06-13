@@ -10,12 +10,16 @@ interface FeedbackListProps {
 
 const FeedbackList = ({ feedbacks }: FeedbackListProps) => {
   const router = useRouter();
-  return (
+  return feedbacks.length === 0 ? (
+    <p>Não há feedbacks registrados</p>
+  ) : (
     <div className="grid grid-cols-3 gap-6">
       {feedbacks.map((feedback) => {
         const deleteAction = () => {
-          deleteFeedbackAction(feedback.id);
-          router.refresh();
+          if (feedback.id !== undefined) {
+            deleteFeedbackAction(feedback.id);
+            router.refresh();
+          }
         };
         return (
           <FeedbackCard

@@ -86,7 +86,9 @@ const EventList = ({ events }: EventListProps) => {
   const isVisita = (event: Event): event is Visita => {
     return "organizador" in event;
   };
-  return (
+  return events.length === 0 ? (
+    <p>Não há eventos agendados</p>
+  ) : (
     <div className="grid grid-cols-3 gap-6">
       {events.map((event) => {
         if (isVisita(event)) {

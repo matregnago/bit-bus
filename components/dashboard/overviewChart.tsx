@@ -11,7 +11,9 @@ interface ChartData {
 
 export function Overview({ data }: ChartData) {
   console.log(data);
-  return (
+  return data.length === 0 ? (
+    <p>Nenhum dado encontrado.</p>
+  ) : (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>
         <XAxis
