@@ -6,10 +6,11 @@ interface ItemInterface {
 }
 
 export async function generateStaticParams() {
-  const data: Item[] = await fetch(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/api/items`
-  ).then((res) => res.json());
-  const items = data;
+  const data = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/items`);
+  if (!data.ok) {
+    throw new Error("Failed to fetch event list");
+  }
+  const items: Item[] = await data.json();
   return items.map((item) => ({
     id: item.id,
   }));

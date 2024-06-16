@@ -19,9 +19,10 @@ interface VisitaCardProps {
 }
 
 export async function generateStaticParams() {
-  const eventos: (Visita | Oficina)[] = await fetch(
+  const data = await fetch(
     `${process.env.NEXT_PUBLIC_DOMAIN}/api/events/eventlist`
-  ).then((res) => res.json());
+  );
+  const eventos: (Visita | Oficina)[] = await data.json();
   return eventos.map((evento) => ({
     id: evento.id,
   }));

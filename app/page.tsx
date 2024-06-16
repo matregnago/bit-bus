@@ -11,7 +11,10 @@ type ChartData = {
 
 const getChartData = async (): Promise<ChartData[]> => {
   const requestChartData = await fetch(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/api/dashboard/graphic`
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/dashboard/graphic`,
+    {
+      cache: "no-cache",
+    }
   );
   return requestChartData.json();
 };

@@ -6,9 +6,13 @@ interface DoacaoDinheiroCardProps {
 }
 
 export async function generateStaticParams() {
-  const data: DoacaoDinheiro[] = await fetch(
+  const res = await fetch(
     `${process.env.NEXT_PUBLIC_DOMAIN}/api/donation/moneydonation`
-  ).then((res) => res.json());
+  );
+  if (!res.ok) {
+    throw new Error("Failed to fetch event list");
+  }
+  const data: DoacaoDinheiro[] = await res.json();
   const doacaoDinheiro = data;
   return doacaoDinheiro.map((doacao) => ({
     id: doacao.id,
