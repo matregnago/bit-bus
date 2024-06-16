@@ -19,9 +19,7 @@ const getDonations = async (): Promise<DoacaoApiResponse> => {
     doacaoItem: [],
   };
   try {
-    const res = await fetch("http://localhost:3000/api/donation", {
-      cache: "no-cache",
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/donation`);
     const doacoes: DoacaoApiResponse = await res.json();
     return doacoes;
   } catch (error) {

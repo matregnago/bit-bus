@@ -6,9 +6,9 @@ interface ItemInterface {
 }
 
 export async function generateStaticParams() {
-  const data: Item[] = await fetch("http://localhost:3000/api/items").then(
-    (res) => res.json()
-  );
+  const data: Item[] = await fetch(
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/items`
+  ).then((res) => res.json());
   const items = data;
   return items.map((item) => ({
     id: item.id,
@@ -26,7 +26,7 @@ const ItemCard = ({ item }: ItemInterface) => {
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
-  const data = await fetch(`http://localhost:3000/api/items/${id}`);
+  const data = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/items/${id}`);
   const { item }: ItemInterface = await data.json();
   if (item === null) {
     notFound();

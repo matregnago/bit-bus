@@ -7,7 +7,7 @@ export default async function deleteFeedbackAction(feedbackId: string) {
     id: feedbackId,
   };
   try {
-    fetch("http://localhost:3000/api/feedback", {
+    fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/feedback`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

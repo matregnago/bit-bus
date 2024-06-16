@@ -7,7 +7,7 @@ export default async function deleteWorkshopAction(visitaId: string) {
     id: visitaId,
   };
   try {
-    fetch("http://localhost:3000/api/events/workshop", {
+    fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/events/workshop`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

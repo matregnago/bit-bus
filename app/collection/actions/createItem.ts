@@ -2,7 +2,7 @@
 import { Item } from "@/types";
 
 export default async function creatItem(request: Item) {
-  const req = await fetch("http://localhost:3000/api/items", {
+  const req = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

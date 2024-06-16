@@ -48,7 +48,9 @@ interface FieldProps {
 
 const mockSearch = async (value: string) => {
   try {
-    const req = await fetch(`http://localhost:3000/api/items?search=${value}`);
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/items?search=${value}`
+    );
     const data = await req.json();
     const { opcoes } = data;
     console.log(opcoes);

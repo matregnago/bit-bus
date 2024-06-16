@@ -7,7 +7,7 @@ export default async function deleteItemDonation(donationId: string) {
     id: donationId,
   };
   try {
-    fetch("http://localhost:3000/api/donation/itemdonation", {
+    fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/donation/itemdonation`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

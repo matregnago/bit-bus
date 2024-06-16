@@ -7,7 +7,7 @@ interface DoacaoDinheiroCardProps {
 
 export async function generateStaticParams() {
   const data: DoacaoDinheiro[] = await fetch(
-    "http://localhost:3000/api/donation/moneydonation"
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/donation/moneydonation`
   ).then((res) => res.json());
   const doacaoDinheiro = data;
   return doacaoDinheiro.map((doacao) => ({
@@ -27,7 +27,7 @@ const DoacaoDinheiroCard = ({ doacao }: DoacaoDinheiroCardProps) => {
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
   const data = await fetch(
-    `http://localhost:3000/api/donation/moneydonation?id=${id}`
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/donation/moneydonation?id=${id}`
   );
   const doacao: DoacaoDinheiro = await data.json();
 

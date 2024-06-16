@@ -14,9 +14,9 @@ interface DashboardProps {
 
 const getData = async (): Promise<DashboardData> => {
   try {
-    const res = await fetch("http://localhost:3000/api/dashboard/cards", {
-      cache: "no-cache",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/dashboard/cards`
+    );
     const { data }: DashboardProps = await res.json();
     return data;
   } catch (error) {

@@ -8,9 +8,7 @@ interface FeedbackListProps {
   feedbacks: Feedback[];
 }
 export default async function EventPage() {
-  const data = await fetch("http://localhost:3000/api/feedback", {
-    cache: "no-cache",
-  });
+  const data = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/feedback`);
   const feedbacks: Feedback[] = await data.json();
   return (
     <ScrollArea className="h-full">

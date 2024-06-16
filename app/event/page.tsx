@@ -104,9 +104,7 @@ const EventList = ({ events }: EventListProps) => {
 };
 
 export default async function EventPage() {
-  const data = await fetch("http://localhost:3000/api/events", {
-    cache: "no-cache",
-  });
+  const data = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/events`);
   const events: EventAPIResponse = await data.json();
   const { pastEvents, upcomingEvents } = events;
   return (

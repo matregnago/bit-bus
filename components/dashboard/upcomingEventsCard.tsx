@@ -14,10 +14,7 @@ export default async function UpcomingEventsCard() {
     return "organizador" in evento;
   };
   const requestEvents = await fetch(
-    "http://localhost:3000/api/events?limit=6",
-    {
-      cache: "no-cache",
-    }
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/events?limit=6`
   );
   let { upcomingEvents }: EventApiResponse = await requestEvents.json();
   const datasFormatadas = upcomingEvents.map((evento) => {

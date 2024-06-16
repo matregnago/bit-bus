@@ -2,7 +2,7 @@
 import { Feedback } from "@/types";
 
 export default async function createFeedback(request: Feedback) {
-  const req = await fetch("http://localhost:3000/api/feedback", {
+  const req = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/feedback`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
