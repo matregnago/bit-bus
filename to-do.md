@@ -5,7 +5,5 @@
 - [ ] (Guilherme) Finalizar detalhes de doações e eventos
 - [ ] Fazer pagina detalhes de itens
 - [ ] Verificar colunas das tabelas
-- [ ] Otimizar renderização e cache
 - [ ] Mudar rota dos feedbacks (deixar para o público)
-- [ ] (WIP) Readme
 - [ ] Documento de entrega
