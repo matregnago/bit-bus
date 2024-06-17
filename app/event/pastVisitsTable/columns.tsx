@@ -43,6 +43,20 @@ export const columnsVisitTable: ColumnDef<Visita>[] = [
     ),
   },
   {
+    accessorKey: "local.bairro",
+    id: "bairro",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Bairro" />
+    ),
+  },
+  {
+    accessorKey: "organizador.nome",
+    id: "organizador",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Organizador" />
+    ),
+  },
+  {
     id: "acoes",
     cell: ({ row }) => <CellAction data={row.original} />,
   },

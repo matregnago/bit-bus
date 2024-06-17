@@ -23,13 +23,13 @@ export const columnsItemDonationTable: ColumnDef<DoacaoItem>[] = [
     ),
   },
   {
-    accessorKey: "item.tipo",
-    id: "itemTipo",
+    accessorKey: "item.ano",
+    id: "itemAno",
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Tipo" />
+      <DataTableColumnHeader column={column} title="Ano" />
     ),
   },
   {
@@ -37,6 +37,16 @@ export const columnsItemDonationTable: ColumnDef<DoacaoItem>[] = [
     id: "itemQuantidade",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantidade" />
+    ),
+  },
+  {
+    accessorKey: "item.tipo",
+    id: "itemTipo",
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Tipo" />
     ),
   },
   {

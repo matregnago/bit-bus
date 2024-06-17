@@ -1,5 +1,5 @@
 <h1 align="center">
-<a href="https://elyzen.vercel.app">
+<a href="https://www.ucs.br/bit-bus/">
 Bit Bus
 </a>
 </h1>
@@ -18,7 +18,7 @@ Bit Bus
 </p>
 
 <p align="center">
-  <a href="https://elyzen.vercel.app" target="_blank">
+  <a href="https://www.ucs.br/bit-bus/" target="_blank">
     <img src="https://github.com/matregnago/bit-bus/blob/master/public/logo-bitbus.png?raw=true" alt="Logo" width="200"/>
   </a>
 </p>

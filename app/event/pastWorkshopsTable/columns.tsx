@@ -23,13 +23,6 @@ import { dateFormatter } from "@/lib/dateformatter";
 
 export const columnsWorkshopTable: ColumnDef<Oficina>[] = [
   {
-    accessorKey: "titulo",
-    id: "titulo",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Titulo" />
-    ),
-  },
-  {
     accessorKey: "dataHora",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Data e hora" />
@@ -45,19 +38,31 @@ export const columnsWorkshopTable: ColumnDef<Oficina>[] = [
     },
   },
   {
-    accessorKey: "duracao",
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Duracao" />
-    ),
-  },
-  {
     accessorKey: "local.cidade",
     id: "cidade",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Cidade" />
+    ),
+  },
+  {
+    accessorKey: "local.bairro",
+    id: "bairro",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Bairro" />
+    ),
+  },
+  {
+    accessorKey: "titulo",
+    id: "titulo",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Titulo" />
+    ),
+  },
+  {
+    accessorKey: "palestrante.nome",
+    id: "palestrante",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Palestrante" />
     ),
   },
   {
