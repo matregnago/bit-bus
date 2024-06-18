@@ -287,9 +287,9 @@ export default function ItemForm() {
             {/* <pre className="col-span-full">
               {JSON.stringify(form.watch(), null, 2)}
             </pre> */}
-            <Button type="submit" className="col-span-full w-full">
-              Submit
-            </Button>
+              <Button type="submit" className="col-span-full w-full">
+                Submit
+              </Button>
           </form>
         </Form>
       </main>
