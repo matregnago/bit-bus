@@ -98,6 +98,7 @@ const optionSchema = z.object({
 
 const oficinaSchema = z.object({
   data: z.date(),
+  hora: z.string(),
   rua: z.string().min(3, { message: "Rua inválida." }),
   bairro: z.string().min(3, { message: "Bairro inválido" }),
   cidade: z.string().min(3, { message: "Cidade inválido" }),
@@ -131,6 +132,7 @@ const oficinaSchema = z.object({
 
 const visitaSchema = z.object({
   data: z.date(),
+  hora: z.string(),
   rua: z.string().min(3, { message: "Rua inválida." }),
   bairro: z.string().min(3, { message: "Bairro inválido" }),
   cidade: z.string().min(3, { message: "Cidade inválido" }),
@@ -165,6 +167,7 @@ export default function EventForm() {
       formType === "Visita"
         ? {
             data: undefined,
+            hora: "",
             rua: "",
             bairro: "",
             cidade: "",
@@ -176,6 +179,7 @@ export default function EventForm() {
           }
         : {
             data: undefined,
+            hora: "",
             rua: "",
             bairro: "",
             cidade: "",
@@ -195,6 +199,20 @@ export default function EventForm() {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    // Data original no formato ISO 8601
+    let originalDate = values.data;
+
+    // Horário a ser adicionado no formato "HH:mm"
+    let timeToAdd = values.hora;
+
+    // Separar horas e minutos do horário fornecido
+    let [hours, minutes] = timeToAdd.split(":").map(Number);
+
+    // Ajustar a data original com o novo horário
+    originalDate.setUTCHours(hours);
+    originalDate.setUTCMinutes(minutes);
+
+    values.data = originalDate;
     const items = await searchItems(values.itensacervo);
     const isVisita = (
       values: z.infer<typeof visitaSchema> | z.infer<typeof oficinaSchema>
@@ -289,22 +307,33 @@ export default function EventForm() {
     });
   }
   const handleTipoChange = (value: string) => {
-    const [data, rua, bairro, cidade, estado, cep, visitantes, itensacervo] =
-      form.getValues([
-        "data",
-        "rua",
-        "bairro",
-        "cidade",
-        "estado",
-        "cep",
-        "visitantes",
-        "itensacervo",
-      ]);
+    const [
+      data,
+      hora,
+      rua,
+      bairro,
+      cidade,
+      estado,
+      cep,
+      visitantes,
+      itensacervo,
+    ] = form.getValues([
+      "data",
+      "hora",
+      "rua",
+      "bairro",
+      "cidade",
+      "estado",
+      "cep",
+      "visitantes",
+      "itensacervo",
+    ]);
     setFormType(value);
     form.reset(
       formType === "Oficina"
         ? {
             data,
+            hora,
             rua,
             bairro,
             cidade,
@@ -318,6 +347,7 @@ export default function EventForm() {
           }
         : {
             data,
+            hora,
             rua,
             bairro,
             cidade,
@@ -385,8 +415,20 @@ export default function EventForm() {
                 )}
               />
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="hora"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Horario</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Horario" type="time" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="rua"

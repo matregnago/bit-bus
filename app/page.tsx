@@ -13,7 +13,7 @@ const getChartData = async (): Promise<ChartData[]> => {
   const requestChartData = await fetch(
     `${process.env.NEXT_PUBLIC_DOMAIN}/api/dashboard/graphic`,
     {
-      cache: "no-cache",
+      cache: "no-store",
     }
   );
   return requestChartData.json();
