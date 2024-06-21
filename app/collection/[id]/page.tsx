@@ -47,17 +47,8 @@ const ItemCard = ({ item }: ItemInterface) => {
     }
   }
   return (
-    <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+    <div className="flex-1 space-y-4 p-8 pt-6 md:p-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
-          <img
-            src={item.foto}
-            alt="Artifact"
-            width={800}
-            height={600}
-            className="w-full h-auto rounded-lg object-cover"
-          />
-        </div>
         <div className="space-y-6">
           <div>
             <h1 className="text-3xl font-bold">{item.nome}</h1>
@@ -111,6 +102,15 @@ const ItemCard = ({ item }: ItemInterface) => {
           ) : (
             <p></p>
           )}
+        </div>
+        <div>
+          <img
+            src={item.foto}
+            alt="Artifact"
+            width={800}
+            height={600}
+            className="w-full h-auto rounded-lg object-cover"
+          />
         </div>
       </div>
     </div>
