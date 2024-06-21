@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
-    <div className="">
-      <h1 className="text-3xl">Carregando...</h1>
+    <div className="flex justify-center mt-96">
+      <h1 className="text-6xl opacity-95">Carregando...</h1>
     </div>
   );
 }

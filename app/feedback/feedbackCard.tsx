@@ -19,6 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Feedback } from "@/types";
+import { StarIcon, TrashIcon } from "lucide-react";
 
 interface FeedbackCardProps {
   feedback: Feedback;
@@ -31,29 +32,37 @@ export default function FeedbackCard({
 }: FeedbackCardProps) {
   return (
     <AlertDialog>
-      <Card className="min-w-80">
-        <CardHeader>
-          <CardTitle>{feedback.visitante.nome}</CardTitle>
-          <CardDescription>{feedback.conteudo}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Nota: {feedback.nota}</p>
-          <AlertDialogTrigger>Deletar</AlertDialogTrigger>
-        </CardContent>
+      <Card className="p-6 rounded-lg shadow-md ">
+        <div className="mb-4">
+          <div>
+            <div className="flex justify-between">
+              <h3 className="text-lg font-semibold">{feedback.visitante.nome}</h3>
+              <AlertDialogTrigger>
+                <TrashIcon className="w-4 h-4 text-red" />
+              </AlertDialogTrigger>
+            </div>
+            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+              <StarIcon className="w-4 h-4 fill-black mr-1" />
+              <span>{feedback.nota}</span>
+            </div>
+          </div>
+        </div>
+        <p className="text-gray-700 dark:text-gray-300 mb-4">{feedback.conteudo}</p>
+
+        <AlertDialogContent>
+         <AlertDialogHeader>
+           <AlertDialogTitle>Você realmente tem certeza?</AlertDialogTitle>
+           <AlertDialogDescription>
+            Essa ação não pode ser desfeita. Isso excluirá permanentemente esse feedback.
+           </AlertDialogDescription>
+         </AlertDialogHeader>
+         <AlertDialogFooter>
+           <AlertDialogCancel>Cancelar</AlertDialogCancel>
+           <AlertDialogAction onClick={onDelete}>Confirmar</AlertDialogAction>
+         </AlertDialogFooter>
+       </AlertDialogContent>
       </Card>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onDelete}>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
     </AlertDialog>
+
   );
 }
