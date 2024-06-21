@@ -91,14 +91,15 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
           <CardDescription className="mt-2">
              Lorem ispum dolor sit amet, consectetur adipiscing elit.
           </CardDescription>
-          {/* <Badge variant="outline">Visita</Badge> */}
         </div>
+        <Badge className="p-2 px-4 mt-1" variant="outline">Visita</Badge>
         <Link href={`/event/${visita.id}`}>
           <Button variant="outline" size="sm">
             Ver Detalhes
           </Button>
         </Link>
       </CardHeader>
+      
       <CardContent>
         <div className="flex items-center gap-2 text-gray-500">
           <CalendarIcon className="w-5 h-5" />
@@ -123,7 +124,7 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
           <CardDescription className="mt-2">
             {oficina.resumo}
           </CardDescription>
-          {/* <Badge variant="outline">Oficina</Badge> */}
+          <Badge className="p-2 px-4 mt-1" variant="outline">Oficina</Badge>
         </div>
         <Link href={`/event/${oficina.id}`}>
           <Button variant="outline" size="sm">

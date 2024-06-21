@@ -35,7 +35,7 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
       <h1 className="text-3xl font-bold tracking-tight text-center">
         {evento.titulo}
       </h1>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3 mt-10">
         <Card className="">
           <CardHeader>
             <CardTitle>Data</CardTitle>
@@ -82,7 +82,7 @@ const VisitaCard = ({ evento }: VisitaCardProps) => {
       <h1 className="text-3xl font-bold tracking-tight text-center">
         Visitação
       </h1>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-3 mt-10">
         <Card className="">
           <CardHeader>
             <CardTitle>Data</CardTitle>
@@ -133,7 +133,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         ) : (
           <OficinaCard evento={evento} />
         )}
-        <h2 className="text-xl font-bold tracking-tight">Visitantes</h2>
+        <h2 className="text-xl font-bold tracking-tight mt-10">Visitantes</h2>
         <Table>
           <TableHeader>
             <TableRow>
@@ -152,7 +152,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             })}
           </TableBody>
         </Table>
-        <h2 className="text-xl font-bold tracking-tight">Itens do acervo</h2>
+        <h2 className="text-xl font-bold tracking-tight mt-10">Itens do acervo</h2>
         <Table>
           <TableHeader>
             <TableRow>
