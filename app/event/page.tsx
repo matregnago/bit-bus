@@ -38,21 +38,74 @@ interface EventAPIResponse {
   };
 }
 
+function CalendarIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M8 2v4" />
+      <path d="M16 2v4" />
+      <rect width="18" height="18" x="3" y="4" rx="2" />
+      <path d="M3 10h18" />
+    </svg>
+  )
+}
+
+
+function ClockIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+  )
+}
+
 const VisitaItem = ({ visita }: VisitaCardProps) => {
   const { dia, hora } = dateFormatter(visita.dataHora);
   return (
-    <Card className="min-w-80">
-      <CardHeader>
-        <CardTitle>Visita</CardTitle>
-        <CardDescription></CardDescription>
+    <Card>
+      <CardHeader className="flex items-start justify-between">
+        <div>
+          <CardTitle>Visita</CardTitle>
+          <CardDescription className="mt-2">
+             Lorem ispum dolor sit amet, consectetur adipiscing elit.
+          </CardDescription>
+          {/* <Badge variant="outline">Visita</Badge> */}
+        </div>
+        <Link href={`/event/${visita.id}`}>
+          <Button variant="outline" size="sm">
+            Ver Detalhes
+          </Button>
+        </Link>
       </CardHeader>
       <CardContent>
-        <Badge variant="outline">Visita</Badge>
-        <p>Data: {dia}</p>
-        <p>Horario: {hora}</p>
-        <Link href={`/event/${visita.id}`}>
-          <Button variant="secondary">Ver detalhes</Button>
-        </Link>
+        <div className="flex items-center gap-2 text-gray-500">
+          <CalendarIcon className="w-5 h-5" />
+          <p>Data: {dia}</p>
+          <ClockIcon className="w-5 h-5" />
+          <p>Horario: {hora}</p>
+        </div>
       </CardContent>
     </Card>
   );
@@ -61,19 +114,30 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
 const OficinaItem = ({ oficina }: OficinaCardProps) => {
   const { dia, hora } = dateFormatter(oficina.dataHora);
   return (
-    <Card className="min-w-80">
-      <CardHeader>
-        <CardTitle>{oficina.titulo}</CardTitle>
-        <CardDescription>{oficina.resumo}</CardDescription>
+    <Card>
+      <CardHeader className="flex items-start justify-between">
+        <div>
+          <CardTitle>
+            {oficina.titulo}
+          </CardTitle>
+          <CardDescription className="mt-2">
+            {oficina.resumo}
+          </CardDescription>
+          {/* <Badge variant="outline">Oficina</Badge> */}
+        </div>
+        <Link href={`/event/${oficina.id}`}>
+          <Button variant="outline" size="sm">
+            Ver Detalhes
+          </Button>
+        </Link>
       </CardHeader>
       <CardContent>
-        <Badge variant="outline">Oficina</Badge>
-        <p>Data: {dia}</p>
-        <p>Horario: {hora}</p>
-        <p>Duração: {oficina.duracao}</p>
-        <Link href={`/event/${oficina.id}`}>
-          <Button variant="secondary">Ver detalhes</Button>
-        </Link>
+        <div className="flex items-center gap-2 text-gray-500">
+          <CalendarIcon className="w-5 h-5" />
+          <p>Data: {dia}</p>
+          <ClockIcon className="w-5 h-5" />
+          <p>Horario: {hora}</p>
+        </div>
       </CardContent>
     </Card>
   );
@@ -89,7 +153,7 @@ const EventList = ({ events }: EventListProps) => {
   return events.length === 0 ? (
     <p>Não há eventos agendados</p>
   ) : (
-    <div className="grid grid-cols-3 gap-6">
+    <div className="grid grid-cols-4 gap-6">
       {events.map((event) => {
         if (isVisita(event)) {
           return <VisitaItem key={event.id} visita={event} />;
@@ -104,8 +168,8 @@ const EventList = ({ events }: EventListProps) => {
 };
 
 export default async function EventPage() {
-  const data = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/events`, {
-    cache: "no-store",
+  const data = await fetch("http://localhost:3000/api/events", {
+    cache: "no-cache",
   });
   const events: EventAPIResponse = await data.json();
   const { pastEvents, upcomingEvents } = events;
