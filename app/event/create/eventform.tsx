@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, PlusIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -367,7 +367,7 @@ export default function EventForm() {
   return (
     <div>
       <main className="mx-96 mb-40">
-        <h1 className="text-3xl font-bold text-center">
+        <h1 className="text-3xl font-bold text-center mt-10">
           Formulário de Eventos
         </h1>
         <Form {...form}>
@@ -380,7 +380,7 @@ export default function EventForm() {
                 control={form.control}
                 name="data"
                 render={({ field }) => (
-                  <FormItem className="">
+                  <FormItem className="mt-4">
                     <FormLabel>Data</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
@@ -510,7 +510,7 @@ export default function EventForm() {
                   </FormItem>
                 )}
               />
-              <FormItem>
+              <FormItem className="mt-6">
                 <FormLabel>Tipo do evento</FormLabel>
                 <Select
                   value={formType}
@@ -556,10 +556,10 @@ export default function EventForm() {
                     name="cpfPalestrante"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Cpf Palestrante</FormLabel>
+                        <FormLabel>CPF Palestrante</FormLabel>
                         <FormControl>
                           <CpfInput
-                            placeholder="Cpf do Palestrante"
+                            placeholder="CPF do Palestrante"
                             field={field}
                           />
                         </FormControl>
@@ -655,10 +655,10 @@ export default function EventForm() {
                     name="cpfOrganizador"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Cpf Organizador</FormLabel>
+                        <FormLabel>CPF Organizador</FormLabel>
                         <FormControl>
                           <CpfInput
-                            placeholder="Cpf do Organizador"
+                            placeholder="CPF do Organizador"
                             field={field}
                           />
                         </FormControl>
@@ -687,14 +687,17 @@ export default function EventForm() {
               )}
             </div>
 
-            <div className="grid gap-4">
-              <button
-                type="button"
-                onClick={addNovoVisitante}
-                className="button"
-              >
-                Adicionar Visitante
-              </button>
+            <div className="grid gap-4 mt-6">
+              <div>
+                <button
+                  type="button"
+                  onClick={addNovoVisitante}
+                  className="button flex border-2 py-2 px-4 rounded-xl items-center"
+                >
+                  <PlusIcon className="h-6 w-6 mr-2" />
+                  Adicionar Visitante
+                </button>
+              </div>
               <div className="flex flex-col gap-4">
                 {fields.map((field, index) => (
                   <div
@@ -723,10 +726,10 @@ export default function EventForm() {
                       name={`visitantes.${index}.cpf`}
                       render={({ field }) => (
                         <FormItem className="w-full">
-                          <FormLabel>Cpf</FormLabel>
+                          <FormLabel>CPF</FormLabel>
                           <FormControl>
                             <CpfInput
-                              placeholder="Cpf do visitante"
+                              placeholder="CPF do visitante"
                               field={field}
                             />
                           </FormControl>
@@ -764,9 +767,11 @@ export default function EventForm() {
             </div>
 
             {/* <pre>{JSON.stringify(form.watch(), null, 2)}</pre> */}
-            <Button type="submit" className="w-full">
-              Submit
-            </Button>
+            <div className="flex justify-end">
+              <Button type="submit" className="w-52 mt-4">
+                Enviar
+              </Button>
+            </div>
           </form>
         </Form>
       </main>

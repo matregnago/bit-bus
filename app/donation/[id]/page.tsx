@@ -21,9 +21,16 @@ export async function generateStaticParams() {
 
 const DoacaoDinheiroCard = ({ doacao }: DoacaoDinheiroCardProps) => {
   return (
-    <div>
-      <h1>Dinheiro: {doacao.quantiaDinheiro}</h1>
-      <h1>Doador: {doacao.doador.nome}</h1>
+    <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+      <h1 className="text-3xl font-bold tracking-tight mb-5">Doação em Dinheiro</h1>
+      <div className="flex">
+        <h1 className="font-bold">Dinheiro: </h1>
+        <p className="mx-2">R$ {doacao.quantiaDinheiro}</p>
+      </div>
+      <div className="flex">
+        <h1 className="font-bold">Doador: </h1>
+        <p className="mx-2">{doacao.doador.nome}</p>
+      </div>
     </div>
   );
 };
