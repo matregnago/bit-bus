@@ -89,7 +89,7 @@ export default function FeedackForm() {
             name="nome"
             render={({ field }) => {
               return (
-                <FormItem>
+                <FormItem className="mt-4">
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input placeholder="Seu nome" type="text" {...field} />
