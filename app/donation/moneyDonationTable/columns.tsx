@@ -28,6 +28,13 @@ export const columnsMoneyDonationTable: ColumnDef<DoacaoDinheiro>[] = [
     ),
   },
   {
+    accessorKey: "doador.email",
+    id: "email",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Email doador" />
+    ),
+  },
+  {
     accessorKey: "quantiaDinheiro",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantia" />

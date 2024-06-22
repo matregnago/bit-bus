@@ -42,15 +42,15 @@ export default async function EventPage() {
             <Button className="text-xs md:text-sm">Adicionar Doação</Button>
           </Link>
         </div>
-        <h1 className="font-bold text-xl my-3">Doações Monetárias</h1>
-        <DoacaoDinheiroDataTable
-          columns={columnsMoneyDonationTable}
-          data={doacaoDinheiro}
-        />
         <h1 className="font-bold text-xl my-3">Doações de Itens</h1>
         <DoacaoItemDataTable
           columns={columnsItemDonationTable}
           data={doacaoItem}
+        />
+        <h1 className="font-bold text-xl my-3">Doações Monetárias</h1>
+        <DoacaoDinheiroDataTable
+          columns={columnsMoneyDonationTable}
+          data={doacaoDinheiro}
         />
       </div>
     </ScrollArea>
