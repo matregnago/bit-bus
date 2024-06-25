@@ -22,8 +22,9 @@ const getItems = async (): Promise<Item[]> => {
 export default async function ShowcaseItems() {
   const data: Item[] = await getItems();
   return (
-    <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
-      <ScrollArea className="h-full">
+    <ScrollArea className="h-full">
+      <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+        <title key="title">Acervo</title>
         <div className="flex items-start justify-between mb-4">
           <h1 className="text-3xl font-bold tracking-tight">Acervo</h1>
           <Link href="/collection/create">
@@ -31,7 +32,7 @@ export default async function ShowcaseItems() {
           </Link>
         </div>
         <DataTable columns={columns} data={data} />
-      </ScrollArea>
-    </div>
+      </div>
+    </ScrollArea>
   );
 }
