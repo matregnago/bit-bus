@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon, PlusIcon } from "lucide-react";
+import { Calendar as CalendarIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -692,7 +692,7 @@ export default function EventForm() {
                 <button
                   type="button"
                   onClick={addNovoVisitante}
-                  className="button flex border-2 py-2 px-4 rounded-xl items-center"
+                  className="button flex border-2 py-2 px-4 rounded-xl items-center dark:hover:bg-gray-950 hover:bg-gray-100"
                 >
                   <PlusIcon className="h-6 w-6 mr-2" />
                   Adicionar Visitante
@@ -759,7 +759,7 @@ export default function EventForm() {
                       onClick={() => remove(index)}
                       className="button"
                     >
-                      X
+                      <TrashIcon className="h-4 w-4" />
                     </button>
                   </div>
                 ))}

@@ -57,7 +57,7 @@ export default async function UpcomingEventsCard() {
         {upcomingEvents && upcomingEvents.length > 0 ? (
           upcomingEvents.map((evento) => (
             <div key={evento.id} className="flex items-center justify-between">
-              <div>
+              <div className="my-1">
                 <h3 className="font-medium">
                   {isVisita(evento) ? "Visitação" : evento.titulo}
                 </h3>

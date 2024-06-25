@@ -14,10 +14,11 @@ import { OficinasDataTable } from "./pastWorkshopsTable/data-table";
 import { columnsWorkshopTable } from "./pastWorkshopsTable/columns";
 import { VisitasDataTable } from "./pastVisitsTable/data-table";
 import { columnsVisitTable } from "./pastVisitsTable/columns";
-import { Separator } from "@/components/ui/separator";
 
 import Link from "next/link";
 import { dateFormatter } from "@/lib/dateformatter";
+import { Ellipsis, EyeIcon } from "lucide-react";
+
 
 interface EventListProps {
   events: Event[];
@@ -84,20 +85,16 @@ function ClockIcon(props) {
 const VisitaItem = ({ visita }: VisitaCardProps) => {
   const { dia, hora } = dateFormatter(visita.dataHora);
   return (
-    <Card>
-      <CardHeader className="flex items-start justify-between">
-        <div>
+    <Card className="shadow-md">
+      <CardHeader className="flex justify-between">
+        <div className="flex justify-between">
           <CardTitle>Visita</CardTitle>
-          <CardDescription className="mt-2">
-             Lorem ispum dolor sit amet, consectetur adipiscing elit.
-          </CardDescription>
+          <Link href={`/event/${visita.id}`}>
+            <Button variant="outline" className="border-none justify-end">
+              <Ellipsis className="w-5 h-5" />
+            </Button>
+          </Link>
         </div>
-        <Badge className="p-2 px-4 mt-1" variant="outline">Visita</Badge>
-        <Link href={`/event/${visita.id}`}>
-          <Button variant="outline" size="sm">
-            Ver Detalhes
-          </Button>
-        </Link>
       </CardHeader>
       
       <CardContent>
@@ -115,22 +112,21 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
 const OficinaItem = ({ oficina }: OficinaCardProps) => {
   const { dia, hora } = dateFormatter(oficina.dataHora);
   return (
-    <Card>
-      <CardHeader className="flex items-start justify-between">
-        <div>
+    <Card className="shadow-md">
+      <CardHeader className="flex justify-between">
+        <div className="flex justify-between">
           <CardTitle>
             {oficina.titulo}
           </CardTitle>
-          <CardDescription className="mt-2">
+          <Link href={`/event/${oficina.id}`}>
+            <Button variant="outline" className="border-none justify-end">
+              <Ellipsis className="w-5 h-5" />
+            </Button>
+          </Link>
+        </div>
+          <CardDescription className="">
             {oficina.resumo}
           </CardDescription>
-          <Badge className="p-2 px-4 mt-1" variant="outline">Oficina</Badge>
-        </div>
-        <Link href={`/event/${oficina.id}`}>
-          <Button variant="outline" size="sm">
-            Ver Detalhes
-          </Button>
-        </Link>
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-2 text-gray-500">
@@ -192,9 +188,11 @@ export default async function EventPage() {
                 <TabsTrigger value="passados">Passados</TabsTrigger>
               </TabsList>
             </div>
-            <TabsContent value="agendados" className="mb-8">
-              <EventList events={upcomingEvents} />
-            </TabsContent>
+            <div className="">
+              <TabsContent value="agendados" className="mb-8">
+                <EventList events={upcomingEvents} />
+              </TabsContent>
+            </div>
           </div>
 
           <TabsContent value="passados" className="text-xl my-3">
