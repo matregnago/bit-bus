@@ -1,5 +1,6 @@
 import { dateFormatter } from "@/lib/dateformatter";
 import { Item } from "@/types";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { notFound } from "next/navigation";
 
 export type ExtendedItem = Item & {
@@ -48,8 +49,17 @@ const ItemCard = ({ item }: ItemInterface) => {
   }
   return (
     <div className="flex-1 space-y-4 p-8 pt-6 md:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="">
         <div className="space-y-6">
+          <div className="flex justify-center">
+            <img
+              src={item.foto}
+              alt="Artifact"
+              width={800}
+              height={600}
+              className="w-auto h-auto rounded-lg object-cover"
+            />
+          </div>
           <div>
             <h1 className="text-3xl font-bold">{item.nome}</h1>
             <p className="text-gray-500 dark:text-gray-400">
@@ -103,15 +113,6 @@ const ItemCard = ({ item }: ItemInterface) => {
             <p></p>
           )}
         </div>
-        <div>
-          <img
-            src={item.foto}
-            alt="Artifact"
-            width={800}
-            height={600}
-            className="w-full h-auto rounded-lg object-cover"
-          />
-        </div>
       </div>
     </div>
   );
@@ -128,7 +129,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
   return (
     <>
+    <ScrollArea className="h-full">
       <ItemCard item={item} />
+    </ScrollArea>
     </>
   );
 }

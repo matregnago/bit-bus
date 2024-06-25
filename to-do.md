@@ -1,7 +1,6 @@
 ## Lista de tarefas:
 
 - [ ] (Guilherme) Ajustes placeholder nas interfaces
-- [ ] (Guilherme) Detalhamento do item acervo (centralizar imagem e colocar o conteudo abaixo)
 - [ ] (Guilherme) Conceitos da introdução da documentação (scrum, bdd, tdd e etc)
 
 

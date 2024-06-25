@@ -95,6 +95,9 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
             </Button>
           </Link>
         </div>
+        <CardDescription className="">
+            Evento de visitação destinado ao público.
+          </CardDescription>
       </CardHeader>
       
       <CardContent>
