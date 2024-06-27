@@ -99,7 +99,7 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
       </CardHeader>
 
       <CardContent>
-        <div className="flex items-center gap-2 text-gray-500">
+        <div className="flex items-center gap-2">
           <CalendarIcon className="w-5 h-5" />
           <p>Data: {dia}</p>
           <ClockIcon className="w-5 h-5" />
@@ -126,7 +126,7 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
         <CardDescription className="">{oficina.resumo}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center gap-2 text-gray-500">
+        <div className="flex items-center gap-2">
           <CalendarIcon className="w-5 h-5" />
           <p>Data: {dia}</p>
           <ClockIcon className="w-5 h-5" />
@@ -147,7 +147,7 @@ const EventList = ({ events }: EventListProps) => {
   return events.length === 0 ? (
     <p>Não há eventos agendados</p>
   ) : (
-    <div className="grid grid-cols-4 gap-10">
+    <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10">
       {events.map((event) => {
         if (isVisita(event)) {
           return <VisitaItem key={event.id} visita={event} />;
