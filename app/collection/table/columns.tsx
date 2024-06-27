@@ -41,6 +41,13 @@ export const columns: ColumnDef<Item>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantidade" />
     ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2 truncate">
+          {row.getValue("quantidade")} unidade(s)
+        </div>
+      );
+    },
   },
   {
     accessorKey: "tipo",

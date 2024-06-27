@@ -123,7 +123,9 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
             </Button>
           </Link>
         </div>
-        <CardDescription className="">{oficina.resumo}</CardDescription>
+        <CardDescription className="line-clamp-3">
+          {oficina.resumo}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-2">

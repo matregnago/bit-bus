@@ -39,6 +39,13 @@ export const columnsMoneyDonationTable: ColumnDef<DoacaoDinheiro>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantia" />
     ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2 truncate">
+          R$ {row.getValue("quantiaDinheiro")}
+        </div>
+      );
+    },
   },
   {
     id: "acoes",

@@ -38,6 +38,13 @@ export const columnsItemDonationTable: ColumnDef<DoacaoItem>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Quantidade" />
     ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2 truncate">
+          {row.getValue("itemQuantidade")} unidade(s)
+        </div>
+      );
+    },
   },
   {
     accessorKey: "item.tipo",

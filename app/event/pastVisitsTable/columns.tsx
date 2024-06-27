@@ -29,7 +29,7 @@ export const columnsVisitTable: ColumnDef<Visita>[] = [
       const { dia, hora } = dateFormatter(row.getValue("dataHora"));
 
       return (
-        <div className="flex w-[100px] items-center">
+        <div className="flex w-[100px] text-center">
           <span>{`${dia} ${hora}`}</span>
         </div>
       );

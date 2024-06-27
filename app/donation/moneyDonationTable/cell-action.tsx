@@ -73,7 +73,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
               <IconEdit className="mr-2 h-4 w-4" />
               Editar
             </DropdownMenuItem> */}
-            <AlertDialogTrigger>
+            <AlertDialogTrigger className="w-full">
               <DropdownMenuItem>
                 <IconDelete className="mr-2 h-4 w-4" />
                 Excluir
