@@ -39,6 +39,7 @@ export async function GET() {
       id: true,
     },
   });
+
   const itensDataFormat: ChartData[] = doacaoItensGrouped.map((item) => {
     return {
       name: format(item.dataCriacao, "yyyy-MM"),
@@ -52,6 +53,7 @@ export async function GET() {
       total: item._count.id,
     };
   });
+
   const completeDataFormat = [...itensDataFormat, ...moneyDataFormat];
 
   const result = completeDataFormat.reduce(
@@ -66,6 +68,7 @@ export async function GET() {
     },
     []
   );
+
   const monthNames = [
     "Janeiro",
     "Fevereiro",
@@ -80,6 +83,7 @@ export async function GET() {
     "Novembro",
     "Dezembro",
   ];
+
   const formatDateString = (dateString: string): string => {
     const [year, month] = dateString.split("-");
     const monthName = monthNames[parseInt(month) - 1];
@@ -90,6 +94,15 @@ export async function GET() {
     ...item,
     name: formatDateString(item.name),
   }));
+
+  // Ordenar os itens pela data
+  newArray.sort((a, b) => {
+    const [aMonth, aYear] = a.name.split(" ");
+    const [bMonth, bYear] = b.name.split(" ");
+    const aDate = new Date(`${aYear}-${monthNames.indexOf(aMonth) + 1}-01`);
+    const bDate = new Date(`${bYear}-${monthNames.indexOf(bMonth) + 1}-01`);
+    return aDate - bDate;
+  });
 
   return NextResponse.json(newArray);
 }
