@@ -13,7 +13,7 @@ const FeedbackList = ({ feedbacks }: FeedbackListProps) => {
   return feedbacks.length === 0 ? (
     <p>Não há feedbacks registrados</p>
   ) : (
-    <div className="grid grid-cols-4 gap-10">
+    <div className="grid gap-10 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
       {feedbacks.map((feedback) => {
         const deleteAction = () => {
           if (feedback.id !== undefined) {

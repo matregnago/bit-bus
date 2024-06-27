@@ -64,7 +64,7 @@ export default function FeedackForm() {
       } else {
         toast({
           title: "Sucesso!",
-          description: "O feedback foi registrada com sucesso!",
+          description: "O feedback foi registrado com sucesso!",
         });
         redirectFeedbackPage();
       }
@@ -77,7 +77,8 @@ export default function FeedackForm() {
     }
   };
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
+    <main className="flex min-h-screen flex-col items-center p-24 pt-10">
+      <title>Formulário de Feedback</title>
       <h1 className="text-3xl font-bold">Formulário de Feedback</h1>
       <Form {...form}>
         <form
@@ -89,7 +90,7 @@ export default function FeedackForm() {
             name="nome"
             render={({ field }) => {
               return (
-                <FormItem className="mt-4">
+                <FormItem className="mt-8">
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input placeholder="Seu nome" type="text" {...field} />
@@ -105,9 +106,9 @@ export default function FeedackForm() {
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>Cpf</FormLabel>
+                  <FormLabel>CPF</FormLabel>
                   <FormControl>
-                    <CpfInput placeholder="Cpf" field={field} />
+                    <CpfInput placeholder="CPF" field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -163,7 +164,7 @@ export default function FeedackForm() {
             }}
           />
           <Button type="submit" className="w-full">
-            Submit
+            Enviar
           </Button>
           {/* <pre className="col-span-full">
             {JSON.stringify(form.watch(), null, 2)}
