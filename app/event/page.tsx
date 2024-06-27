@@ -19,7 +19,6 @@ import Link from "next/link";
 import { dateFormatter } from "@/lib/dateformatter";
 import { Ellipsis, EyeIcon } from "lucide-react";
 
-
 interface EventListProps {
   events: Event[];
 }
@@ -58,9 +57,8 @@ function CalendarIcon(props) {
       <rect width="18" height="18" x="3" y="4" rx="2" />
       <path d="M3 10h18" />
     </svg>
-  )
+  );
 }
-
 
 function ClockIcon(props) {
   return (
@@ -79,7 +77,7 @@ function ClockIcon(props) {
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
     </svg>
-  )
+  );
 }
 
 const VisitaItem = ({ visita }: VisitaCardProps) => {
@@ -96,10 +94,10 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
           </Link>
         </div>
         <CardDescription className="">
-            Evento de visitação destinado ao público.
-          </CardDescription>
+          Evento de visitação destinado ao público.
+        </CardDescription>
       </CardHeader>
-      
+
       <CardContent>
         <div className="flex items-center gap-2 text-gray-500">
           <CalendarIcon className="w-5 h-5" />
@@ -118,18 +116,14 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
     <Card className="shadow-md">
       <CardHeader className="flex justify-between">
         <div className="flex justify-between">
-          <CardTitle>
-            {oficina.titulo}
-          </CardTitle>
+          <CardTitle>{oficina.titulo}</CardTitle>
           <Link href={`/event/${oficina.id}`}>
             <Button variant="outline" className="border-none justify-end">
               <Ellipsis className="w-5 h-5" />
             </Button>
           </Link>
         </div>
-          <CardDescription className="">
-            {oficina.resumo}
-          </CardDescription>
+        <CardDescription className="">{oficina.resumo}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-2 text-gray-500">
@@ -153,7 +147,7 @@ const EventList = ({ events }: EventListProps) => {
   return events.length === 0 ? (
     <p>Não há eventos agendados</p>
   ) : (
-    <div className="grid grid-cols-4 gap-6">
+    <div className="grid grid-cols-4 gap-10">
       {events.map((event) => {
         if (isVisita(event)) {
           return <VisitaItem key={event.id} visita={event} />;
