@@ -70,7 +70,7 @@ export default async function InfoCards() {
       </Card>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-lg font-medium">
+          <CardTitle className="text-base font-medium">
             Doações Recebidas
           </CardTitle>
         </CardHeader>
