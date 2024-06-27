@@ -366,14 +366,15 @@ export default function EventForm() {
   };
   return (
     <div>
-      <main className="mx-96 mb-40">
-        <h1 className="text-3xl font-bold text-center mt-10">
-          Formulário de Eventos
-        </h1>
+      <title>Formulário de Eventos</title>
+      <h1 className="text-center mt-5 mb-5 text-3xl font-bold">
+        Formulário de Eventos
+      </h1>
+      <main className="flex flex-col items-center justify-between mb-40 px-8">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className="grid gap-4"
+            className="max-w-4xl w-full space-y-6"
           >
             <div className="grid grid-cols-1 gap-4">
               <FormField
@@ -421,7 +422,7 @@ export default function EventForm() {
                 name="hora"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Horario</FormLabel>
+                    <FormLabel>Horário</FormLabel>
                     <FormControl>
                       <Input placeholder="Horario" type="time" {...field} />
                     </FormControl>
@@ -486,7 +487,7 @@ export default function EventForm() {
                 name="cep"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Cep</FormLabel>
+                    <FormLabel>CEP</FormLabel>
                     <FormControl>
                       <CepInput placeholder="CEP do local" field={field} />
                     </FormControl>
@@ -589,10 +590,10 @@ export default function EventForm() {
                     name="titulo"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Titulo da oficina</FormLabel>
+                        <FormLabel>Título da oficina</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Titulo da oficina"
+                            placeholder="Título da oficina"
                             type="text"
                             {...field}
                           />
@@ -622,9 +623,9 @@ export default function EventForm() {
                     name="duracao"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Duracao</FormLabel>
+                        <FormLabel>Duração</FormLabel>
                         <FormControl>
-                          <Input placeholder="Duracao" type="text" {...field} />
+                          <Input placeholder="Duração" type="text" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -759,7 +760,7 @@ export default function EventForm() {
                       onClick={() => remove(index)}
                       className="button"
                     >
-                      <TrashIcon className="h-4 w-4" />
+                      <TrashIcon className="h-4 w-4 mt-2" />
                     </button>
                   </div>
                 ))}

@@ -92,10 +92,11 @@ export default function ItemForm() {
 
   return (
     <div>
+      <title>Cadastro de Artefatos</title>
       <div className="text-center mt-5 mb-5">
         <h1 className="text-3xl font-bold">Cadastro de Artefatos</h1>
       </div>
-      <main className="flex flex-col items-center justify-between mb-40">
+      <main className="flex flex-col items-center justify-between mb-40 px-8">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -177,7 +178,7 @@ export default function ItemForm() {
                           </SelectItem>
                           <SelectItem value="Memoria">Memória</SelectItem>
                           <SelectItem value="Placa de Video">
-                            Placa de video
+                            Placa de Vídeo
                           </SelectItem>
                           <SelectItem value="Servidor">Servidor</SelectItem>
                           <SelectItem value="Disco">Disco</SelectItem>
@@ -288,7 +289,7 @@ export default function ItemForm() {
               {JSON.stringify(form.watch(), null, 2)}
             </pre> */}
             <Button type="submit" className="col-span-full w-full">
-              Submit
+              Enviar
             </Button>
           </form>
         </Form>
