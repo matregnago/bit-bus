@@ -49,69 +49,72 @@ const ItemCard = ({ item }: ItemInterface) => {
   }
   return (
     <div className="flex-1 space-y-4 p-8 pt-6 md:p-8">
-      <div className="">
+      <title>{`Detalhes - ${item.nome}`}</title>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-6">
           <div className="flex justify-center">
             <img
               src={item.foto}
-              alt="Artifact"
+              alt="Item Foto"
               width={800}
               height={600}
-              className="w-auto h-auto rounded-lg object-cover"
+              className="w-full rounded-lg object-cover"
             />
           </div>
-          <div>
-            <h1 className="text-3xl font-bold">{item.nome}</h1>
-            <p className="text-gray-500 dark:text-gray-400">
-              {item.informacoes}
-            </p>
+          <div className="text-center">
+            <div>
+              <h1 className="text-3xl font-bold">{item.nome}</h1>
+              <p className="text-gray-500 dark:text-gray-400">
+                {item.informacoes}
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-4 mt-4 mb-20">
+              <div>
+                <h3 className="text-lg font-medium text-black">Ano</h3>
+                <p className="text-gray-500 dark:text-gray-400">{item.ano}</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-black">Quantidade</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  {item.quantidade}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-black">Tipo</h3>
+                <p className="text-gray-500 dark:text-gray-400">{item.tipo}</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-black">Dimensões</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  {item.dimensoes}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-black">Prateleira</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  {item.prateleira}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-black">Classificação</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  {item.classificacao}
+                </p>
+              </div>
+            </div>
+            {item.DoacaoItem.length > 0 &&
+            doacaoItem &&
+            item.DoacaoItem[0] !== undefined ? (
+              <div>
+                <h3 className="text-lg font-medium text-black">Doado por:</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  {`${item.DoacaoItem[0].doador.nome} (${item.DoacaoItem[0].doador.email}) em ${doacaoItem.dataCriacao}`}
+                </p>
+              </div>
+            ) : (
+              <p></p>
+            )}
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <h3 className="text-lg font-medium">Ano</h3>
-              <p className="text-gray-500 dark:text-gray-400">{item.ano}</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium">Quantidade</h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                {item.quantidade}
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium">Tipo</h3>
-              <p className="text-gray-500 dark:text-gray-400">{item.tipo}</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium">Dimensões</h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                {item.dimensoes}
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium">Prateleira</h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                {item.prateleira}
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-medium">Classificação</h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                {item.classificacao}
-              </p>
-            </div>
-          </div>
-          {item.DoacaoItem.length > 0 &&
-          doacaoItem &&
-          item.DoacaoItem[0] !== undefined ? (
-            <div>
-              <h3 className="text-lg font-medium">Doado por:</h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                {`${item.DoacaoItem[0].doador.nome} (${item.DoacaoItem[0].doador.email}) em ${doacaoItem.dataCriacao}`}
-              </p>
-            </div>
-          ) : (
-            <p></p>
-          )}
         </div>
       </div>
     </div>
