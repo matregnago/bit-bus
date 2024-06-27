@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { dateFormatter } from "@/lib/dateformatter";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 interface OficinaCardProps {
   evento: Oficina;
 }
@@ -86,17 +88,16 @@ const VisitaCard = ({ evento }: VisitaCardProps) => {
       </h1>
       <div className="mt-10 text-center">
         <Card className="grid grid-cols-3 p-8">
+          <p className="col-span-1 font-bold text-lg mb-3">Data</p>
+          <p className="col-span-1 font-bold text-lg mb-3">Horário</p>
+          <p className="col-span-1 font-bold text-lg mb-3">Local</p>
 
-            <p className="col-span-1 font-bold text-lg mb-3">Data</p>
-            <p className="col-span-1 font-bold text-lg mb-3">Horário</p>
-            <p className="col-span-1 font-bold text-lg mb-3">Local</p>
-
-            <p className="text-lg col-span-1">{dia}</p>
-            <p className="text-lg col-span-1">{hora}</p>
-            <div className="col-span-1">
-              <p>{`${evento.local.rua}, ${evento.local.bairro}`}</p>
-              <p>{`CEP: ${evento.local.cep}, ${evento.local.cidade} - ${evento.local.estado}`}</p>
-            </div>
+          <p className="text-lg col-span-1">{dia}</p>
+          <p className="text-lg col-span-1">{hora}</p>
+          <div className="col-span-1">
+            <p>{`${evento.local.rua}, ${evento.local.bairro}`}</p>
+            <p>{`CEP: ${evento.local.cep}, ${evento.local.cidade} - ${evento.local.estado}`}</p>
+          </div>
         </Card>
       </div>
     </div>
@@ -118,6 +119,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <ScrollArea className="h-full">
       <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <Link href={`/event`}>
+          <Button>Voltar</Button>
+        </Link>
         {isVisita(evento) ? (
           <VisitaCard evento={evento} />
         ) : (
@@ -142,7 +146,9 @@ export default async function Page({ params }: { params: { id: string } }) {
             })}
           </TableBody>
         </Table>
-        <h2 className="text-xl font-bold tracking-tight mt-10">Itens do acervo</h2>
+        <h2 className="text-xl font-bold tracking-tight mt-10">
+          Itens do acervo
+        </h2>
         <Table>
           <TableHeader>
             <TableRow>
