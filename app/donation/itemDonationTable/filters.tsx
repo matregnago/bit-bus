@@ -21,7 +21,7 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter nome..."
+          placeholder="Pesquisar nome..."
           value={
             (table.getColumn("itemNome")?.getFilterValue() as string) ?? ""
           }
@@ -43,7 +43,7 @@ export function DataTableToolbar<TData>({
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            Reset
+            Resetar
             <ResetIcon className="ml-2 h-4 w-4" />
           </Button>
         )}
