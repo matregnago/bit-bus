@@ -32,11 +32,12 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
   const { dia, hora } = dateFormatter(evento.dataHora);
   return (
     <div className="">
+      <title>{`Detalhes - ${evento.titulo}`}</title>
       <h1 className="text-3xl font-bold tracking-tight text-center">
         {evento.titulo}
       </h1>
-      <div className="grid grid-cols-2 gap-3 mt-10">
-        <Card className="">
+      <div className="grid grid-cols-2 gap-3 mt-10 text-center">
+        <Card className="text-lg">
           <CardHeader>
             <CardTitle>Data</CardTitle>
           </CardHeader>
@@ -44,7 +45,7 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
             <p>{dia}</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="text-lg">
           <CardHeader>
             <CardTitle>Horario</CardTitle>
           </CardHeader>
@@ -79,34 +80,23 @@ const VisitaCard = ({ evento }: VisitaCardProps) => {
   const { dia, hora } = dateFormatter(evento.dataHora);
   return (
     <div className="">
+      <title>Detalhes - Visitação</title>
       <h1 className="text-3xl font-bold tracking-tight text-center">
         Visitação
       </h1>
-      <div className="grid grid-cols-3 gap-3 mt-10">
-        <Card className="">
-          <CardHeader>
-            <CardTitle>Data</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{dia}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Horario</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{hora}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Local</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{`${evento.local.rua}, ${evento.local.bairro}`}</p>
-            <p>{`CEP: ${evento.local.cep}, ${evento.local.cidade} - ${evento.local.estado}`}</p>
-          </CardContent>
+      <div className="mt-10 text-center">
+        <Card className="grid grid-cols-3 p-8">
+
+            <p className="col-span-1 font-bold text-lg mb-3">Data</p>
+            <p className="col-span-1 font-bold text-lg mb-3">Horário</p>
+            <p className="col-span-1 font-bold text-lg mb-3">Local</p>
+
+            <p className="text-lg col-span-1">{dia}</p>
+            <p className="text-lg col-span-1">{hora}</p>
+            <div className="col-span-1">
+              <p>{`${evento.local.rua}, ${evento.local.bairro}`}</p>
+              <p>{`CEP: ${evento.local.cep}, ${evento.local.cidade} - ${evento.local.estado}`}</p>
+            </div>
         </Card>
       </div>
     </div>
