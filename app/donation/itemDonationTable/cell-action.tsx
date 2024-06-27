@@ -69,7 +69,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link href={`/collection/${doacaoItem.item.id}`}>
+            <Link href={`/collection/${doacaoItem.item.id}?page=donation`}>
               <DropdownMenuItem>
                 <IconDetails className="mr-2 h-4 w-4" /> Detalhes
               </DropdownMenuItem>

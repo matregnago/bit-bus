@@ -2,6 +2,8 @@ import { dateFormatter } from "@/lib/dateformatter";
 import { Item } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { notFound } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export type ExtendedItem = Item & {
   DoacaoItem:
@@ -25,6 +27,16 @@ export type ExtendedItem = Item & {
 
 interface ItemInterface {
   item: ExtendedItem;
+  page: string;
+}
+
+interface Props {
+  params: {
+    id: string;
+  };
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
 }
 
 export async function generateStaticParams() {
@@ -38,7 +50,7 @@ export async function generateStaticParams() {
   }));
 }
 
-const ItemCard = ({ item }: ItemInterface) => {
+const ItemCard = ({ item, page }: ItemInterface) => {
   let doacaoItem;
   if (item.DoacaoItem.length > 0) {
     doacaoItem = item.DoacaoItem[0];
@@ -50,6 +62,10 @@ const ItemCard = ({ item }: ItemInterface) => {
   return (
     <div className="flex-1 space-y-4 p-8 pt-6 md:p-8">
       <title>{`Detalhes - ${item.nome}`}</title>
+      <Link href={`/${page}`}>
+        <Button>Voltar</Button>
+      </Link>
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-6">
           <div className="flex justify-center">
@@ -96,7 +112,9 @@ const ItemCard = ({ item }: ItemInterface) => {
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-medium text-black">Classificação</h3>
+                <h3 className="text-lg font-medium text-black">
+                  Classificação
+                </h3>
                 <p className="text-gray-500 dark:text-gray-400">
                   {item.classificacao}
                 </p>
@@ -121,8 +139,17 @@ const ItemCard = ({ item }: ItemInterface) => {
   );
 };
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params, searchParams }: Props) {
   const { id } = params;
+  const page = searchParams.page;
+  let pageAdress: string;
+
+  if (typeof page == "string" && page == "donation") {
+    pageAdress = page;
+  } else {
+    pageAdress = "collection";
+  }
+  console.log(pageAdress);
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_DOMAIN}/api/items/${id}?donation=true`
   );
@@ -132,9 +159,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
   return (
     <>
-    <ScrollArea className="h-full">
-      <ItemCard item={item} />
-    </ScrollArea>
+      <ScrollArea className="h-full">
+        <ItemCard item={item} page={pageAdress} />
+      </ScrollArea>
     </>
   );
 }
