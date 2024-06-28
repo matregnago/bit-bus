@@ -49,52 +49,12 @@ interface VisitaCardProps {
   visita: Visita;
 }
 
-function CalendarIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M8 2v4" />
-      <path d="M16 2v4" />
-      <rect width="18" height="18" x="3" y="4" rx="2" />
-      <path d="M3 10h18" />
-    </svg>
-  );
-}
-
-function ClockIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
-    </svg>
-  );
-}
-
 const VisitaItem = ({ visita }: VisitaCardProps) => {
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
+  const IconCalendario = Icons["calendario"];
+  const IconRelogio = Icons["relogio"];
   const router = useRouter();
   const { toast } = useToast();
   const { dia, hora } = dateFormatter(visita.dataHora);
@@ -174,9 +134,9 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
 
       <CardContent>
         <div className="flex items-center gap-2">
-          <CalendarIcon className="w-5 h-5" />
+          <IconCalendario className="w-4 h-4" />
           <p>Data: {dia}</p>
-          <ClockIcon className="w-5 h-5" />
+          <IconRelogio className="w-4 h-4" />
           <p>Horario: {hora}</p>
         </div>
       </CardContent>
@@ -188,6 +148,8 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
+  const IconCalendario = Icons["calendario"];
+  const IconRelogio = Icons["relogio"];
   const router = useRouter();
   const { toast } = useToast();
   const { dia, hora } = dateFormatter(oficina.dataHora);
@@ -266,9 +228,9 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-2">
-          <CalendarIcon className="w-5 h-5" />
+          <IconCalendario className="w-4 h-4" />
           <p>Data: {dia}</p>
-          <ClockIcon className="w-5 h-5" />
+          <IconRelogio className="w-4 h-4" />
           <p>Horario: {hora}</p>
         </div>
       </CardContent>

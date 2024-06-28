@@ -22,6 +22,11 @@ import {
   X,
   ChevronDown,
   Check,
+  Clock,
+  Calendar,
+  MapPin,
+  User,
+  AlarmClock,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -50,4 +55,9 @@ export const Icons = {
   reset: X,
   select: ChevronDown,
   check: Check,
+  relogio: Clock,
+  calendario: Calendar,
+  local: MapPin,
+  usuario: User,
+  timer: AlarmClock,
 };

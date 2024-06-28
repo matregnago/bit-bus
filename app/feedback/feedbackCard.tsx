@@ -19,7 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Feedback } from "@/types";
-import { StarIcon, TrashIcon } from "lucide-react";
+import { StarIcon, Trash2Icon } from "lucide-react";
 
 interface FeedbackCardProps {
   feedback: Feedback;
@@ -40,7 +40,7 @@ export default function FeedbackCard({
                 {feedback.visitante.nome}
               </h3>
               <AlertDialogTrigger className="w-10 h-10 hover:bg-accent hover:text-accent-foreground flex justify-center rounded">
-                <TrashIcon className="w-4 h-4 my-auto" />
+                <Trash2Icon className="w-4 h-4 my-auto" />
               </AlertDialogTrigger>
             </div>
             <div className="flex items-center text-sm">

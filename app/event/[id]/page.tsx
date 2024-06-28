@@ -13,6 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { dateFormatter } from "@/lib/dateformatter";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/icons";
 interface OficinaCardProps {
   evento: Oficina;
 }
@@ -32,47 +33,49 @@ export async function generateStaticParams() {
 
 const OficinaCard = ({ evento }: OficinaCardProps) => {
   const { dia, hora } = dateFormatter(evento.dataHora);
+  const LocalIcon = Icons["local"];
+  const CalendarioIcon = Icons["calendario"];
+  const RelogioIcon = Icons["relogio"];
+  const TimerIcon = Icons["timer"];
+  const UserIcon = Icons["usuario"];
   return (
     <div className="">
       <title>{`Detalhes - ${evento.titulo}`}</title>
-      <h1 className="text-3xl font-bold tracking-tight text-center">
-        {evento.titulo}
-      </h1>
-      <div className="grid grid-cols-2 gap-3 mt-10 text-center">
-        <Card className="text-lg">
-          <CardHeader>
-            <CardTitle>Data</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{dia}</p>
-          </CardContent>
-        </Card>
-        <Card className="text-lg">
-          <CardHeader>
-            <CardTitle>Horario</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{hora}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Local</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{`${evento.local.rua}, ${evento.local.bairro}`}</p>
-            <p>{`CEP: ${evento.local.cep}, ${evento.local.cidade} - ${evento.local.estado}`}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Detalhes</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>{`Duração: ${evento.duracao}`}</p>
-            <p>{`Resumo: ${evento.resumo}`}</p>
-          </CardContent>
-        </Card>
+      <h1 className="text-3xl font-bold tracking-tight">{evento.titulo}</h1>
+      <div className="flex items-center gap-4 text-muted-foreground">
+        <div className="flex items-center gap-2">
+          <CalendarioIcon className="w-4 h-4" />
+          <span>{dia}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <RelogioIcon className="w-4 h-4" />
+          <span>{hora}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <TimerIcon className="w-4 h-4" />
+          <span>{evento.duracao}</span>
+        </div>
+      </div>
+      <div>
+        <div className="flex items-center gap-2">
+          <LocalIcon className="w-4 h-4" />
+          <span>
+            {evento.local.rua}, {evento.local.bairro}
+          </span>
+        </div>
+        <p className="ml-6">{`CEP: ${evento.local.cep} - ${evento.local.cidade}/${evento.local.estado}`}</p>
+      </div>
+      <div className="prose max-w-none">
+        <p>{evento.resumo}</p>
+      </div>
+      <div>
+        <h2 className="text-xl font-bold tracking-tight mt-10">Palestrante</h2>
+        <div className="flex gap-2 items-center">
+          <UserIcon className="w-4 h-4" />
+          <p>
+            {evento.palestrante.nome} ({evento.palestrante.email})
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -80,25 +83,42 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
 
 const VisitaCard = ({ evento }: VisitaCardProps) => {
   const { dia, hora } = dateFormatter(evento.dataHora);
+  const LocalIcon = Icons["local"];
+  const CalendarioIcon = Icons["calendario"];
+  const RelogioIcon = Icons["relogio"];
+  const TimerIcon = Icons["timer"];
+  const UserIcon = Icons["usuario"];
   return (
     <div className="">
-      <title>Detalhes - Visitação</title>
-      <h1 className="text-3xl font-bold tracking-tight text-center">
-        Visitação
-      </h1>
-      <div className="mt-10 text-center">
-        <Card className="grid grid-cols-3 p-8">
-          <p className="col-span-1 font-bold text-lg mb-3">Data</p>
-          <p className="col-span-1 font-bold text-lg mb-3">Horário</p>
-          <p className="col-span-1 font-bold text-lg mb-3">Local</p>
-
-          <p className="text-lg col-span-1">{dia}</p>
-          <p className="text-lg col-span-1">{hora}</p>
-          <div className="col-span-1">
-            <p>{`${evento.local.rua}, ${evento.local.bairro}`}</p>
-            <p>{`CEP: ${evento.local.cep}, ${evento.local.cidade} - ${evento.local.estado}`}</p>
-          </div>
-        </Card>
+      <title>{`Detalhes - Visita`}</title>
+      <h1 className="text-3xl font-bold tracking-tight">Visita</h1>
+      <div className="flex items-center gap-4 text-muted-foreground">
+        <div className="flex items-center gap-2">
+          <CalendarioIcon className="w-4 h-4" />
+          <span>{dia}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <RelogioIcon className="w-4 h-4" />
+          <span>{hora}</span>
+        </div>
+      </div>
+      <div>
+        <div className="flex items-center gap-2">
+          <LocalIcon className="w-4 h-4" />
+          <span>
+            {evento.local.rua}, {evento.local.bairro}
+          </span>
+        </div>
+        <p className="ml-6">{`CEP: ${evento.local.cep} - ${evento.local.cidade}/${evento.local.estado}`}</p>
+      </div>
+      <div>
+        <h2 className="text-xl font-bold tracking-tight mt-10">Organizador</h2>
+        <div className="flex gap-2 items-center">
+          <UserIcon className="w-4 h-4" />
+          <p>
+            {evento.organizador.nome} ({evento.organizador.email})
+          </p>
+        </div>
       </div>
     </div>
   );

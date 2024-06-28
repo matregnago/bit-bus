@@ -60,6 +60,84 @@ const ItemCard = ({ item, page }: ItemInterface) => {
     }
   }
   return (
+    <>
+      <title>{`Detalhes - ${item.nome}`}</title>
+      <Link href={`/${page}`}>
+        <Button>Voltar</Button>
+      </Link>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto py-12 px-4">
+        <div className="relative overflow-hidden rounded-lg shadow-lg">
+          <img
+            src={item.foto}
+            alt="Item do museu"
+            width={800}
+            height={600}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="grid gap-6">
+          <div>
+            <h1 className="text-3xl font-bold">{item.nome}</h1>
+            <p className="text-muted-foreground">{item.ano}</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-1">
+              <p className="text-sm font-medium">Quantity</p>
+              <p>{item.quantidade}</p>
+            </div>
+            <div className="grid gap-1">
+              <p className="text-sm font-medium">Type</p>
+              <p>{item.tipo}</p>
+            </div>
+            <div className="grid gap-1">
+              <p className="text-sm font-medium">Classificacao</p>
+              <p>{item.classificacao}</p>
+            </div>
+            <div className="grid gap-1">
+              <p className="text-sm font-medium">Display Number</p>
+              <p>{item.prateleira}</p>
+            </div>
+          </div>
+          <div className="grid gap-1">
+            <p className="text-sm font-medium">Description</p>
+            <p className="text-muted-foreground">{item.informacoes}</p>
+          </div>
+          <div className="grid gap-1 grid-cols-2">
+            <div>
+              <p className="text-sm font-medium">Link</p>
+              <Link href={""}>Clique aqui</Link>
+            </div>
+            <div>
+              {item.DoacaoItem.length > 0 &&
+              doacaoItem &&
+              item.DoacaoItem[0] !== undefined ? (
+                <div>
+                  <h3 className="text-sm font-medium text-black">Doado por:</h3>
+                  <p>
+                    {`${item.DoacaoItem[0].doador.nome} (${item.DoacaoItem[0].doador.email}) em ${doacaoItem.dataCriacao}`}
+                  </p>
+                </div>
+              ) : (
+                <p></p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const ItemCardAntigo = ({ item, page }: ItemInterface) => {
+  let doacaoItem;
+  if (item.DoacaoItem.length > 0) {
+    doacaoItem = item.DoacaoItem[0];
+    if (doacaoItem != undefined) {
+      const dataHoraDoacao = dateFormatter(new Date(doacaoItem.dataCriacao));
+      doacaoItem.dataCriacao = dataHoraDoacao.dia;
+    }
+  }
+  return (
     <div className="flex-1 space-y-4 p-8 pt-6 md:p-8">
       <title>{`Detalhes - ${item.nome}`}</title>
       <Link href={`/${page}`}>
