@@ -1,8 +1,8 @@
 ## Lista de tarefas:
 
 - [ ] (Guilherme) _[DOC]_ Conceitos da introdução da documentação (scrum, bdd, tdd e etc)
-- [ ] (Matheus) _[DOC]_ Fazer diagrama do algoritmo principal
-- [ ] (Matheus) _[DOC]_ Formatar as tabelas, quadros e imagens da documentação
+- [ ] (Matheus) _[DOC]_ Formatar as tabelas, quadros e imagens da documentação. Adicionar as referencias também
+- [ ] (Matheus) _[DOC]_ Fazer vídeo apresentando o sistema.
 - [ ] (Guilherme) Fixar data e horário dos Cards de Eventos no final do card ou trocar de lugar com a descrição
 - [ ] (Guilherme) Arrumar o botão de remover os inputs de visitante no cadastro de visitas
 - [ ] (Matheus) Rever estrutura dos detalhes de itens e doações
