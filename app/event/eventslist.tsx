@@ -57,8 +57,8 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
   const IconCalendario = Icons["calendario"];
   const IconRelogio = Icons["relogio"];
   const router = useRouter();
-  const { toast } = useToast();
   const { dia, hora } = dateFormatter(visita.dataHora);
+  const { toast } = useToast();
   const onConfirm = async () => {
     if (visita.id !== undefined) {
       try {

@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface DoacaoApiResponse {
   doacaoDinheiro: DoacaoDinheiro[];
@@ -53,18 +54,24 @@ export default async function EventPage() {
           </Link>
         </div>
         <Separator />
-        <div>
-          <h1 className="font-bold text-xl mt-6 mb-3">Doações de Itens</h1>
-          <DoacaoItemDataTable
-            columns={columnsItemDonationTable}
-            data={doacaoItem}
-          />
-          <h1 className="font-bold text-xl my-3">Doações Monetárias</h1>
-          <DoacaoDinheiroDataTable
-            columns={columnsMoneyDonationTable}
-            data={doacaoDinheiro}
-          />
-        </div>
+        <Tabs defaultValue="monetarias" className="">
+          <TabsList>
+            <TabsTrigger value="monetarias">Monetárias</TabsTrigger>
+            <TabsTrigger value="itens">Itens</TabsTrigger>
+          </TabsList>
+          <TabsContent value="monetarias">
+            <DoacaoDinheiroDataTable
+              columns={columnsMoneyDonationTable}
+              data={doacaoDinheiro}
+            />
+          </TabsContent>
+          <TabsContent value="itens">
+            <DoacaoItemDataTable
+              columns={columnsItemDonationTable}
+              data={doacaoItem}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
     </ScrollArea>
   );

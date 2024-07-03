@@ -5,6 +5,14 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 export type ExtendedItem = Item & {
   DoacaoItem:
     | []
@@ -62,158 +70,90 @@ const ItemCard = ({ item, page }: ItemInterface) => {
   return (
     <>
       <title>{`Detalhes - ${item.nome}`}</title>
-      <Link href={`/${page}`}>
-        <Button>Voltar</Button>
-      </Link>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto py-12 px-4">
-        <div className="relative overflow-hidden rounded-lg shadow-lg">
-          <img
-            src={item.foto}
-            alt="Item do museu"
-            width={800}
-            height={600}
-            className="w-full h-full object-cover"
-          />
+      <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+        {page == "donation" ? (
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/donation">Doações</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Detalhes</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        ) : (
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/collection">Acervo</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Detalhes</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        )}
+        <div className="pb-4">
+          <h1 className="text-3xl font-bold">{item.nome}</h1>
         </div>
-        <div className="grid gap-6">
-          <div>
-            <h1 className="text-3xl font-bold">{item.nome}</h1>
-            <p className="text-muted-foreground">{item.ano}</p>
+        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+          <div className="overflow-hidden rounded-lg shadow-lg w-[300px] h-[300px] p-4">
+            <img
+              src={item.foto}
+              alt="Item do museu"
+              width={300}
+              height={300}
+              className="object-cover"
+            />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl items-center">
             <div className="grid gap-1">
-              <p className="text-sm font-medium">Quantity</p>
+              <p className="text-sm font-medium">Ano</p>
+              <p>{item.ano}</p>
+            </div>
+            <div className="grid gap-1">
+              <p className="text-sm font-medium">Quantidade</p>
               <p>{item.quantidade}</p>
             </div>
             <div className="grid gap-1">
-              <p className="text-sm font-medium">Type</p>
+              <p className="text-sm font-medium">Tipo</p>
               <p>{item.tipo}</p>
             </div>
             <div className="grid gap-1">
-              <p className="text-sm font-medium">Classificacao</p>
+              <p className="text-sm font-medium">Classificação</p>
               <p>{item.classificacao}</p>
             </div>
             <div className="grid gap-1">
-              <p className="text-sm font-medium">Display Number</p>
+              <p className="text-sm font-medium">Número de Exibição</p>
               <p>{item.prateleira}</p>
             </div>
-          </div>
-          <div className="grid gap-1">
-            <p className="text-sm font-medium">Description</p>
-            <p className="text-muted-foreground">{item.informacoes}</p>
-          </div>
-          <div className="grid gap-1 grid-cols-2">
-            <div>
+            <div className="grid gap-1">
               <p className="text-sm font-medium">Link</p>
               <Link href={""}>Clique aqui</Link>
-            </div>
-            <div>
-              {item.DoacaoItem.length > 0 &&
-              doacaoItem &&
-              item.DoacaoItem[0] !== undefined ? (
-                <div>
-                  <h3 className="text-sm font-medium text-black">Doado por:</h3>
-                  <p>
-                    {`${item.DoacaoItem[0].doador.nome} (${item.DoacaoItem[0].doador.email}) em ${doacaoItem.dataCriacao}`}
-                  </p>
-                </div>
-              ) : (
-                <p></p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const ItemCardAntigo = ({ item, page }: ItemInterface) => {
-  let doacaoItem;
-  if (item.DoacaoItem.length > 0) {
-    doacaoItem = item.DoacaoItem[0];
-    if (doacaoItem != undefined) {
-      const dataHoraDoacao = dateFormatter(new Date(doacaoItem.dataCriacao));
-      doacaoItem.dataCriacao = dataHoraDoacao.dia;
-    }
-  }
-  return (
-    <div className="flex-1 space-y-4 p-8 pt-6 md:p-8">
-      <title>{`Detalhes - ${item.nome}`}</title>
-      <Link href={`/${page}`}>
-        <Button>Voltar</Button>
-      </Link>
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="space-y-6">
-          <div className="flex justify-center">
-            <img
-              src={item.foto}
-              alt="Item Foto"
-              width={800}
-              height={600}
-              className="w-full rounded-lg object-cover"
-            />
-          </div>
-          <div className="text-center">
-            <div>
-              <h1 className="text-3xl font-bold">{item.nome}</h1>
-              <p className="text-gray-500 dark:text-gray-400">
-                {item.informacoes}
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4 mt-4 mb-20">
-              <div>
-                <h3 className="text-lg font-medium text-black">Ano</h3>
-                <p className="text-gray-500 dark:text-gray-400">{item.ano}</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-black">Quantidade</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  {item.quantidade}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-black">Tipo</h3>
-                <p className="text-gray-500 dark:text-gray-400">{item.tipo}</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-black">Dimensões</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  {item.dimensoes}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-black">Prateleira</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  {item.prateleira}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-black">
-                  Classificação
-                </h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  {item.classificacao}
-                </p>
-              </div>
             </div>
             {item.DoacaoItem.length > 0 &&
             doacaoItem &&
             item.DoacaoItem[0] !== undefined ? (
-              <div>
-                <h3 className="text-lg font-medium text-black">Doado por:</h3>
-                <p className="text-gray-500 dark:text-gray-400">
+              <div className="grid gap-1">
+                <p className="text-sm font-medium text-black">Doado por:</p>
+                <p>
                   {`${item.DoacaoItem[0].doador.nome} (${item.DoacaoItem[0].doador.email}) em ${doacaoItem.dataCriacao}`}
                 </p>
               </div>
             ) : (
-              <p></p>
+              <div></div>
             )}
           </div>
         </div>
+        <div className="col-span-2 grid gap-1">
+          <p className="text-sm font-medium">Descrição</p>
+          <p className="text-muted-foreground">{item.informacoes}</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
