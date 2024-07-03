@@ -42,6 +42,16 @@ import searchItems from "../actions/searchItensAcervo";
 import CepInput from "@/components/form/CepInput";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 interface FieldProps {
   field: any;
@@ -367,6 +377,17 @@ export default function EventForm() {
   };
   return (
     <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/event">Eventos</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Cadastro de Eventos</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <title>Cadastro de eventos</title>
       <div>
         <h1 className="text-3xl font-bold tracking-tight">

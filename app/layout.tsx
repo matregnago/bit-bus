@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} overflow-hidden`}>
-        <NextTopLoader />
+        <NextTopLoader color="#16a34a" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

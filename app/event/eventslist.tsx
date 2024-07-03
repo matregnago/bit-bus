@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -32,7 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Icons } from "@/components/icons";
-import { MoreHorizontal } from "lucide-react";
+import { AlignJustify } from "lucide-react";
 import deleteWorkshopAction from "./actions/deleteWorkshop";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
@@ -79,13 +80,13 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
     <Card className="shadow-md">
       <CardHeader className="flex justify-between">
         <div className="flex justify-between">
-          <CardTitle>Visita</CardTitle>
+          <CardTitle className="text-xl">Visita</CardTitle>
           <AlertDialog>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="w-10 h-10 p-0">
+                <Button variant="ghost" className="min-w-10 w-10 h-10 p-0">
                   <span className="sr-only">Open menu</span>
-                  <MoreHorizontal className="h-4 w-4" />
+                  <AlignJustify className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -127,19 +128,16 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
             </AlertDialogContent>
           </AlertDialog>
         </div>
-        <CardDescription className="">
-          Evento de visitação destinado ao público.
-        </CardDescription>
-      </CardHeader>
-
-      <CardContent>
         <div className="flex items-center gap-2">
           <IconCalendario className="w-4 h-4" />
           <p>Data: {dia}</p>
           <IconRelogio className="w-4 h-4" />
           <p>Horario: {hora}</p>
         </div>
-      </CardContent>
+        <CardDescription className="">
+          Evento de visitação destinado ao público.
+        </CardDescription>
+      </CardHeader>
     </Card>
   );
 };
@@ -174,13 +172,13 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
     <Card className="shadow-md">
       <CardHeader className="flex justify-between">
         <div className="flex justify-between">
-          <CardTitle>{oficina.titulo}</CardTitle>
+          <CardTitle className="truncate text-xl">{oficina.titulo}</CardTitle>
           <AlertDialog>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="w-10 h-10 p-0">
+                <Button variant="ghost" className="w-10 h-10 p-0 min-w-10">
                   <span className="sr-only">Open menu</span>
-                  <MoreHorizontal className="h-4 w-4" />
+                  <AlignJustify className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -222,18 +220,16 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
             </AlertDialogContent>
           </AlertDialog>
         </div>
-        <CardDescription className="line-clamp-3">
-          {oficina.resumo}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
         <div className="flex items-center gap-2">
           <IconCalendario className="w-4 h-4" />
           <p>Data: {dia}</p>
           <IconRelogio className="w-4 h-4" />
           <p>Horario: {hora}</p>
         </div>
-      </CardContent>
+        <CardDescription className="line-clamp-3">
+          {oficina.resumo}
+        </CardDescription>
+      </CardHeader>
     </Card>
   );
 };

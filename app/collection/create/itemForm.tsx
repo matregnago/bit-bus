@@ -26,6 +26,16 @@ import { useToast } from "@/components/ui/use-toast";
 import createItem from "../actions/createItem";
 import redirectCollectionPage from "../actions/redirectCollectionPage";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const formSchema = z.object({
   nome: z
@@ -95,6 +105,17 @@ export default function ItemForm() {
     <div>
       <title>Cadastro de Artefatos</title>
       <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/collection">Acervo</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Cadastro de Itens</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
             Cadastro de itens

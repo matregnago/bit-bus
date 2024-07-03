@@ -11,9 +11,19 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { dateFormatter } from "@/lib/dateformatter";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
+import { Separator } from "@radix-ui/react-dropdown-menu";
+import Link from "next/link";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 interface OficinaCardProps {
   evento: Oficina;
 }
@@ -41,7 +51,9 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
   return (
     <div className="">
       <title>{`Detalhes - ${evento.titulo}`}</title>
-      <h1 className="text-3xl font-bold tracking-tight">{evento.titulo}</h1>
+      <h1 className="text-3xl font-bold tracking-tight mb-2">
+        {evento.titulo}
+      </h1>
       <div className="flex items-center gap-4 text-muted-foreground">
         <div className="flex items-center gap-2">
           <CalendarioIcon className="w-4 h-4" />
@@ -60,13 +72,16 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
         <div className="flex items-center gap-2">
           <LocalIcon className="w-4 h-4" />
           <span>
-            {evento.local.rua}, {evento.local.bairro}
+            {evento.local.rua}, {evento.local.bairro}, {evento.local.cidade}/
+            {evento.local.estado} - {`CEP: ${evento.local.cep}`}
           </span>
         </div>
-        <p className="ml-6">{`CEP: ${evento.local.cep} - ${evento.local.cidade}/${evento.local.estado}`}</p>
       </div>
-      <div className="prose max-w-none">
-        <p>{evento.resumo}</p>
+      <div>
+        <h2 className="text-xl font-bold tracking-tight mt-10">Descrição</h2>
+        <div className="prose max-w-none">
+          <p>{evento.resumo}</p>
+        </div>
       </div>
       <div>
         <h2 className="text-xl font-bold tracking-tight mt-10">Palestrante</h2>
@@ -91,7 +106,7 @@ const VisitaCard = ({ evento }: VisitaCardProps) => {
   return (
     <div className="">
       <title>{`Detalhes - Visita`}</title>
-      <h1 className="text-3xl font-bold tracking-tight">Visita</h1>
+      <h1 className="text-3xl font-bold tracking-tight mb-2">Visita</h1>
       <div className="flex items-center gap-4 text-muted-foreground">
         <div className="flex items-center gap-2">
           <CalendarioIcon className="w-4 h-4" />
@@ -106,10 +121,10 @@ const VisitaCard = ({ evento }: VisitaCardProps) => {
         <div className="flex items-center gap-2">
           <LocalIcon className="w-4 h-4" />
           <span>
-            {evento.local.rua}, {evento.local.bairro}
+            {evento.local.rua}, {evento.local.bairro}, {evento.local.cidade}/
+            {evento.local.estado} - {`CEP: ${evento.local.cep}`}
           </span>
         </div>
-        <p className="ml-6">{`CEP: ${evento.local.cep} - ${evento.local.cidade}/${evento.local.estado}`}</p>
       </div>
       <div>
         <h2 className="text-xl font-bold tracking-tight mt-10">Organizador</h2>
@@ -138,10 +153,18 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
   return (
     <ScrollArea className="h-full">
-      <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <Link href={`/event`}>
-          <Button>Voltar</Button>
-        </Link>
+      <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/event">Evento</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Detalhes</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         {isVisita(evento) ? (
           <VisitaCard evento={evento} />
         ) : (
