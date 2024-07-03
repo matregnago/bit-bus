@@ -20,7 +20,13 @@ const getChartData = async (): Promise<ChartData[]> => {
 };
 
 export default async function Home() {
-  const chartData = await getChartData();
+  let chartData: ChartData[];
+  try {
+    chartData = await getChartData();
+  } catch (error) {
+    chartData = [];
+  }
+
   return (
     <ScrollArea className="h-full">
       <title key="title">Dashboard</title>

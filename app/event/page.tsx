@@ -40,10 +40,21 @@ interface EventAPIResponse {
   };
 }
 export default async function EventPage() {
-  const data = await fetch("http://localhost:3000/api/events", {
-    cache: "no-cache",
-  });
-  const events: EventAPIResponse = await data.json();
+  let events: EventAPIResponse;
+  try {
+    const data = await fetch("http://localhost:3000/api/events", {
+      cache: "no-cache",
+    });
+    events = await data.json();
+  } catch (error) {
+    events = {
+      upcomingEvents: [],
+      pastEvents: {
+        pastWorkshops: [],
+        pastVisits: [],
+      },
+    };
+  }
   const { pastEvents, upcomingEvents } = events;
   return (
     <ScrollArea className="h-full">

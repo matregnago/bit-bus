@@ -13,10 +13,24 @@ export default async function UpcomingEventsCard() {
   const isVisita = (evento: Visita | Oficina): evento is Visita => {
     return "organizador" in evento;
   };
-  const requestEvents = await fetch(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/api/events?limit=6`
-  );
-  let { upcomingEvents }: EventApiResponse = await requestEvents.json();
+
+  let upcomingEvents: (Oficina | Visita)[] = [];
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/events?limit=6`
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch events");
+    }
+
+    const data: EventApiResponse = await response.json();
+    upcomingEvents = data.upcomingEvents;
+  } catch (error) {
+    console.error("Error fetching events:", error);
+  }
+
   const datasFormatadas = upcomingEvents.map((evento) => {
     const { dia, hora } = dateFormatter(evento.dataHora);
     return {
@@ -25,16 +39,13 @@ export default async function UpcomingEventsCard() {
       hora,
     };
   });
+
   const horaEvento = (evento: Oficina | Visita) => {
     const itemEncontrado = datasFormatadas.find(
       (item) => item.id === evento.id
     );
 
-    if (itemEncontrado) {
-      return itemEncontrado.hora;
-    } else {
-      return "";
-    }
+    return itemEncontrado ? itemEncontrado.hora : "";
   };
 
   const dataEvento = (evento: Oficina | Visita) => {
@@ -42,19 +53,16 @@ export default async function UpcomingEventsCard() {
       (item) => item.id === evento.id
     );
 
-    if (itemEncontrado) {
-      return itemEncontrado.dia;
-    } else {
-      return "";
-    }
+    return itemEncontrado ? itemEncontrado.dia : "";
   };
+
   return (
     <Card className="col-span-3">
       <CardHeader className="">
-        <CardTitle className="text-lg font-medium">Proximos Eventos</CardTitle>
+        <CardTitle className="text-lg font-medium">Próximos Eventos</CardTitle>
       </CardHeader>
       <CardContent>
-        {upcomingEvents && upcomingEvents.length > 0 ? (
+        {upcomingEvents.length > 0 ? (
           upcomingEvents.map((evento) => (
             <div key={evento.id} className="flex items-center justify-between">
               <div className="my-1">

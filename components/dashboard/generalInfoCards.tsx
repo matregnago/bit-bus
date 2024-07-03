@@ -35,7 +35,17 @@ const getData = async (): Promise<DashboardData> => {
 };
 
 export default async function InfoCards() {
-  const data = await getData();
+  let data;
+  try {
+    data = await getData();
+  } catch (error) {
+    data = {
+      artefatos: 0,
+      eventos: 0,
+      visitantes: 0,
+      doacoes: 0,
+    };
+  }
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>

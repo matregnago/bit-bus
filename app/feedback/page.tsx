@@ -10,10 +10,15 @@ interface FeedbackListProps {
   feedbacks: Feedback[];
 }
 export default async function EventPage() {
-  const data = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/feedback`, {
-    cache: "no-store",
-  });
-  const feedbacks: Feedback[] = await data.json();
+  let feedbacks: Feedback[];
+  try {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/feedback`, {
+      cache: "no-store",
+    });
+    feedbacks = await data.json();
+  } catch (error) {
+    feedbacks = [];
+  }
   return (
     <ScrollArea className="h-full">
       <title key="title">Feedbacks</title>
