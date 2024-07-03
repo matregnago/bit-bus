@@ -17,8 +17,9 @@ import { columnsVisitTable } from "./pastVisitsTable/columns";
 
 import Link from "next/link";
 import { dateFormatter } from "@/lib/dateformatter";
-import { Ellipsis, EyeIcon } from "lucide-react";
+import { Ellipsis, EyeIcon, Plus } from "lucide-react";
 import EventList from "./eventslist";
+import { Separator } from "@/components/ui/separator";
 
 interface EventListProps {
   events: Event[];
@@ -49,11 +50,20 @@ export default async function EventPage() {
       <title key="title">Eventos</title>
       <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
         <div className="flex items-start justify-between">
-          <h1 className="text-3xl font-bold tracking-tight">Eventos</h1>
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Eventos</h1>
+            <p className="text-sm text-muted-foreground">
+              Gerencie os eventos agendados e passados.
+            </p>
+          </div>
           <Link href="/event/create">
-            <Button className="text-xs md:text-sm">Adicionar Evento</Button>
+            <Button className="text-xs md:text-sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Adicionar Evento
+            </Button>
           </Link>
         </div>
+        <Separator />
         <Tabs defaultValue="agendados" className="">
           <div className="">
             <div className="flex items-start justify-between">

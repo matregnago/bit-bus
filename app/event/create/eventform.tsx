@@ -41,6 +41,7 @@ import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
 import searchItems from "../actions/searchItensAcervo";
 import CepInput from "@/components/form/CepInput";
 import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
 
 interface FieldProps {
   field: any;
@@ -365,23 +366,29 @@ export default function EventForm() {
     );
   };
   return (
-    <div>
-      <title>Formulário de Eventos</title>
-      <h1 className="text-center mt-5 mb-5 text-3xl font-bold">
-        Formulário de Eventos
-      </h1>
-      <main className="flex flex-col items-center justify-between mb-40 px-8">
+    <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+      <title>Cadastro de eventos</title>
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">
+          Cadastro de eventos
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Cadastre novos eventos no museu.
+        </p>
+      </div>
+      <Separator />
+      <main className="flex flex-col justify-between">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className="max-w-4xl w-full space-y-6"
+            className="w-full space-y-6"
           >
             <div className="grid grid-cols-1 gap-4">
               <FormField
                 control={form.control}
                 name="data"
                 render={({ field }) => (
-                  <FormItem className="mt-4">
+                  <FormItem className="">
                     <FormLabel>Data</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
@@ -416,7 +423,7 @@ export default function EventForm() {
                 )}
               />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <FormField
                 control={form.control}
                 name="hora"
@@ -755,24 +762,23 @@ export default function EventForm() {
                         </FormItem>
                       )}
                     />
-                    <button
+                    <Button
                       type="button"
                       onClick={() => remove(index)}
-                      className="button"
+                      variant={"secondary"}
+                      className="flex mt-8 bg-transparent"
                     >
-                      <TrashIcon className="h-4 w-4 mt-2" />
-                    </button>
+                      <TrashIcon className="h-4 w-4" />
+                    </Button>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* <pre>{JSON.stringify(form.watch(), null, 2)}</pre> */}
-            <div className="flex justify-end">
-              <Button type="submit" className="w-52 mt-4">
-                Enviar
-              </Button>
-            </div>
+            <Button type="submit" className="col-span-full ml-auto">
+              Enviar
+            </Button>
           </form>
         </Form>
       </main>

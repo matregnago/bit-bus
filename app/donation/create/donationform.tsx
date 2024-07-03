@@ -29,6 +29,7 @@ import { useToast } from "@/components/ui/use-toast";
 import createItemDonation from "../actions/createItemDonation";
 import createMoneyDonation from "../actions/createMoneyDonation";
 import redirectDonationPage from "../actions/redirectDonationPage";
+import { Separator } from "@/components/ui/separator";
 
 const moneyDonationSchema = z.object({
   nomeDoador: z
@@ -205,18 +206,22 @@ export default function DonationForm() {
     );
   };
   return (
-    <div>
+    <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
       <title>Formulário de Doações</title>
-      <div className="text-center mt-5 mb-5">
-        <h1 className="text-3xl font-bold">Formulário de Doações</h1>
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">
+          Cadastro de doações
+        </h1>
+        <p className="text-sm text-muted-foreground">Cadastre novas doações.</p>
       </div>
-      <main className="flex flex-col items-center justify-between mb-40 px-8">
+      <Separator />
+      <main className="flex flex-col justify-between">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className="max-w-4xl w-full space-y-6"
+            className="w-full space-y-6"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <FormField
                 control={form.control}
                 name="nomeDoador"
@@ -503,7 +508,7 @@ export default function DonationForm() {
             {/* <pre className="col-span-full">
               {JSON.stringify(form.watch(), null, 2)}
             </pre> */}
-            <Button type="submit" className="col-span-full w-full">
+            <Button type="submit" className="col-span-full ml-auto">
               Enviar
             </Button>
           </form>

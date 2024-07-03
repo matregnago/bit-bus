@@ -7,6 +7,8 @@ import { columnsItemDonationTable } from "./itemDonationTable/columns";
 import { DoacaoItemDataTable } from "./itemDonationTable/data-table";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Plus } from "lucide-react";
 
 interface DoacaoApiResponse {
   doacaoDinheiro: DoacaoDinheiro[];
@@ -37,21 +39,32 @@ export default async function EventPage() {
       <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
         <title key="title">Doações</title>
         <div className="flex items-start justify-between mb-4">
-          <h1 className="text-3xl font-bold tracking-tight">Doações</h1>
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Doações</h1>
+            <p className="text-sm text-muted-foreground">
+              Gerencie as doações recebidas.
+            </p>
+          </div>
           <Link href="/donation/create">
-            <Button className="text-xs md:text-sm">Adicionar Doação</Button>
+            <Button className="text-xs md:text-sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Adicionar Doação
+            </Button>
           </Link>
         </div>
-        <h1 className="font-bold text-xl my-3">Doações de Itens</h1>
-        <DoacaoItemDataTable
-          columns={columnsItemDonationTable}
-          data={doacaoItem}
-        />
-        <h1 className="font-bold text-xl my-3">Doações Monetárias</h1>
-        <DoacaoDinheiroDataTable
-          columns={columnsMoneyDonationTable}
-          data={doacaoDinheiro}
-        />
+        <Separator />
+        <div>
+          <h1 className="font-bold text-xl mt-6 mb-3">Doações de Itens</h1>
+          <DoacaoItemDataTable
+            columns={columnsItemDonationTable}
+            data={doacaoItem}
+          />
+          <h1 className="font-bold text-xl my-3">Doações Monetárias</h1>
+          <DoacaoDinheiroDataTable
+            columns={columnsMoneyDonationTable}
+            data={doacaoDinheiro}
+          />
+        </div>
       </div>
     </ScrollArea>
   );
