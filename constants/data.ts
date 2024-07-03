@@ -58,4 +58,14 @@ export const tiposItem: optionsSelectTableFilter[] = [
     label: "Disco",
     icon: "disco",
   },
+  {
+    value: "Periferico",
+    label: "Periferico",
+    icon: "periferico",
+  },
+  {
+    value: "Placa Mae",
+    label: "Placa Mãe",
+    icon: "placaMae",
+  },
 ];

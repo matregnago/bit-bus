@@ -84,26 +84,26 @@ export default function DonationForm() {
     defaultValues:
       formType === "Item"
         ? {
-            nomeDoador: "",
-            email: "",
-            cpf: "",
-            nome: "",
-            ano: "",
-            quantidade: "",
-            tipo: "",
-            dimensoes: "",
-            informacoes: "",
-            link: "",
-            foto: "",
-            prateleira: "",
-            classificacao: "",
-          }
+          nomeDoador: "",
+          email: "",
+          cpf: "",
+          nome: "",
+          ano: "",
+          quantidade: "",
+          tipo: "",
+          dimensoes: "",
+          informacoes: "",
+          link: "",
+          foto: "",
+          prateleira: "",
+          classificacao: "",
+        }
         : {
-            nomeDoador: "",
-            email: "",
-            cpf: "",
-            quantiaDinheiro: "",
-          },
+          nomeDoador: "",
+          email: "",
+          cpf: "",
+          quantiaDinheiro: "",
+        },
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -193,26 +193,26 @@ export default function DonationForm() {
     form.reset(
       formType === "Dinheiro"
         ? {
-            nomeDoador,
-            email,
-            cpf,
-            nome: "",
-            ano: "",
-            quantidade: "",
-            tipo: "",
-            dimensoes: "",
-            informacoes: "",
-            link: "",
-            foto: "",
-            prateleira: "",
-            classificacao: "",
-          }
+          nomeDoador,
+          email,
+          cpf,
+          nome: "",
+          ano: "",
+          quantidade: "",
+          tipo: "",
+          dimensoes: "",
+          informacoes: "",
+          link: "",
+          foto: "",
+          prateleira: "",
+          classificacao: "",
+        }
         : {
-            nomeDoador,
-            email,
-            cpf,
-            quantiaDinheiro: "",
-          }
+          nomeDoador,
+          email,
+          cpf,
+          quantiaDinheiro: "",
+        }
     );
   };
   return (
@@ -395,6 +395,8 @@ export default function DonationForm() {
                             </SelectItem>
                             <SelectItem value="Servidor">Servidor</SelectItem>
                             <SelectItem value="Disco">Disco</SelectItem>
+                            <SelectItem value="Periferico">Periferico</SelectItem>
+                            <SelectItem value="Placa Mae">Placa Mãe</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>

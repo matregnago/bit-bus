@@ -27,6 +27,8 @@ import {
   MapPin,
   User,
   AlarmClock,
+  Keyboard,
+  CircuitBoard
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -60,4 +62,6 @@ export const Icons = {
   local: MapPin,
   usuario: User,
   timer: AlarmClock,
+  placaMae: CircuitBoard,
+  periferico: Keyboard
 };

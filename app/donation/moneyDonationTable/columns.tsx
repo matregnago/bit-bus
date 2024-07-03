@@ -42,7 +42,7 @@ export const columnsMoneyDonationTable: ColumnDef<DoacaoDinheiro>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2 truncate">
-          R$ {row.getValue("quantiaDinheiro")}
+          {Number(row.getValue("quantiaDinheiro")).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </div>
       );
     },

@@ -210,6 +210,8 @@ export default function ItemForm() {
                             </SelectItem>
                             <SelectItem value="Servidor">Servidor</SelectItem>
                             <SelectItem value="Disco">Disco</SelectItem>
+                            <SelectItem value="Periferico">Periferico</SelectItem>
+                            <SelectItem value="Placa Mae">Placa Mãe</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
