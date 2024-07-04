@@ -8,7 +8,6 @@ export function dateFormatter(rawDate: Date) {
   // Formata a hora e os minutos
   const hora = String(date.getUTCHours()).padStart(2, "0");
   const minutos = String(date.getUTCMinutes()).padStart(2, "0");
-  console.log(date);
   // Monta o objeto resultante
   return {
     dia: `${dia}/${mes}/${ano}`,
