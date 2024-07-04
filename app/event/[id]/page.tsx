@@ -172,7 +172,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         )}
         <div className="grid grid-cols-2 gap-8 max-w-6xl">
           <div className="col-span-1">
-            <h2 className="text-xl font-bold tracking-tight mt-10">Visitantes</h2>
+            <h2 className="text-xl font-bold tracking-tight mt-10 mb-4">Visitantes</h2>
             <Table>
               <TableHeader>
                 <TableRow>
@@ -193,33 +193,33 @@ export default async function Page({ params }: { params: { id: string } }) {
             </Table>
           </div>
 
-        <div className="col-span-1">
-          <h2 className="text-xl font-bold tracking-tight mt-10">
-            Itens do acervo
-          </h2>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Nome</TableHead>
-                <TableHead>Tipo</TableHead>
-                <TableHead>Ano</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {evento.itensAcervo.map((item) => {
-                return (
-                  <TableRow key={item.id}>
-                    <TableCell>{item.nome}</TableCell>
-                    <TableCell>{item.tipo}</TableCell>
-                    <TableCell>{item.ano}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+          <div className="col-span-1">
+            <h2 className="text-xl font-bold tracking-tight mt-10 mb-4">
+              Itens do acervo
+            </h2>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>Tipo</TableHead>
+                  <TableHead>Ano</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {evento.itensAcervo.map((item) => {
+                  return (
+                    <TableRow key={item.id}>
+                      <TableCell>{item.nome}</TableCell>
+                      <TableCell>{item.tipo}</TableCell>
+                      <TableCell>{item.ano}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </div>
-    </div>
     </ScrollArea>
   );
 }
