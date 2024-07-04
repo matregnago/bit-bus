@@ -85,7 +85,7 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
       </div>
       <div>
         <h2 className="text-xl font-bold tracking-tight mt-10">Palestrante</h2>
-        <div className="flex gap-2 items-center mb-10">
+        <div className="flex gap-2 items-center mb-4">
           <UserIcon className="w-4 h-4" />
           <p>
             {evento.palestrante.nome} ({evento.palestrante.email})
