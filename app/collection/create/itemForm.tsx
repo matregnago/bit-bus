@@ -36,6 +36,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   nome: z
@@ -131,7 +132,7 @@ export default function ItemForm() {
               onSubmit={form.handleSubmit(handleSubmit)}
               className="w-full space-y-6"
             >
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <FormField
                   control={form.control}
                   name="nome"
@@ -238,23 +239,6 @@ export default function ItemForm() {
                 />
                 <FormField
                   control={form.control}
-                  name="informacoes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Informações</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Informações do item"
-                          type="text"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
                   name="link"
                   render={({ field }) => (
                     <FormItem>
@@ -321,11 +305,27 @@ export default function ItemForm() {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="informacoes"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Informações</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Informações do item"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
 
               {/* <pre className="col-span-full">
               {JSON.stringify(form.watch(), null, 2)}
-            </pre> */}
+              </pre> */}
               <Button type="submit" className="col-span-full ml-auto">
                 Enviar
               </Button>

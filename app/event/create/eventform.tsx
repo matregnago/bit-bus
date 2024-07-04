@@ -404,7 +404,7 @@ export default function EventForm() {
             onSubmit={form.handleSubmit(handleSubmit)}
             className="w-full space-y-6"
           >
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <FormField
                 control={form.control}
                 name="data"
@@ -443,8 +443,6 @@ export default function EventForm() {
                   </FormItem>
                 )}
               />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <FormField
                 control={form.control}
                 name="hora"
@@ -522,10 +520,9 @@ export default function EventForm() {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 gap-4">
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <FormField
                 control={form.control}
                 name="itensacervo"
@@ -539,7 +536,7 @@ export default function EventForm() {
                   </FormItem>
                 )}
               />
-              <FormItem className="mt-6">
+              <FormItem>
                 <FormLabel>Tipo do evento</FormLabel>
                 <Select
                   value={formType}
@@ -559,7 +556,6 @@ export default function EventForm() {
                 </Select>
               </FormItem>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {formType === "Oficina" ? (
                 <>

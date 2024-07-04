@@ -40,6 +40,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Textarea } from "@/components/ui/textarea";
 
 const moneyDonationSchema = z.object({
   nomeDoador: z
@@ -290,8 +291,6 @@ export default function DonationForm() {
                   </FormItem>
                 )}
               />
-            </div>
-            <div className="w-full">
               <FormItem>
                 <FormLabel>Tipo de Doação</FormLabel>
                 <FormControl>
@@ -299,7 +298,7 @@ export default function DonationForm() {
                     value={formType}
                     onValueChange={handleTipoChange}
                     defaultValue="Dinheiro"
-                  >
+                    >
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Tipo de Doação" />
                     </SelectTrigger>
@@ -316,7 +315,7 @@ export default function DonationForm() {
               </FormItem>
             </div>
             {formType === "Item" ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <FormField
                   control={form.control}
                   name="nome"
@@ -423,23 +422,6 @@ export default function DonationForm() {
                 />
                 <FormField
                   control={form.control}
-                  name="informacoes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Informações</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Informações do item"
-                          type="text"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
                   name="link"
                   render={({ field }) => (
                     <FormItem>
@@ -506,9 +488,25 @@ export default function DonationForm() {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="informacoes"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Informações</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder="Informações do item"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <FormField
                   control={form.control}
                   name="quantiaDinheiro"

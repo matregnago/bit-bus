@@ -54,7 +54,7 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
       <h1 className="text-3xl font-bold tracking-tight mb-2">
         {evento.titulo}
       </h1>
-      <div className="flex items-center gap-4 text-muted-foreground">
+      <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <CalendarioIcon className="w-4 h-4" />
           <span>{dia}</span>
@@ -85,7 +85,7 @@ const OficinaCard = ({ evento }: OficinaCardProps) => {
       </div>
       <div>
         <h2 className="text-xl font-bold tracking-tight mt-10">Palestrante</h2>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center mb-10">
           <UserIcon className="w-4 h-4" />
           <p>
             {evento.palestrante.nome} ({evento.palestrante.email})
@@ -107,7 +107,7 @@ const VisitaCard = ({ evento }: VisitaCardProps) => {
     <div className="">
       <title>{`Detalhes - Visita`}</title>
       <h1 className="text-3xl font-bold tracking-tight mb-2">Visita</h1>
-      <div className="flex items-center gap-4 text-muted-foreground">
+      <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <CalendarioIcon className="w-4 h-4" />
           <span>{dia}</span>
@@ -128,7 +128,7 @@ const VisitaCard = ({ evento }: VisitaCardProps) => {
       </div>
       <div>
         <h2 className="text-xl font-bold tracking-tight mt-10">Organizador</h2>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center mb-10">
           <UserIcon className="w-4 h-4" />
           <p>
             {evento.organizador.nome} ({evento.organizador.email})
@@ -153,7 +153,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
   return (
     <ScrollArea className="h-full">
-      <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
+      <div className="space-y-4 p-4 pt-6 md:p-8">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -170,49 +170,56 @@ export default async function Page({ params }: { params: { id: string } }) {
         ) : (
           <OficinaCard evento={evento} />
         )}
-        <h2 className="text-xl font-bold tracking-tight mt-10">Visitantes</h2>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Nome</TableHead>
-              <TableHead>E-mail</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {evento.visitantes.map((visitante) => {
-              return (
-                <TableRow key={visitante.id}>
-                  <TableCell>{visitante.nome}</TableCell>
-                  <TableCell>{visitante.email}</TableCell>
+        <div className="grid grid-cols-2 gap-8 max-w-6xl">
+          <div className="col-span-1">
+            <h2 className="text-xl font-bold tracking-tight mt-10">Visitantes</h2>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>E-mail</TableHead>
                 </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-        <h2 className="text-xl font-bold tracking-tight mt-10">
-          Itens do acervo
-        </h2>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Nome</TableHead>
-              <TableHead>Tipo</TableHead>
-              <TableHead>Ano</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {evento.itensAcervo.map((item) => {
-              return (
-                <TableRow key={item.id}>
-                  <TableCell>{item.nome}</TableCell>
-                  <TableCell>{item.tipo}</TableCell>
-                  <TableCell>{item.ano}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+              </TableHeader>
+              <TableBody>
+                {evento.visitantes.map((visitante) => {
+                  return (
+                    <TableRow key={visitante.id}>
+                      <TableCell>{visitante.nome}</TableCell>
+                      <TableCell>{visitante.email}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
+
+        <div className="col-span-1">
+          <h2 className="text-xl font-bold tracking-tight mt-10">
+            Itens do acervo
+          </h2>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Nome</TableHead>
+                <TableHead>Tipo</TableHead>
+                <TableHead>Ano</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {evento.itensAcervo.map((item) => {
+                return (
+                  <TableRow key={item.id}>
+                    <TableCell>{item.nome}</TableCell>
+                    <TableCell>{item.tipo}</TableCell>
+                    <TableCell>{item.ano}</TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </div>
+    </div>
     </ScrollArea>
   );
 }
