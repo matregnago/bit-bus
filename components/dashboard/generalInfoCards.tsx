@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Oficina, Visita } from "@/types";
+import { Icons } from "@/components/icons";
 
 type DashboardData = {
   artefatos: number;
@@ -36,6 +37,10 @@ const getData = async (): Promise<DashboardData> => {
 
 export default async function InfoCards() {
   let data;
+  const UserIcon = Icons["usuario"];
+  const DiscoIcon = Icons["disco"];
+  const EventIcon = Icons["eventos"];
+  const DoacoesIcon = Icons["doacoes"];
   try {
     data = await getData();
   } catch (error) {
@@ -46,6 +51,7 @@ export default async function InfoCards() {
       doacoes: 0,
     };
   }
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <Card>
@@ -53,6 +59,7 @@ export default async function InfoCards() {
           <CardTitle className="text-base font-medium">
             Total Artefatos
           </CardTitle>
+          <DiscoIcon className="h-4 w-4" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{data.artefatos}</div>
@@ -63,6 +70,7 @@ export default async function InfoCards() {
           <CardTitle className="text-base font-medium">
             Eventos Realizados
           </CardTitle>
+          <EventIcon className="h-4 w-4" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{data.eventos}</div>
@@ -73,6 +81,7 @@ export default async function InfoCards() {
           <CardTitle className="text-base font-medium">
             Visitantes Totais
           </CardTitle>
+          <UserIcon className="h-4 w-4" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{data.visitantes}</div>
@@ -83,6 +92,7 @@ export default async function InfoCards() {
           <CardTitle className="text-base font-medium">
             Doações Recebidas
           </CardTitle>
+          <DoacoesIcon className="h-4 w-4" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{data.doacoes}</div>
