@@ -5,5 +5,6 @@ import { redirect } from "next/navigation";
 
 export default async function redirectFeedbackPage() {
   revalidatePath("/feedback");
+  revalidatePath("/");
   redirect("/feedback");
 }

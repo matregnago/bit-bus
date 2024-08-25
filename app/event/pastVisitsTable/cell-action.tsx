@@ -26,6 +26,8 @@ import deleteVisitAction from "../actions/deleteVisit";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
+import EventDetailsDialog from "@/components/details/EventDetailsDialog";
 
 interface CellActionProps {
   data: Visita;
@@ -34,10 +36,16 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const { toast } = useToast();
   const router = useRouter();
+  const [isEventDetailsDialogOpen, setIsEventDetailsDialogOpen] =
+    useState(false);
   const visita = data;
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
+
+  const closeEventDetailsDialog = () => {
+    setIsEventDetailsDialogOpen(false);
+  };
   const onConfirm = async () => {
     if (visita.id !== undefined) {
       try {
@@ -69,11 +77,13 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link href={`/event/${visita.id}`}>
-              <DropdownMenuItem>
-                <IconDetails className="mr-2 h-4 w-4" /> Detalhes
-              </DropdownMenuItem>
-            </Link>
+            <DropdownMenuItem
+              onClick={() => {
+                setIsEventDetailsDialogOpen(true);
+              }}
+            >
+              <IconDetails className="mr-2 h-4 w-4" /> Detalhes
+            </DropdownMenuItem>
             {/* <DropdownMenuItem>
               <IconEdit className="mr-2 h-4 w-4" />
               Editar
@@ -100,6 +110,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <EventDetailsDialog
+        closeEventDetailsDialog={closeEventDetailsDialog}
+        event={data}
+        isEventDetailsDialogOpen={isEventDetailsDialogOpen}
+      />
     </>
   );
 };

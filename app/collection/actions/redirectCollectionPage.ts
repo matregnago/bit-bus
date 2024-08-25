@@ -5,5 +5,6 @@ import { redirect } from "next/navigation";
 
 export default async function redirectCollectionPage() {
   revalidatePath("/collection");
+  revalidatePath("/");
   redirect("/collection");
 }

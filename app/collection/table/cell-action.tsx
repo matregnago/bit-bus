@@ -26,6 +26,8 @@ import Link from "next/link";
 import deleteItem from "../actions/deleteItem";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
+import ItemDetailsDialog from "@/components/details/ItemDetailsDialog";
 
 interface CellActionProps {
   data: Item;
@@ -38,6 +40,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const IconEdit = Icons["edit"];
   const IconDelete = Icons["delete"];
   const IconDetails = Icons["details"];
+  const [isItemDetailsDialogOpen, setIsItemDetailsDialogOpen] = useState(false);
+
+  const closeItemDetailsDialog = () => {
+    setIsItemDetailsDialogOpen(false);
+  };
+
   const onConfirm = async () => {
     if (item.id !== undefined) {
       try {
@@ -69,11 +77,13 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link href={`/collection/${item.id}`}>
-              <DropdownMenuItem>
-                <IconDetails className="mr-2 h-4 w-4" /> Detalhes
-              </DropdownMenuItem>
-            </Link>
+            <DropdownMenuItem
+              onClick={() => {
+                setIsItemDetailsDialogOpen(true);
+              }}
+            >
+              <IconDetails className="mr-2 h-4 w-4" /> Detalhes
+            </DropdownMenuItem>
             {/* <DropdownMenuItem>
               <IconEdit className="mr-2 h-4 w-4" />
               Editar
@@ -100,6 +110,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <ItemDetailsDialog
+        closeItemDetailsDialog={closeItemDetailsDialog}
+        item={item}
+        isItemDetailsDialogOpen={isItemDetailsDialogOpen}
+      />
     </>
   );
 };

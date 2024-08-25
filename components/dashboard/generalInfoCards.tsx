@@ -18,7 +18,7 @@ const getData = async (): Promise<DashboardData> => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_DOMAIN}/api/dashboard/cards`,
       {
-        cache: "no-cache",
+        cache: "no-store",
       }
     );
     const { data }: DashboardProps = await res.json();

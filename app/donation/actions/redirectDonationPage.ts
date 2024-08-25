@@ -5,5 +5,6 @@ import { redirect } from "next/navigation";
 
 export default async function redirectDonationPage() {
   revalidatePath("/donation");
+  revalidatePath("/");
   redirect("/donation");
 }

@@ -22,7 +22,7 @@ model ItemAcervo {
   tipo          String
   dimensoes     String
   informacoes   String
-  link          String?
+  link          String
   foto          String
   prateleira    String
   classificacao String

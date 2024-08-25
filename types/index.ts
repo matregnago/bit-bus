@@ -19,7 +19,7 @@ export type Item = {
   tipo: string;
   dimensoes: string;
   informacoes: string;
-  link: string | null;
+  link: string;
   foto: string;
   prateleira: string;
   classificacao: string;

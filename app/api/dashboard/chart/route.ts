@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import next from "next";
 import { format, subMonths } from "date-fns";
 
 type ChartData = {
@@ -99,8 +98,12 @@ export async function GET() {
   newArray.sort((a, b) => {
     const [aMonth, aYear] = a.name.split(" ");
     const [bMonth, bYear] = b.name.split(" ");
-    const aDate = new Date(`${aYear}-${monthNames.indexOf(aMonth) + 1}-01`);
-    const bDate = new Date(`${bYear}-${monthNames.indexOf(bMonth) + 1}-01`);
+    const aDate = new Date(
+      `${aYear}-${monthNames.indexOf(aMonth) + 1}-01`
+    ).getTime();
+    const bDate = new Date(
+      `${bYear}-${monthNames.indexOf(bMonth) + 1}-01`
+    ).getTime();
     return aDate - bDate;
   });
 

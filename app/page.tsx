@@ -3,11 +3,17 @@ import UpcomingEventsCard from "@/components/dashboard/upcomingEventsCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Overview } from "@/components/dashboard/overviewChart";
+import { Oficina, Visita } from "@/types";
 
 type ChartData = {
   name: string;
   total: number;
 };
+
+interface EventApiResponse {
+  upcomingEvents: (Oficina | Visita)[];
+  pastEvents: (Oficina | Visita)[];
+}
 
 const getChartData = async (): Promise<ChartData[]> => {
   const requestChartData = await fetch(
@@ -19,12 +25,42 @@ const getChartData = async (): Promise<ChartData[]> => {
   return requestChartData.json();
 };
 
+const getUpcomingCardsData = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/events?limit=6`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch events");
+    }
+
+    const data: EventApiResponse = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching events:", error);
+  }
+};
+
 export default async function Home() {
   let chartData: ChartData[];
   try {
     chartData = await getChartData();
   } catch (error) {
     chartData = [];
+  }
+
+  let upcomingEvents: (Oficina | Visita)[] = [];
+  try {
+    const events = await getUpcomingCardsData();
+    if (events != undefined) {
+      upcomingEvents = events.upcomingEvents;
+    }
+  } catch (error) {
+    upcomingEvents = [];
   }
 
   return (
@@ -44,7 +80,7 @@ export default async function Home() {
               <Overview data={chartData} />
             </CardContent>
           </Card>
-          <UpcomingEventsCard />
+          <UpcomingEventsCard upcomingEvents={upcomingEvents} />
         </div>
       </div>
     </ScrollArea>

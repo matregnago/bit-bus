@@ -38,6 +38,8 @@ import deleteWorkshopAction from "./actions/deleteWorkshop";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import deleteVisitAction from "./actions/deleteVisit";
+import { useState } from "react";
+import EventDetailsDialog from "@/components/details/EventDetailsDialog";
 
 interface EventListProps {
   events: Event[];
@@ -59,6 +61,12 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
   const router = useRouter();
   const { dia, hora } = dateFormatter(visita.dataHora);
   const { toast } = useToast();
+  const [isEventDetailsDialogOpen, setIsEventDetailsDialogOpen] =
+    useState(false);
+  const closeEventDetailsDialog = () => {
+    setIsEventDetailsDialogOpen(false);
+  };
+
   const onConfirm = async () => {
     if (visita.id !== undefined) {
       try {
@@ -92,11 +100,13 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Ações</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <Link href={`/event/${visita.id}`}>
-                  <DropdownMenuItem>
-                    <IconDetails className="mr-2 h-4 w-4" /> Detalhes
-                  </DropdownMenuItem>
-                </Link>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setIsEventDetailsDialogOpen(true);
+                  }}
+                >
+                  <IconDetails className="mr-2 h-4 w-4" /> Detalhes
+                </DropdownMenuItem>
                 {/* <DropdownMenuItem>
               <IconEdit className="mr-2 h-4 w-4" />
               Editar
@@ -127,6 +137,11 @@ const VisitaItem = ({ visita }: VisitaCardProps) => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+          <EventDetailsDialog
+            closeEventDetailsDialog={closeEventDetailsDialog}
+            event={visita}
+            isEventDetailsDialogOpen={isEventDetailsDialogOpen}
+          />
         </div>
         <div className="flex items-center gap-2">
           <IconCalendario className="w-4 h-4" />
@@ -151,6 +166,11 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
   const router = useRouter();
   const { toast } = useToast();
   const { dia, hora } = dateFormatter(oficina.dataHora);
+  const [isEventDetailsDialogOpen, setIsEventDetailsDialogOpen] =
+    useState(false);
+  const closeEventDetailsDialog = () => {
+    setIsEventDetailsDialogOpen(false);
+  };
   const onConfirm = async () => {
     if (oficina.id !== undefined) {
       try {
@@ -184,11 +204,13 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Ações</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <Link href={`/event/${oficina.id}`}>
-                  <DropdownMenuItem>
-                    <IconDetails className="mr-2 h-4 w-4" /> Detalhes
-                  </DropdownMenuItem>
-                </Link>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setIsEventDetailsDialogOpen(true);
+                  }}
+                >
+                  <IconDetails className="mr-2 h-4 w-4" /> Detalhes
+                </DropdownMenuItem>
                 {/* <DropdownMenuItem>
               <IconEdit className="mr-2 h-4 w-4" />
               Editar
@@ -219,6 +241,11 @@ const OficinaItem = ({ oficina }: OficinaCardProps) => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+          <EventDetailsDialog
+            closeEventDetailsDialog={closeEventDetailsDialog}
+            event={oficina}
+            isEventDetailsDialogOpen={isEventDetailsDialogOpen}
+          />
         </div>
         <div className="flex items-center gap-2">
           <IconCalendario className="w-4 h-4" />
